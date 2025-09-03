@@ -145,6 +145,15 @@ app.get('/user/balance/:address', (req, res) => {
         totalWithdrawn: balance.totalWithdrawn
     });
 });
+// Premium subscription
+app.post('/premium', (req, res) => {
+    const { address } = req.body;
+    // Register premium user (store in global or DB)
+    if (!global.premiumUsers)
+        global.premiumUsers = new Set();
+    global.premiumUsers.add(address);
+    res.json({ success: true, message: 'Premium activated for ' + address });
+});
 // Vercel proxy endpoint
 app.get('/vercel-projects', async (req, res) => {
     const token = process.env.VERCEL_TOKEN;

@@ -38,9 +38,9 @@
 
         <!-- Premium Subscription -->
         <div class="premium">
-            <h3>Premium Subscription - $9.99/month</h3>
+            <h3>Premium Subscription - 0.01 ETH/month</h3>
             <p>Unlock advanced trading bots, exclusive games, and priority support.</p>
-            <button onclick="subscribe()">Subscribe Now</button>
+            <button onclick="subscribe()">Subscribe with Wallet</button>
         </div>
 
         <!-- Affiliate Links -->
@@ -62,17 +62,46 @@
         <button onclick="playGame()">Spin the Wheel</button>
         <button onclick="trade()">Start Trading Bot</button>
 
+        <script src="https://cdn.jsdelivr.net/npm/web3@1.8.0/dist/web3.min.js"></script>
         <script>
-            function subscribe() {
-                alert('Redirecting to payment...');
-                // Integrate Stripe or crypto payment
+            let web3;
+            let account;
+
+            async function connectWallet() {
+                if (window.ethereum) {
+                    web3 = new Web3(window.ethereum);
+                    await window.ethereum.request({ method: 'eth_requestAccounts' });
+                    const accounts = await web3.eth.getAccounts();
+                    account = accounts[0];
+                    alert('Wallet connected: ' + account);
+                } else {
+                    alert('MetaMask not detected. Please install MetaMask.');
+                }
             }
+
+            async function subscribe() {
+                if (!account) {
+                    await connectWallet();
+                }
+                const amount = web3.utils.toWei('0.01', 'ether');
+                const tx = await web3.eth.sendTransaction({
+                    from: account,
+                    to: '0x742d35Cc6634C0532925a3b844Bc454e4438f44e', // Your wallet
+                    value: amount
+                });
+                alert('Subscription successful! TX: ' + tx.transactionHash);
+                // Call API to register premium
+                fetch('/api/premium', { method: 'POST', body: JSON.stringify({ address: account }) });
+            }
+
             function donate() {
-                alert('Copy address to wallet');
+                subscribe(); // Same as subscribe for now
             }
+
             function playGame() {
                 window.location.href = '/spin';
             }
+
             function trade() {
                 window.location.href = '/trade';
             }
