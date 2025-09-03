@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Global Leaderboard - AwesomeSauceToken</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            margin: 0;
+            padding: 20px;
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            padding: 30px;
+            backdrop-filter: blur(10px);
+        }
+        h1 {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        .leaderboard {
+            list-style: none;
+            padding: 0;
+        }
+        .leaderboard li {
+            display: flex;
+            justify-content: space-between;
+            padding: 15px;
+            margin-bottom: 10px;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 10px;
+        }
+        .rank {
+            font-weight: bold;
+            font-size: 1.2em;
+        }
+        .score {
+            color: #ffd700;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1><i class="fas fa-trophy"></i> Global Leaderboard</h1>
+        <ul class="leaderboard" id="leaderboard">
+            <!-- Leaderboard items will be populated by JavaScript -->
+        </ul>
+    </div>
+
+    <script>
+        // Mock leaderboard data (replace with real API call)
+        const mockData = [
+            { rank: 1, name: 'CryptoKing', score: 15420 },
+            { rank: 2, name: 'DeFiMaster', score: 14850 },
+            { rank: 3, name: 'TokenTrader', score: 14200 },
+            { rank: 4, name: 'BlockChainBoss', score: 13900 },
+            { rank: 5, name: 'AwesomeSauce', score: 13500 },
+            { rank: 6, name: 'PassiveIncomePro', score: 12800 },
+            { rank: 7, name: 'GameChanger', score: 12400 },
+            { rank: 8, name: 'WalletWizard', score: 11900 },
+            { rank: 9, name: 'TradeBot', score: 11500 },
+            { rank: 10, name: 'CoinCollector', score: 11200 }
+        ];
+
+        function displayLeaderboard() {
+            const leaderboardEl = document.getElementById('leaderboard');
+            mockData.forEach(player => {
+                const li = document.createElement('li');
+                li.innerHTML = `
+                    <span class="rank">#${player.rank} ${player.name}</span>
+                    <span class="score">${player.score.toLocaleString()} pts</span>
+                `;
+                leaderboardEl.appendChild(li);
+            });
+        }
+
+        displayLeaderboard();
+    </script>
+</body>
+</html>

@@ -4,6 +4,32 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>AwesomeSauceToken - Earn Crypto & Passive Income</title>
+    <meta name="description" content="Join AwesomeSauceToken for automated trading bots, crypto games, and passive income generation. Earn while you play with our innovative DeFi platform.">
+    <meta name="keywords" content="crypto, DeFi, trading bots, passive income, blockchain games, earn crypto, AwesomeSauceToken">
+    <meta name="author" content="AwesomeSauceToken Team">
+    <meta name="robots" content="index, follow">
+    <link rel="canonical" href="https://awesomesaucetoken.netlify.app/">
+    
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://awesomesaucetoken.netlify.app/">
+    <meta property="og:title" content="AwesomeSauceToken - Earn Crypto & Passive Income">
+    <meta property="og:description" content="Automated trading bots and crypto games for passive income. Join the revolution!">
+    <meta property="og:image" content="https://awesomesaucetoken.netlify.app/icon-512.png">
+    
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="https://awesomesaucetoken.netlify.app/">
+    <meta property="twitter:title" content="AwesomeSauceToken - Earn Crypto & Passive Income">
+    <meta property="twitter:description" content="Automated trading bots and crypto games for passive income. Join the revolution!">
+    <meta property="twitter:image" content="https://awesomesaucetoken.netlify.app/icon-512.png">
+    
+    <!-- PWA -->
+    <link rel="manifest" href="/manifest.json">
+    <link rel="icon" href="/icon-192.png" sizes="192x192">
+    <link rel="apple-touch-icon" href="/icon-192.png">
+    <meta name="theme-color" content="#667eea">
+    
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <style>
         * {
@@ -338,6 +364,15 @@
                 <h3>Affiliate Program</h3>
                 <p>Earn commissions by referring friends and family. Share your unique link and get paid for every successful referral.</p>
                 <button onclick="showAffiliate()" class="btn">Get Affiliate Link</button>
+            </div>
+
+            <div class="card">
+                <div class="card-icon">
+                    <i class="fas fa-trophy"></i>
+                </div>
+                <h3>Global Leaderboard</h3>
+                <p>Compete with players worldwide! Check your ranking, see top earners, and climb the charts to become the ultimate crypto champion.</p>
+                <button onclick="window.location.href='/leaderboard.html'" class="btn btn-secondary">View Leaderboard</button>
             </div>
         </div>
 
@@ -716,6 +751,19 @@
                         }
                     }, 3000); // Wait 3 seconds before showing
                 }
+            }
+
+            // Register Service Worker for PWA
+            if ('serviceWorker' in navigator) {
+                window.addEventListener('load', () => {
+                    navigator.serviceWorker.register('/pwa-sw.js')
+                        .then(registration => {
+                            console.log('SW registered: ', registration);
+                        })
+                        .catch(registrationError => {
+                            console.log('SW registration failed: ', registrationError);
+                        });
+                });
             }
         </script>
     </div>
