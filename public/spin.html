@@ -1,0 +1,507 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Spin & Win - AwesomeSauceToken</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            color: #333;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        /* Header */
+        .header {
+            text-align: center;
+            padding: 40px 20px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            margin-bottom: 30px;
+            backdrop-filter: blur(10px);
+        }
+
+        .header h1 {
+            font-size: 2.5rem;
+            color: white;
+            margin-bottom: 10px;
+        }
+
+        .header p {
+            color: rgba(255, 255, 255, 0.9);
+            font-size: 1.1rem;
+        }
+
+        .back-btn {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            border-radius: 50px;
+            cursor: pointer;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .back-btn:hover {
+            background: rgba(255, 255, 255, 0.3);
+        }
+
+        /* Game Container */
+        .game-container {
+            display: grid;
+            grid-template-columns: 1fr 300px;
+            gap: 30px;
+            margin-bottom: 30px;
+        }
+
+        .wheel-section {
+            background: white;
+            border-radius: 20px;
+            padding: 30px;
+            text-align: center;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+        }
+
+        .wheel-container {
+            position: relative;
+            width: 300px;
+            height: 300px;
+            margin: 0 auto 30px;
+        }
+
+        .wheel {
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+            transition: transform 4s cubic-bezier(0.23, 1, 0.32, 1);
+        }
+
+        .wheel-segment {
+            position: absolute;
+            width: 50%;
+            height: 50%;
+            clip-path: polygon(100% 0, 0 100%, 100% 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 14px;
+            color: white;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.7);
+        }
+
+        .segment-1 { background: #FF6B6B; transform: rotate(0deg); }
+        .segment-2 { background: #4ECDC4; transform: rotate(45deg); }
+        .segment-3 { background: #45B7D1; transform: rotate(90deg); }
+        .segment-4 { background: #96CEB4; transform: rotate(135deg); }
+        .segment-5 { background: #FFEAA7; transform: rotate(180deg); color: #333; }
+        .segment-6 { background: #DDA0DD; transform: rotate(225deg); }
+        .segment-7 { background: #98D8C8; transform: rotate(270deg); }
+        .segment-8 { background: #F7DC6F; transform: rotate(315deg); color: #333; }
+
+        .pointer {
+            position: absolute;
+            top: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 0;
+            height: 0;
+            border-left: 15px solid transparent;
+            border-right: 15px solid transparent;
+            border-bottom: 30px solid #333;
+            z-index: 10;
+        }
+
+        .spin-btn {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            border-radius: 50px;
+            font-size: 1.2rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-top: 20px;
+        }
+
+        .spin-btn:hover:not(:disabled) {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(102, 126, 234, 0.4);
+        }
+
+        .spin-btn:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+        }
+
+        /* Stats Sidebar */
+        .stats-section {
+            background: white;
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+        }
+
+        .stats-section h3 {
+            color: #333;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .stat-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 10px 0;
+            border-bottom: 1px solid #eee;
+        }
+
+        .stat-item:last-child {
+            border-bottom: none;
+        }
+
+        .stat-label {
+            font-weight: 600;
+            color: #666;
+        }
+
+        .stat-value {
+            font-weight: bold;
+            color: #333;
+        }
+
+        .prize-pool {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 20px;
+            border-radius: 15px;
+            margin-top: 20px;
+            text-align: center;
+        }
+
+        .prize-pool h4 {
+            margin-bottom: 10px;
+        }
+
+        .prize-pool .amount {
+            font-size: 1.5rem;
+            font-weight: bold;
+        }
+
+        /* Results */
+        .result-section {
+            background: white;
+            border-radius: 20px;
+            padding: 30px;
+            text-align: center;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            margin-top: 30px;
+        }
+
+        .result-message {
+            font-size: 1.5rem;
+            margin-bottom: 20px;
+        }
+
+        .win-message {
+            color: #28a745;
+            font-weight: bold;
+        }
+
+        .lose-message {
+            color: #dc3545;
+            font-weight: bold;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .game-container {
+                grid-template-columns: 1fr;
+            }
+
+            .wheel-container {
+                width: 250px;
+                height: 250px;
+            }
+
+            .header h1 {
+                font-size: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <a href="/" class="back-btn">
+            <i class="fas fa-arrow-left"></i> Back to Home
+        </a>
+
+        <!-- Header -->
+        <div class="header">
+            <h1>🎰 Spin & Win</h1>
+            <p>Test your luck and win crypto rewards!</p>
+        </div>
+
+        <!-- Game Container -->
+        <div class="game-container">
+            <!-- Wheel Section -->
+            <div class="wheel-section">
+                <h2>🎡 Lucky Wheel</h2>
+                <div class="wheel-container">
+                    <div class="pointer"></div>
+                    <div class="wheel" id="wheel">
+                        <div class="wheel-segment segment-1">10 AST</div>
+                        <div class="wheel-segment segment-2">50 AST</div>
+                        <div class="wheel-segment segment-3">JACKPOT!</div>
+                        <div class="wheel-segment segment-4">25 AST</div>
+                        <div class="wheel-segment segment-5">100 AST</div>
+                        <div class="wheel-segment segment-6">TRY AGAIN</div>
+                        <div class="wheel-segment segment-7">5 AST</div>
+                        <div class="wheel-segment segment-8">GRAND PRIZE!</div>
+                    </div>
+                </div>
+
+                <button class="spin-btn" id="spinBtn" onclick="spinWheel()">
+                    <i class="fas fa-play"></i> Spin for 0.001 ETH
+                </button>
+
+                <p style="margin-top: 15px; color: #666; font-size: 0.9rem;">
+                    <i class="fas fa-info-circle"></i> Each spin costs 0.001 ETH. Winners paid instantly!
+                </p>
+            </div>
+
+            <!-- Stats Sidebar -->
+            <div class="stats-section">
+                <h3>📊 Your Stats</h3>
+
+                <div class="stat-item">
+                    <span class="stat-label">Games Played</span>
+                    <span class="stat-value" id="gamesPlayed">0</span>
+                </div>
+
+                <div class="stat-item">
+                    <span class="stat-label">Total Won</span>
+                    <span class="stat-value" id="totalWon">0 AST</span>
+                </div>
+
+                <div class="stat-item">
+                    <span class="stat-label">Win Rate</span>
+                    <span class="stat-value" id="winRate">0%</span>
+                </div>
+
+                <div class="stat-item">
+                    <span class="stat-label">Best Win</span>
+                    <span class="stat-value" id="bestWin">0 AST</span>
+                </div>
+
+                <div class="prize-pool">
+                    <h4>🏆 Prize Pool</h4>
+                    <div class="amount" id="prizePool">$10,000</div>
+                    <small>Resets daily</small>
+                </div>
+            </div>
+        </div>
+
+        <!-- Results Section -->
+        <div class="result-section" id="resultSection" style="display: none;">
+            <div id="resultMessage" class="result-message"></div>
+            <button class="spin-btn" onclick="resetGame()" style="margin-top: 20px;">
+                <i class="fas fa-redo"></i> Play Again
+            </button>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/web3@1.8.0/dist/web3.min.js"></script>
+    <script>
+        let web3;
+        let account;
+        let isSpinning = false;
+        let gamesPlayed = 0;
+        let totalWon = 0;
+        let wins = 0;
+        let bestWin = 0;
+
+        // Wheel prizes
+        const prizes = [
+            { amount: 10, label: '10 AST' },
+            { amount: 50, label: '50 AST' },
+            { amount: 1000, label: 'JACKPOT!' },
+            { amount: 25, label: '25 AST' },
+            { amount: 100, label: '100 AST' },
+            { amount: 0, label: 'TRY AGAIN' },
+            { amount: 5, label: '5 AST' },
+            { amount: 500, label: 'GRAND PRIZE!' }
+        ];
+
+        async function connectWallet() {
+            if (window.ethereum) {
+                web3 = new Web3(window.ethereum);
+                try {
+                    await window.ethereum.request({ method: 'eth_requestAccounts' });
+                    const accounts = await web3.eth.getAccounts();
+                    account = accounts[0];
+                    console.log('Wallet connected:', account);
+                    return true;
+                } catch (error) {
+                    alert('Please connect your wallet to play!');
+                    return false;
+                }
+            } else {
+                alert('Please install MetaMask or another Web3 wallet to play!');
+                return false;
+            }
+        }
+
+        async function spinWheel() {
+            if (isSpinning) return;
+
+            // Connect wallet if not connected
+            if (!account) {
+                const connected = await connectWallet();
+                if (!connected) return;
+            }
+
+            // Check balance
+            try {
+                const balance = await web3.eth.getBalance(account);
+                const balanceInEth = web3.utils.fromWei(balance, 'ether');
+
+                if (parseFloat(balanceInEth) < 0.001) {
+                    alert('Insufficient balance! You need at least 0.001 ETH to spin.');
+                    return;
+                }
+            } catch (error) {
+                alert('Error checking balance. Please try again.');
+                return;
+            }
+
+            isSpinning = true;
+            document.getElementById('spinBtn').disabled = true;
+            document.getElementById('spinBtn').innerHTML = '<i class="fas fa-spinner fa-spin"></i> Spinning...';
+
+            // Pay for spin
+            try {
+                const tx = await web3.eth.sendTransaction({
+                    from: account,
+                    to: '0x742d35Cc6634C0532925a3b844Bc454e4438f44e', // Your wallet
+                    value: web3.utils.toWei('0.001', 'ether')
+                });
+                console.log('Spin payment:', tx.transactionHash);
+            } catch (error) {
+                alert('Transaction failed. Please try again.');
+                resetSpinButton();
+                return;
+            }
+
+            // Spin animation
+            const wheel = document.getElementById('wheel');
+            const randomDegree = Math.floor(Math.random() * 360) + 1800; // 5+ full rotations
+            wheel.style.transform = `rotate(${randomDegree}deg)`;
+
+            // Determine result after animation
+            setTimeout(() => {
+                const normalizedDegree = randomDegree % 360;
+                const segmentIndex = Math.floor(normalizedDegree / 45);
+                const prize = prizes[segmentIndex];
+
+                showResult(prize);
+                updateStats(prize);
+                resetSpinButton();
+            }, 4000);
+        }
+
+        function showResult(prize) {
+            const resultSection = document.getElementById('resultSection');
+            const resultMessage = document.getElementById('resultMessage');
+
+            if (prize.amount > 0) {
+                resultMessage.innerHTML = `
+                    <div class="win-message">
+                        🎉 Congratulations!<br>
+                        You won ${prize.label}!
+                    </div>
+                `;
+            } else {
+                resultMessage.innerHTML = `
+                    <div class="lose-message">
+                        😔 Better luck next time!<br>
+                        Try again for another chance!
+                    </div>
+                `;
+            }
+
+            resultSection.style.display = 'block';
+            resultSection.scrollIntoView({ behavior: 'smooth' });
+        }
+
+        function updateStats(prize) {
+            gamesPlayed++;
+            if (prize.amount > 0) {
+                wins++;
+                totalWon += prize.amount;
+                if (prize.amount > bestWin) {
+                    bestWin = prize.amount;
+                }
+            }
+
+            document.getElementById('gamesPlayed').textContent = gamesPlayed;
+            document.getElementById('totalWon').textContent = totalWon + ' AST';
+            document.getElementById('winRate').textContent = Math.round((wins / gamesPlayed) * 100) + '%';
+            document.getElementById('bestWin').textContent = bestWin + ' AST';
+
+            // Save to localStorage
+            localStorage.setItem('spinGamesPlayed', gamesPlayed);
+            localStorage.setItem('spinTotalWon', totalWon);
+            localStorage.setItem('spinWins', wins);
+            localStorage.setItem('spinBestWin', bestWin);
+        }
+
+        function resetSpinButton() {
+            isSpinning = false;
+            document.getElementById('spinBtn').disabled = false;
+            document.getElementById('spinBtn').innerHTML = '<i class="fas fa-play"></i> Spin for 0.001 ETH';
+        }
+
+        function resetGame() {
+            document.getElementById('resultSection').style.display = 'none';
+            document.getElementById('wheel').style.transform = 'rotate(0deg)';
+        }
+
+        // Load saved stats on page load
+        window.onload = function() {
+            gamesPlayed = parseInt(localStorage.getItem('spinGamesPlayed') || '0');
+            totalWon = parseInt(localStorage.getItem('spinTotalWon') || '0');
+            wins = parseInt(localStorage.getItem('spinWins') || '0');
+            bestWin = parseInt(localStorage.getItem('spinBestWin') || '0');
+
+            document.getElementById('gamesPlayed').textContent = gamesPlayed;
+            document.getElementById('totalWon').textContent = totalWon + ' AST';
+            document.getElementById('winRate').textContent = wins > 0 ? Math.round((wins / gamesPlayed) * 100) + '%' : '0%';
+            document.getElementById('bestWin').textContent = bestWin + ' AST';
+        };
+    </script>
+</body>
+</html>
