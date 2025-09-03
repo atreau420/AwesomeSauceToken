@@ -147,12 +147,12 @@ app.get('/user/balance/:address', (req, res) => {
 });
 // Premium subscription
 app.post('/premium', (req, res) => {
-    const { address } = req.body;
+    const { address, currency = 'ETH' } = req.body;
     // Register premium user (store in global or DB)
     if (!global.premiumUsers)
-        global.premiumUsers = new Set();
-    global.premiumUsers.add(address);
-    res.json({ success: true, message: 'Premium activated for ' + address });
+        global.premiumUsers = new Map();
+    global.premiumUsers.set(address, { currency, timestamp: new Date() });
+    res.json({ success: true, message: 'Premium activated for ' + address + ' with ' + currency });
 });
 // Vercel proxy endpoint
 app.get('/vercel-projects', async (req, res) => {

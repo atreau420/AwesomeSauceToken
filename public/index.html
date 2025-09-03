@@ -38,8 +38,8 @@
 
         <!-- Premium Subscription -->
         <div class="premium">
-            <h3>Premium Subscription - 0.01 ETH/month</h3>
-            <p>Unlock advanced trading bots, exclusive games, and priority support.</p>
+            <h3>Premium Subscription - Pay in Any Crypto</h3>
+            <p>Accept ETH, USDC, DAI, or any ERC-20 token. Swaps/trades welcome!</p>
             <button onclick="subscribe()">Subscribe with Wallet</button>
         </div>
 
@@ -63,39 +63,61 @@
         <button onclick="trade()">Start Trading Bot</button>
 
         <script src="https://cdn.jsdelivr.net/npm/web3@1.8.0/dist/web3.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/@walletconnect/web3-provider@1.8.0/dist/umd/index.min.js"></script>
         <script>
             let web3;
+            let provider;
             let account;
 
             async function connectWallet() {
                 if (window.ethereum) {
+                    // MetaMask, Coinbase, etc.
                     web3 = new Web3(window.ethereum);
                     await window.ethereum.request({ method: 'eth_requestAccounts' });
                     const accounts = await web3.eth.getAccounts();
                     account = accounts[0];
-                    alert('Wallet connected: ' + account);
                 } else {
-                    alert('MetaMask not detected. Please install MetaMask.');
+                    // Fallback to WalletConnect
+                    provider = new WalletConnectProvider({
+                        infuraId: "your-infura-id" // Replace with your Infura ID
+                    });
+                    await provider.enable();
+                    web3 = new Web3(provider);
+                    const accounts = await web3.eth.getAccounts();
+                    account = accounts[0];
                 }
+                alert('Wallet connected: ' + account);
             }
 
             async function subscribe() {
                 if (!account) {
                     await connectWallet();
                 }
-                const amount = web3.utils.toWei('0.01', 'ether');
+                const currency = prompt('Enter currency (ETH, USDC, etc.) or leave blank for ETH:') || 'ETH';
+                let amount;
+                if (currency === 'ETH') {
+                    amount = web3.utils.toWei('0.01', 'ether');
+                } else {
+                    // For other tokens, assume ERC-20, need token address
+                    const tokenAddress = prompt('Enter token contract address:');
+                    const tokenContract = new web3.eth.Contract([{"constant":false,"inputs":[{"name":"_to","type":"address"},{"name":"_value","type":"uint256"}],"name":"transfer","outputs":[{"name":"","type":"bool"}],"payable":false,"stateMutability":"nonpayable","type":"function"}], tokenAddress);
+                    amount = web3.utils.toWei('10', 'ether'); // Example for USDC (10 USDC)
+                    await tokenContract.methods.transfer('0x742d35Cc6634C0532925a3b844Bc454e4438f44e', amount).send({ from: account });
+                    alert('Subscription successful with ' + currency);
+                    fetch('/api/premium', { method: 'POST', headers: {'Content-Type': 'application/json'}, body: JSON.stringify({ address: account, currency }) });
+                    return;
+                }
                 const tx = await web3.eth.sendTransaction({
                     from: account,
-                    to: '0x742d35Cc6634C0532925a3b844Bc454e4438f44e', // Your wallet
+                    to: '0x742d35Cc6634C0532925a3b844Bc454e4438f44e',
                     value: amount
                 });
                 alert('Subscription successful! TX: ' + tx.transactionHash);
-                // Call API to register premium
-                fetch('/api/premium', { method: 'POST', body: JSON.stringify({ address: account }) });
+                fetch('/api/premium', { method: 'POST', headers: {'Content-Type': 'application/json'}, body: JSON.stringify({ address: account, currency: 'ETH' }) });
             }
 
             function donate() {
-                subscribe(); // Same as subscribe for now
+                subscribe();
             }
 
             function playGame() {
