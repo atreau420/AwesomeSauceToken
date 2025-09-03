@@ -19,7 +19,9 @@
     "build:pwa": "npm run build && echo 'PWA built successfully'",
     "start:mobile": "npm run dev",
     "test:pwa": "npx serve public -p 3001",
-    "generate:icons": "npx pwa-asset-generator public/icon-512.png public/ --manifest public/manifest.json --path-override /"
+    "generate:icons": "npx pwa-asset-generator public/icon-512.png public/ --manifest public/manifest.json --path-override /",
+    "bot": "node run-bot.js",
+    "bot:background": "node run-bot.js &"
   },
   "dependencies": {
     "@nomicfoundation/hardhat-ethers": "^4.0.0",
