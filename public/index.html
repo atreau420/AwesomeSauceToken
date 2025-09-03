@@ -447,40 +447,87 @@
             }
 
             async function subscribe() {
-                if (!account) {
-                    await connectWallet();
-                }
-                const currency = prompt('Enter currency (ETH, USDC, etc.) or leave blank for ETH:') || 'ETH';
-                let amount;
-                if (currency === 'ETH') {
-                    amount = web3.utils.toWei('0.01', 'ether');
-                    const tx = await web3.eth.sendTransaction({
-                        from: account,
-                        to: '0x742d35Cc6634C0532925a3b844Bc454e4438f44e',
-                        value: amount
+                try {
+                    if (!account) {
+                        const connected = await connectWallet();
+                        if (!connected) return;
+                    }
+
+                    const currency = prompt('Enter currency (ETH, USDC, etc.) or leave blank for ETH:') || 'ETH';
+                    let amount;
+
+                    if (currency === 'ETH') {
+                        amount = web3.utils.toWei('0.01', 'ether');
+
+                        // Check balance first
+                        const balance = await web3.eth.getBalance(account);
+                        const balanceInEth = web3.utils.fromWei(balance, 'ether');
+
+                        if (parseFloat(balanceInEth) < 0.011) { // 0.01 + gas
+                            throw new Error('Insufficient balance. Need at least 0.011 ETH (0.01 + gas fees)');
+                        }
+
+                        const tx = await web3.eth.sendTransaction({
+                            from: account,
+                            to: '0x742d35Cc6634C0532925a3b844Bc454e4438f44e',
+                            value: amount
+                        });
+                        alert('✅ Subscription successful! TX: ' + tx.transactionHash);
+                    } else {
+                        // Handle token payments
+                        const tokenAddress = prompt('Enter token contract address (e.g., USDC: 0xA0b86a33E6441e88C5F2712C3E9b74F5b8b6b8b8):');
+                        if (!tokenAddress) {
+                            alert('Token address required for non-ETH payments');
+                            return;
+                        }
+
+                        if (currency === 'USDC') tokenAddress = '0xA0b86a33E6441e88C5F2712C3E9b74F5b8b6b8b8'; // Example
+                        amount = web3.utils.toWei('10', 'mwei'); // 10 USDC (6 decimals)
+
+                        // Approve token for router
+                        const tokenContract = new web3.eth.Contract([
+                            {"constant": false, "inputs": [{"name": "_spender", "type": "address"}, {"name": "_value", "type": "uint256"}], "name": "approve", "outputs": [{"name": "", "type": "bool"}], "payable": false, "stateMutability": "nonpayable", "type": "function"}
+                        ], tokenAddress);
+
+                        await tokenContract.methods.approve(UNISWAP_ROUTER, amount).send({ from: account });
+
+                        // Swap to ETH
+                        await swapTokenToETH(tokenAddress, amount);
+
+                        // Then send ETH
+                        const ethAmount = web3.utils.toWei('0.01', 'ether');
+                        const tx = await web3.eth.sendTransaction({
+                            from: account,
+                            to: '0x742d35Cc6634C0532925a3b844Bc454e4438f44e',
+                            value: ethAmount
+                        });
+                        alert('✅ Subscription successful with swap! TX: ' + tx.transactionHash);
+                    }
+
+                    // Record premium user
+                    fetch('/api/premium', {
+                        method: 'POST',
+                        headers: {'Content-Type': 'application/json'},
+                        body: JSON.stringify({ address: account, currency })
+                    }).catch(error => {
+                        console.warn('Failed to record premium user:', error);
+                        // Don't show error to user as payment already succeeded
                     });
-                    alert('Subscription successful! TX: ' + tx.transactionHash);
-                } else {
-                    const tokenAddress = prompt('Enter token contract address (e.g., USDC: 0xA0b86a33E6441e88C5F2712C3E9b74F5b8b6b8b8):');
-                    if (currency === 'USDC') tokenAddress = '0xA0b86a33E6441e88C5F2712C3E9b74F5b8b6b8b8'; // Example
-                    amount = web3.utils.toWei('10', 'mwei'); // 10 USDC (6 decimals)
-                    // Approve token for router
-                    const tokenContract = new web3.eth.Contract([
-                        {"constant": false, "inputs": [{"name": "_spender", "type": "address"}, {"name": "_value", "type": "uint256"}], "name": "approve", "outputs": [{"name": "", "type": "bool"}], "payable": false, "stateMutability": "nonpayable", "type": "function"}
-                    ], tokenAddress);
-                    await tokenContract.methods.approve(UNISWAP_ROUTER, amount).send({ from: account });
-                    // Swap to ETH
-                    await swapTokenToETH(tokenAddress, amount);
-                    // Then send ETH
-                    const ethAmount = web3.utils.toWei('0.01', 'ether');
-                    const tx = await web3.eth.sendTransaction({
-                        from: account,
-                        to: '0x742d35Cc6634C0532925a3b844Bc454e4438f44e',
-                        value: ethAmount
-                    });
-                    alert('Subscription successful with swap! TX: ' + tx.transactionHash);
+
+                } catch (error) {
+                    console.error('Subscription failed:', error);
+
+                    // Fallback: Show manual payment
+                    const fallback = confirm(
+                        '❌ Subscription failed!\n\n' +
+                        'Error: ' + error.message + '\n\n' +
+                        'Would you like manual payment instructions?'
+                    );
+
+                    if (fallback) {
+                        showManualPayment();
+                    }
                 }
-                fetch('/api/premium', { method: 'POST', headers: {'Content-Type': 'application/json'}, body: JSON.stringify({ address: account, currency }) });
             }
 
             function donate() {
@@ -633,7 +680,43 @@
             // Initialize page
             document.addEventListener('DOMContentLoaded', function() {
                 updateBotStatus();
+                checkSystemHealth();
             });
+
+            // System Health Check with Auto-Fallback
+            async function checkSystemHealth() {
+                let failures = 0;
+                const maxFailures = 3;
+
+                try {
+                    // Test API connection
+                    const healthResponse = await fetch('/api/health', { timeout: 5000 });
+                    if (!healthResponse.ok) failures++;
+
+                    // Test bot status
+                    const botResponse = await fetch('/api/bot/status', { timeout: 5000 });
+                    if (!botResponse.ok) failures++;
+
+                } catch (error) {
+                    console.warn('System health check failed:', error);
+                    failures++;
+                }
+
+                // If multiple failures, suggest offline mode
+                if (failures >= maxFailures) {
+                    setTimeout(() => {
+                        const useOffline = confirm(
+                            '⚠️ System appears to be having issues!\n\n' +
+                            'Multiple API endpoints are not responding.\n\n' +
+                            'Would you like to switch to offline mode for manual payments?'
+                        );
+
+                        if (useOffline) {
+                            window.location.href = '/offline.html';
+                        }
+                    }, 3000); // Wait 3 seconds before showing
+                }
+            }
         </script>
     </div>
 </body>
