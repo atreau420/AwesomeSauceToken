@@ -41,8 +41,22 @@
             font-weight: bold;
             font-size: 1.2em;
         }
-        .score {
-            color: #ffd700;
+        .share-buttons {
+            text-align: center;
+            margin-top: 30px;
+        }
+        .share-btn {
+            display: inline-block;
+            margin: 0 10px;
+            padding: 10px 20px;
+            background: #667eea;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            font-weight: bold;
+        }
+        .share-btn:hover {
+            background: #5a67d8;
         }
     </style>
 </head>
@@ -82,6 +96,31 @@
         }
 
         displayLeaderboard();
+
+        // Social sharing
+        function shareOnTwitter() {
+            const url = encodeURIComponent(window.location.href);
+            const text = encodeURIComponent('Check out the AwesomeSauceToken Leaderboard! Earn crypto while playing games. #AwesomeSauceToken #CryptoGames');
+            window.open(`https://twitter.com/intent/tweet?url=${url}&text=${text}`, '_blank');
+        }
+
+        function shareOnFacebook() {
+            const url = encodeURIComponent(window.location.href);
+            window.open(`https://www.facebook.com/sharer/sharer.php?u=${url}`, '_blank');
+        }
+
+        function shareOnWhatsApp() {
+            const url = encodeURIComponent(window.location.href);
+            const text = encodeURIComponent('Check out the AwesomeSauceToken Leaderboard! Earn crypto while playing games.');
+            window.open(`https://wa.me/?text=${text}%20${url}`, '_blank');
+        }
     </script>
+
+    <div class="share-buttons">
+        <h3>Share Your Achievement!</h3>
+        <a href="#" onclick="shareOnTwitter()" class="share-btn">Share on Twitter</a>
+        <a href="#" onclick="shareOnFacebook()" class="share-btn">Share on Facebook</a>
+        <a href="#" onclick="shareOnWhatsApp()" class="share-btn">Share on WhatsApp</a>
+    </div>
 </body>
 </html>

@@ -1,36 +1,83 @@
 // AI Monitor & Auto-Upgrader for AwesomeSauceToken
-const express = require('express');
-const fs = require('fs');
-const path = require('path');
-const axios = require('axios');
+import express from 'express';
+import fs from 'fs';
+import path from 'path';
+import { fileURLToPath } from 'url';
+import axios from 'axios';
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 // Placeholder for AI logic (can use OpenAI, local LLM, etc.)
 
 const app = express();
 const PORT = process.env.AI_MONITOR_PORT || 5050;
 
+app.use(express.json()); // For parsing JSON bodies
+
 // Health check: bots, API, games, homepage
 async function checkHealth() {
-	// Example: check trading bot status
 	try {
+		// Check trading bot status
 		const botStatus = await axios.get('http://localhost:3000/api/bot/status');
 		if (botStatus.data.status !== 'running') {
-			// Attempt restart or log issue
 			await axios.post('http://localhost:3000/api/bot/start');
 			logAction('Bot restarted by AI monitor');
 		}
 	} catch (e) {
 		logAction('Bot health check failed: ' + e.message);
 	}
-	// Add more checks: games, homepage, fallback pages, etc.
+
+	try {
+		// Check API health
+		await axios.get('http://localhost:3000/api/health');
+	} catch (e) {
+		logAction('API health check failed: ' + e.message);
+	}
+
+	try {
+		// Check homepage
+		await axios.get('http://localhost:3000/');
+	} catch (e) {
+		logAction('Homepage check failed: ' + e.message);
+	}
+
+	// Check for user reports and resolve
+	resolveUserReports();
 }
 
 // AI-driven feature/game generator (stub)
 function generateFeatureOrGame() {
-	// Example: create a new game file if usage drops
 	const newGameName = `ai-game-${Date.now()}.js`;
 	const gameCode = `// Auto-generated game\nconsole.log('Welcome to ${newGameName}!');`;
 	fs.writeFileSync(path.join(__dirname, '../public/', newGameName), gameCode);
 	logAction(`New game generated: ${newGameName}`);
+}
+
+// User reports system
+const userReports = [];
+function addUserReport(report) {
+	userReports.push({ ...report, timestamp: new Date(), id: Date.now() });
+	logAction(`User report added: ${report.issue}`);
+}
+
+// Resolve user reports
+function resolveUserReports() {
+	userReports.forEach((report, index) => {
+		if (report.issue.includes('bot not working')) {
+			// Auto-fix: restart bot
+			try {
+				axios.post('http://localhost:3000/api/bot/start');
+				logAction(`Auto-fixed bot issue for user ${report.user}`);
+				userReports.splice(index, 1);
+			} catch (e) {
+				logAction(`Failed to auto-fix bot: ${e.message}`);
+			}
+		} else if (report.issue.includes('page not loading')) {
+			// Auto-fix: check server
+			logAction(`Investigating page load issue: ${report.details}`);
+		}
+		// Add more auto-fix logic as needed
+	});
 }
 
 // Logging
@@ -43,13 +90,31 @@ function logAction(msg) {
 app.get('/dashboard', (req, res) => {
 	const logPath = path.join(__dirname, '../receipts/ai-monitor.log');
 	const logs = fs.existsSync(logPath) ? fs.readFileSync(logPath, 'utf8') : '';
-	res.send(`<h1>AI Monitor Dashboard</h1><pre>${logs}</pre>`);
+	const reports = userReports.map(r => `${r.timestamp}: ${r.user} - ${r.issue}`).join('\n');
+	res.send(`
+		<h1>AI Monitor Dashboard</h1>
+		<h2>User Reports</h2>
+		<pre>${reports || 'No reports'}</pre>
+		<h2>System Logs</h2>
+		<pre>${logs}</pre>
+	`);
 });
 
 // Manual trigger for feature/game generation
 app.post('/generate', (req, res) => {
 	generateFeatureOrGame();
 	res.send('Feature/game generated.');
+});
+
+// User report endpoint
+app.post('/report', (req, res) => {
+	const { user, issue, details } = req.body;
+	if (user && issue) {
+		addUserReport({ user, issue, details });
+		res.send('Report submitted. AI will investigate.');
+	} else {
+		res.status(400).send('Invalid report data');
+	}
 });
 
 // Main loop: periodic health check and auto-upgrade

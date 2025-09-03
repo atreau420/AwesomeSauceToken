@@ -12,6 +12,19 @@ const app = express();
 app.use(cors());
 app.use(bodyParser.json());
 
+// Initialize Trading Bot
+const botConfig = {
+  privateKey: process.env.PRIVATE_KEY || '',
+  rpcUrl: process.env.RPC_URL || 'https://cloudflare-eth.com',
+  tokenAddress: process.env.TOKEN_ADDRESS || '0x742d35Cc6634C0532925a3b844Bc454e4438f44e',
+  baseToken: '0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2', // WETH
+  uniswapRouter: '0x7a250d5630B4cF539739dF2C5dAcb4c659F2488D',
+  minTradeAmount: process.env.MIN_TRADE_AMOUNT || '0.001',
+  maxTradeAmount: process.env.MAX_TRADE_AMOUNT || '0.01',
+  tradeInterval: parseInt(process.env.TRADE_INTERVAL || '5'),
+  profitThreshold: parseFloat(process.env.PROFIT_THRESHOLD || '1.0')
+};
+
 // Types
 interface Transaction {
   id: string;

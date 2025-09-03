@@ -43,6 +43,12 @@
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             min-height: 100vh;
             color: #333;
+            transition: all 0.3s ease;
+        }
+
+        body.dark-mode {
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+            color: #e0e0e0;
         }
 
         .container {
@@ -273,9 +279,247 @@
         .card:nth-child(2) { animation-delay: 0.2s; }
         .card:nth-child(3) { animation-delay: 0.3s; }
         .card:nth-child(4) { animation-delay: 0.4s; }
+
+        /* Dark Mode Styles */
+        .dark-mode .card {
+            background: rgba(255, 255, 255, 0.05);
+            color: #e0e0e0;
+        }
+
+        .dark-mode .bot-status {
+            background: rgba(255, 255, 255, 0.05);
+        }
+
+        .dark-mode .status-item {
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        .dark-mode .footer {
+            background: rgba(255, 255, 255, 0.05);
+        }
+
+        /* Theme Toggle */
+        .theme-toggle {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: rgba(255, 255, 255, 0.2);
+            border: none;
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            cursor: pointer;
+            font-size: 20px;
+            z-index: 1000;
+            transition: all 0.3s ease;
+        }
+
+        .theme-toggle:hover {
+            transform: scale(1.1);
+        }
+
+        /* Notifications */
+        .notification-container {
+            position: fixed;
+            top: 80px;
+            right: 20px;
+            z-index: 1000;
+            max-width: 300px;
+        }
+
+        .notification {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 15px;
+            border-radius: 10px;
+            margin-bottom: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+            animation: slideInRight 0.5s ease;
+            cursor: pointer;
+        }
+
+        .notification.success {
+            background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+        }
+
+        .notification.error {
+            background: linear-gradient(135deg, #ff6b6b 0%, #ee5a24 100%);
+        }
+
+        @keyframes slideInRight {
+            from { transform: translateX(100%); opacity: 0; }
+            to { transform: translateX(0); opacity: 1; }
+        }
+
+        /* Market Data Widget */
+        .market-widget {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 15px;
+            padding: 20px;
+            margin-bottom: 30px;
+            backdrop-filter: blur(10px);
+        }
+
+        .market-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 15px;
+        }
+
+        .market-item {
+            text-align: center;
+            padding: 10px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+        }
+
+        .market-item .price {
+            font-size: 1.2rem;
+            font-weight: bold;
+            color: #4facfe;
+        }
+
+        .market-item .change {
+            font-size: 0.9rem;
+        }
+
+        .market-item .change.positive {
+            color: #4caf50;
+        }
+
+        .market-item .change.negative {
+            color: #f44336;
+        }
+
+        /* User Dashboard */
+        .user-dashboard {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 15px;
+            padding: 20px;
+            margin-bottom: 30px;
+            backdrop-filter: blur(10px);
+        }
+
+        .user-stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+
+        .user-stat {
+            text-align: center;
+            padding: 15px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+        }
+
+        .user-stat h4 {
+            font-size: 0.9rem;
+            margin-bottom: 5px;
+            color: rgba(255, 255, 255, 0.8);
+        }
+
+        .user-stat p {
+            font-size: 1.2rem;
+            font-weight: bold;
+            color: #4facfe;
+        }
+
+        /* Achievement Badges */
+        .achievements {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            justify-content: center;
+        }
+
+        .badge {
+            background: linear-gradient(135deg, #ffd700 0%, #ffed4e 100%);
+            color: #333;
+            padding: 8px 12px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: bold;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+        }
+
+        .badge.locked {
+            background: linear-gradient(135deg, #666 0%, #999 100%);
+            opacity: 0.5;
+        }
+
+        /* Progress Bars */
+        .progress-bar {
+            width: 100%;
+            height: 8px;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 4px;
+            overflow: hidden;
+            margin: 10px 0;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+            border-radius: 4px;
+            transition: width 0.3s ease;
+        }
+
+        /* Loading Animation */
+        .loading {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border: 3px solid rgba(255, 255, 255, 0.3);
+            border-radius: 50%;
+            border-top-color: #4facfe;
+            animation: spin 1s ease-in-out infinite;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        /* Sound Toggle */
+        .sound-toggle {
+            position: fixed;
+            top: 80px;
+            right: 20px;
+            background: rgba(255, 255, 255, 0.2);
+            border: none;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            cursor: pointer;
+            font-size: 16px;
+            z-index: 1000;
+            transition: all 0.3s ease;
+        }
+
+        .sound-toggle:hover {
+            transform: scale(1.1);
+        }
+
+        .sound-toggle.muted {
+            opacity: 0.5;
+        }
     </style>
 </head>
 <body>
+    <!-- Theme Toggle -->
+    <button class="theme-toggle" onclick="toggleTheme()" title="Toggle Dark Mode">
+        <i class="fas fa-moon"></i>
+    </button>
+
+    <!-- Sound Toggle -->
+    <button class="sound-toggle" onclick="toggleSound()" title="Toggle Sound">
+        <i class="fas fa-volume-up"></i>
+    </button>
+
+    <!-- Notifications Container -->
+    <div class="notification-container" id="notificationContainer"></div>
+
     <div class="container">
         <!-- Header -->
         <div class="header">
@@ -296,6 +540,80 @@
                     <p>Total Profits</p>
                 </div>
             </div>
+        </div>
+
+        <!-- Market Data Widget -->
+        <div class="market-widget">
+            <h3>📈 Live Market Data</h3>
+            <div class="market-grid" id="marketData">
+                <div class="market-item">
+                    <h4>BTC</h4>
+                    <div class="price" id="btcPrice">$43,250</div>
+                    <div class="change positive" id="btcChange">+2.5%</div>
+                </div>
+                <div class="market-item">
+                    <h4>ETH</h4>
+                    <div class="price" id="ethPrice">$2,650</div>
+                    <div class="change positive" id="ethChange">+1.8%</div>
+                </div>
+                <div class="market-item">
+                    <h4>AST</h4>
+                    <div class="price" id="astPrice">$0.042</div>
+                    <div class="change positive" id="astChange">+15.2%</div>
+                </div>
+                <div class="market-item">
+                    <h4>USDT</h4>
+                    <div class="price" id="usdtPrice">$1.00</div>
+                    <div class="change neutral" id="usdtChange">0.0%</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- User Dashboard -->
+        <div class="user-dashboard">
+            <h3>👤 Your Dashboard</h3>
+            <div class="user-stats">
+                <div class="user-stat">
+                    <h4>Your Rank</h4>
+                    <p id="userRank">#247</p>
+                </div>
+                <div class="user-stat">
+                    <h4>Total Earned</h4>
+                    <p id="userEarned">$127.50</p>
+                </div>
+                <div class="user-stat">
+                    <h4>Games Played</h4>
+                    <p id="userGames">23</p>
+                </div>
+                <div class="user-stat">
+                    <h4>Referral Bonus</h4>
+                    <p id="userReferrals">$45.20</p>
+                </div>
+                <div class="user-stat">
+                    <h4>Level</h4>
+                    <p id="userLevel">7</p>
+                </div>
+                <div class="user-stat">
+                    <h4>Streak</h4>
+                    <p id="userStreak">5 days</p>
+                </div>
+            </div>
+
+            <div class="achievements">
+                <span class="badge">🎯 First Trade</span>
+                <span class="badge">💰 $100 Earned</span>
+                <span class="badge">🎮 Game Master</span>
+                <span class="badge">👥 5 Referrals</span>
+                <span class="badge locked">🏆 Champion</span>
+                <span class="badge locked">🚀 Millionaire</span>
+            </div>
+
+            <div class="progress-bar">
+                <div class="progress-fill" id="levelProgress" style="width: 70%"></div>
+            </div>
+            <p style="text-align: center; font-size: 0.9rem; color: rgba(255,255,255,0.8);">
+                70% to Level 8 - Play more games to level up!
+            </p>
         </div>
 
         <!-- Bot Status -->
@@ -380,7 +698,7 @@
         <div class="footer">
             <p><i class="fas fa-shield-alt"></i> Secure • Transparent • Decentralized</p>
             <p>Domain: <a href="https://www.awesomesaucetoken.world">www.awesomesaucetoken.world</a> | SSL Active | Netlify Hosted</p>
-            <p><a href="/troubleshooting.html" style="color: #4facfe;">🔧 Having Issues? Check Troubleshooting Guide</a></p>
+            <p><a href="/troubleshooting.html" style="color: #4facfe;">🔧 Having Issues? Check Troubleshooting Guide</a> | <a href="#" onclick="showReportForm()" style="color: #ff6b6b;">📝 Report an Issue</a></p>
             <p><small>© 2025 AwesomeSauceToken. All rights reserved.</small></p>
         </div>
     </div>
@@ -579,7 +897,7 @@
                     document.getElementById('startBotBtn').disabled = true;
                     document.getElementById('startBotBtn').innerHTML = '<i class="fas fa-spinner fa-spin"></i> Starting...';
 
-                    const response = await fetch('/api/bot/start', {
+                    const response = await fetch('http://localhost:5000/api/bot/start', {
                         method: 'POST',
                         headers: {
                             'Content-Type': 'application/json',
@@ -639,7 +957,7 @@
 
             async function stopBot() {
                 try {
-                    const response = await fetch('/api/bot/stop', { method: 'POST' });
+                    const response = await fetch('http://localhost:5000/api/bot/stop', { method: 'POST' });
                     const result = await response.text();
                     alert(result);
 
@@ -655,7 +973,7 @@
 
             async function checkBotStatus() {
                 try {
-                    const response = await fetch('/api/bot/status');
+                    const response = await fetch('http://localhost:5000/api/bot/status');
                     const result = await response.text();
                     alert(result);
                     updateBotStatus();
@@ -666,14 +984,15 @@
 
             async function updateBotStatus() {
                 try {
-                    const response = await fetch('/api/bot/status');
+                    const response = await fetch('http://localhost:5000/api/bot/status');
                     const statusText = await response.text();
 
                     // Parse status (this is a simple implementation)
                     if (statusText.includes('Running')) {
-                        document.getElementById('botStatusText').textContent = 'Running';
+                        document.getElementById('botStatusText').textContent = 'Running - Income Active!';
                         document.getElementById('startBotBtn').style.display = 'none';
                         document.getElementById('stopBotBtn').style.display = 'inline-block';
+                        showNotification('🚀 Trading Bot is ACTIVE and generating income!', 'success');
                     } else {
                         document.getElementById('botStatusText').textContent = 'Stopped';
                         document.getElementById('startBotBtn').style.display = 'inline-block';
@@ -751,6 +1070,26 @@
                         }
                     }, 3000); // Wait 3 seconds before showing
                 }
+            }
+
+            // User Report Form
+            function showReportForm() {
+                const user = account || prompt('Please enter your wallet address or username:');
+                if (!user) return;
+
+                const issue = prompt('Describe the issue you\'re experiencing:');
+                if (!issue) return;
+
+                const details = prompt('Additional details (optional):');
+
+                fetch('http://localhost:5050/report', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ user, issue, details })
+                })
+                .then(response => response.text())
+                .then(result => alert(result))
+                .catch(error => alert('Failed to submit report: ' + error.message));
             }
 
             // Register Service Worker for PWA

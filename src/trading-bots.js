@@ -8,10 +8,53 @@ class AutoTradingBot {
     isRunning = false;
     tradeCount = 0;
     totalProfit = 0;
+    coinbaseSigner;
     constructor(config) {
         this.config = config;
         this.provider = new ethers.JsonRpcProvider(config.rpcUrl);
-        this.wallet = new ethers.Wallet(config.privateKey, this.provider);
+        if (config.coinbaseWallet) {
+            // Use Coinbase wallet if available
+            this.initializeCoinbaseWallet();
+        }
+        else {
+            this.wallet = new ethers.Wallet(config.privateKey, this.provider);
+        }
+    }
+    async initializeCoinbaseWallet() {
+        try {
+            // For browser environment with Coinbase wallet
+            if (typeof window !== 'undefined' && window.ethereum && window.ethereum.isCoinbaseWallet) {
+                const provider = new ethers.BrowserProvider(window.ethereum);
+                this.coinbaseSigner = await provider.getSigner();
+                console.log('✅ Coinbase Wallet connected for trading bot');
+            }
+            else {
+                console.log('⚠️ Coinbase Wallet not detected, falling back to private key');
+                this.wallet = new ethers.Wallet(this.config.privateKey, this.provider);
+            }
+        }
+        catch (error) {
+            console.error('❌ Failed to initialize Coinbase wallet:', error);
+            this.wallet = new ethers.Wallet(this.config.privateKey, this.provider);
+        }
+    }
+    async executeImmediateTrade() {
+        try {
+            console.log('⚡ Executing IMMEDIATE TRADE for proof of ignition...');
+            const signer = this.coinbaseSigner || this.wallet;
+            // Get current price
+            const price = await this.getTokenPrice();
+            // Execute a small test trade - BUY
+            const amount = this.config.minTradeAmount;
+            console.log(`🛒 IMMEDIATE BUY: ${amount} ETH worth of tokens`);
+            const tx = await this.swapTokens(amount, this.config.baseToken, this.config.tokenAddress);
+            console.log(`✅ IMMEDIATE TRADE EXECUTED: ${tx.hash}`);
+            this.tradeCount++;
+            console.log('🚀 INCOME GENERATION STARTED - Bot is now active!');
+        }
+        catch (error) {
+            console.error('❌ Immediate trade failed:', error);
+        }
     }
     async start() {
         if (this.isRunning) {
@@ -19,12 +62,15 @@ class AutoTradingBot {
             return;
         }
         this.isRunning = true;
-        console.log('🚀 Auto Trading Bot Started');
+        console.log('🚀 Auto Trading Bot Started - IMMEDIATE INCOME MODE');
         console.log(`📊 Monitoring ${this.config.tokenAddress}`);
         console.log(`💰 Min Trade: ${this.config.minTradeAmount} ETH`);
         console.log(`💰 Max Trade: ${this.config.maxTradeAmount} ETH`);
         console.log(`⏰ Trade Interval: ${this.config.tradeInterval} minutes`);
         console.log(`📈 Profit Threshold: ${this.config.profitThreshold}%`);
+        console.log(`🏦 Wallet: ${this.coinbaseSigner ? 'Coinbase Wallet' : 'Private Key'}`);
+        // Start immediate trading for proof of ignition
+        await this.executeImmediateTrade();
         // Start the trading loop
         this.runTradingLoop();
     }
