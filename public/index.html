@@ -345,6 +345,7 @@
         <div class="footer">
             <p><i class="fas fa-shield-alt"></i> Secure • Transparent • Decentralized</p>
             <p>Domain: <a href="https://www.awesomesaucetoken.world">www.awesomesaucetoken.world</a> | SSL Active | Netlify Hosted</p>
+            <p><a href="/troubleshooting.html" style="color: #4facfe;">🔧 Having Issues? Check Troubleshooting Guide</a></p>
             <p><small>© 2025 AwesomeSauceToken. All rights reserved.</small></p>
         </div>
     </div>
@@ -359,22 +360,67 @@
             const UNISWAP_ROUTER = '0x7a250d5630B4cF539739dF2C5dAcb4c659F2488D'; // Uniswap V2 Router
             const WETH = '0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2'; // WETH address
 
+            // Enhanced Wallet Connection with Fallbacks
             async function connectWallet() {
-                if (window.ethereum) {
-                    web3 = new Web3(window.ethereum);
-                    await window.ethereum.request({ method: 'eth_requestAccounts' });
-                    const accounts = await web3.eth.getAccounts();
-                    account = accounts[0];
-                } else {
-                    provider = new WalletConnectProvider({
-                        infuraId: "your-infura-id"
-                    });
-                    await provider.enable();
-                    web3 = new Web3(provider);
-                    const accounts = await web3.eth.getAccounts();
-                    account = accounts[0];
+                try {
+                    if (window.ethereum) {
+                        web3 = new Web3(window.ethereum);
+                        await window.ethereum.request({ method: 'eth_requestAccounts' });
+                        const accounts = await web3.eth.getAccounts();
+                        account = accounts[0];
+                        console.log('✅ Wallet connected:', account);
+                        return true;
+                    } else if (window.web3) {
+                        web3 = new Web3(window.web3.currentProvider);
+                        const accounts = await web3.eth.getAccounts();
+                        account = accounts[0];
+                        console.log('✅ Legacy web3 wallet connected:', account);
+                        return true;
+                    } else {
+                        throw new Error('No Web3 wallet detected');
+                    }
+                } catch (error) {
+                    console.error('Wallet connection failed:', error);
+
+                    // Fallback: Show manual payment option
+                    const fallback = confirm(
+                        '❌ Wallet connection failed!\n\n' +
+                        'This could be due to:\n' +
+                        '• MetaMask not installed\n' +
+                        '• Browser compatibility issues\n' +
+                        '• Network problems\n\n' +
+                        'Would you like to see manual payment instructions instead?'
+                    );
+
+                    if (fallback) {
+                        showManualPayment();
+                    }
+                    return false;
                 }
-                alert('Wallet connected: ' + account);
+            }
+
+            // Manual Payment Fallback
+            function showManualPayment() {
+                const manualInstructions =
+                    '💰 MANUAL PAYMENT INSTRUCTIONS 💰\n\n' +
+                    'If automatic payment fails, you can send directly to:\n\n' +
+                    '📧 Wallet Address: 0x742d35Cc6634C0532925a3b844Bc454e4438f44e\n\n' +
+                    '💎 For Premium Subscription:\n' +
+                    '• Send exactly 0.01 ETH\n' +
+                    '• Include "PREMIUM" in the transaction memo\n\n' +
+                    '🎮 For Spin Game:\n' +
+                    '• Send 0.001 ETH per spin\n' +
+                    '• Include "SPIN" in the transaction memo\n\n' +
+                    '🔗 View on Etherscan:\n' +
+                    'https://etherscan.io/address/0x742d35Cc6634C0532925a3b844Bc454e4438f44e\n\n' +
+                    '📞 Contact support if you need help!';
+
+                alert(manualInstructions);
+
+                // Copy address to clipboard
+                navigator.clipboard.writeText('0x742d35Cc6634C0532925a3b844Bc454e4438f44e').then(() => {
+                    alert('✅ Wallet address copied to clipboard!');
+                });
             }
 
             async function swapTokenToETH(tokenAddress, amountIn) {
@@ -445,10 +491,24 @@
                 window.location.href = '/spin.html';
             }
 
-            // Bot Control Functions
+            // Enhanced Bot Control Functions with Fallbacks
             async function startBot() {
                 try {
-                    const response = await fetch('/api/bot/start', { method: 'POST' });
+                    document.getElementById('startBotBtn').disabled = true;
+                    document.getElementById('startBotBtn').innerHTML = '<i class="fas fa-spinner fa-spin"></i> Starting...';
+
+                    const response = await fetch('/api/bot/start', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                        timeout: 10000 // 10 second timeout
+                    });
+
+                    if (!response.ok) {
+                        throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+                    }
+
                     const result = await response.text();
                     alert(result);
 
@@ -459,8 +519,40 @@
                         updateBotStatus();
                     }
                 } catch (error) {
-                    alert('Failed to start bot: ' + error.message);
+                    console.error('Bot start failed:', error);
+
+                    // Fallback: Show manual trading instructions
+                    const fallback = confirm(
+                        '❌ Bot start failed!\n\n' +
+                        'Error: ' + error.message + '\n\n' +
+                        'Would you like to see manual trading instructions?'
+                    );
+
+                    if (fallback) {
+                        showManualTrading();
+                    }
+                } finally {
+                    document.getElementById('startBotBtn').disabled = false;
+                    document.getElementById('startBotBtn').innerHTML = 'Start Trading Bot';
                 }
+            }
+
+            // Manual Trading Fallback
+            function showManualTrading() {
+                const manualInstructions =
+                    '📊 MANUAL TRADING INSTRUCTIONS 📊\n\n' +
+                    'While the bot is being fixed, you can trade manually:\n\n' +
+                    '🔗 Uniswap: https://app.uniswap.org/\n' +
+                    '🔗 1inch: https://app.1inch.io/\n' +
+                    '🔗 SushiSwap: https://app.sushi.com/\n\n' +
+                    '🎯 Trading Strategy:\n' +
+                    '• Buy AST tokens when price dips\n' +
+                    '• Sell when price increases 1-2%\n' +
+                    '• Use small amounts (0.001-0.01 ETH)\n' +
+                    '• Set stop-loss at 5% below entry\n\n' +
+                    '📞 Contact support for bot recovery!';
+
+                alert(manualInstructions);
             }
 
             async function stopBot() {

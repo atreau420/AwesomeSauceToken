@@ -1,0 +1,476 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Troubleshooting - AwesomeSauceToken</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            color: #333;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .header {
+            text-align: center;
+            padding: 40px 20px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            margin-bottom: 30px;
+            backdrop-filter: blur(10px);
+        }
+
+        .header h1 {
+            font-size: 2.5rem;
+            color: white;
+            margin-bottom: 10px;
+        }
+
+        .header p {
+            color: rgba(255, 255, 255, 0.9);
+            font-size: 1.1rem;
+        }
+
+        .back-btn {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            border-radius: 50px;
+            cursor: pointer;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .back-btn:hover {
+            background: rgba(255, 255, 255, 0.3);
+        }
+
+        .troubleshooting-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(450px, 1fr));
+            gap: 30px;
+            margin-bottom: 40px;
+        }
+
+        .troubleshoot-card {
+            background: white;
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+        }
+
+        .troubleshoot-card h3 {
+            color: #333;
+            margin-bottom: 20px;
+            font-size: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .issue {
+            background: #f8f9fa;
+            border-left: 4px solid #667eea;
+            padding: 15px;
+            margin-bottom: 15px;
+            border-radius: 8px;
+        }
+
+        .issue h4 {
+            color: #667eea;
+            margin-bottom: 8px;
+            font-size: 1.1rem;
+        }
+
+        .solution {
+            background: #e8f4fd;
+            border-left: 4px solid #28a745;
+            padding: 15px;
+            margin-bottom: 15px;
+            border-radius: 8px;
+        }
+
+        .solution h4 {
+            color: #28a745;
+            margin-bottom: 8px;
+            font-size: 1.1rem;
+        }
+
+        .backup-plan {
+            background: linear-gradient(135deg, #ff9a9e 0%, #fecfef 100%);
+            border-radius: 15px;
+            padding: 25px;
+            margin-bottom: 20px;
+            border-left: 4px solid #dc3545;
+        }
+
+        .backup-plan h4 {
+            color: #dc3545;
+            margin-bottom: 10px;
+            font-size: 1.2rem;
+        }
+
+        .btn {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            border-radius: 50px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+            margin: 5px;
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(102, 126, 234, 0.4);
+        }
+
+        .btn-secondary {
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+        }
+
+        .btn-success {
+            background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+        }
+
+        .emergency-section {
+            background: white;
+            border-radius: 20px;
+            padding: 30px;
+            margin-bottom: 30px;
+            text-align: center;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+        }
+
+        .emergency-section h2 {
+            color: #dc3545;
+            margin-bottom: 20px;
+            font-size: 1.8rem;
+        }
+
+        .contact-info {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 30px;
+            border-radius: 20px;
+            text-align: center;
+        }
+
+        .contact-info h3 {
+            margin-bottom: 15px;
+            font-size: 1.5rem;
+        }
+
+        .contact-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
+        }
+
+        .contact-item {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 20px;
+            border-radius: 15px;
+        }
+
+        .contact-item h4 {
+            margin-bottom: 10px;
+        }
+
+        .contact-item p {
+            font-size: 0.9rem;
+            opacity: 0.9;
+        }
+
+        @media (max-width: 768px) {
+            .troubleshooting-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .header h1 {
+                font-size: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <a href="/" class="back-btn">
+            <i class="fas fa-arrow-left"></i> Back to Home
+        </a>
+
+        <!-- Header -->
+        <div class="header">
+            <h1>🔧 Troubleshooting Guide</h1>
+            <p>What to do if something doesn't work on AwesomeSauceToken</p>
+        </div>
+
+        <!-- Emergency Section -->
+        <div class="emergency-section">
+            <h2>🚨 Quick Fixes - Try These First!</h2>
+            <div style="display: flex; justify-content: center; flex-wrap: wrap; gap: 15px; margin-top: 20px;">
+                <button onclick="refreshPage()" class="btn">🔄 Refresh Page</button>
+                <button onclick="clearCache()" class="btn btn-secondary">🗑️ Clear Cache</button>
+                <button onclick="checkWallet()" class="btn btn-success">👛 Check Wallet</button>
+                <button onclick="testConnection()" class="btn">🌐 Test Connection</button>
+            </div>
+        </div>
+
+        <!-- Troubleshooting Grid -->
+        <div class="troubleshooting-grid">
+            <!-- Wallet Issues -->
+            <div class="troubleshoot-card">
+                <h3><i class="fas fa-wallet"></i> Wallet Connection Issues</h3>
+
+                <div class="issue">
+                    <h4>MetaMask/Coinbase Won't Connect</h4>
+                    <p>Browser extension not responding or not installed</p>
+                </div>
+                <div class="solution">
+                    <h4>✅ Solutions:</h4>
+                    <ul style="margin: 0; padding-left: 20px;">
+                        <li>Refresh the page and try again</li>
+                        <li>Check if MetaMask extension is enabled</li>
+                        <li>Try a different browser (Chrome, Firefox, Brave)</li>
+                        <li>Update MetaMask to latest version</li>
+                    </ul>
+                </div>
+
+                <div class="backup-plan">
+                    <h4>🔄 Backup Plan:</h4>
+                    <p>If wallet connection fails completely, users can still view the site and learn about features. Direct them to install MetaMask or use Coinbase Wallet mobile app.</p>
+                </div>
+            </div>
+
+            <!-- Transaction Issues -->
+            <div class="troubleshoot-card">
+                <h3><i class="fas fa-exchange-alt"></i> Transaction/Payment Issues</h3>
+
+                <div class="issue">
+                    <h4>Transaction Failed or Stuck</h4>
+                    <p>Payment doesn't go through or gets stuck pending</p>
+                </div>
+                <div class="solution">
+                    <h4>✅ Solutions:</h4>
+                    <ul style="margin: 0; padding-left: 20px;">
+                        <li>Check if you have enough ETH for gas fees</li>
+                        <li>Try increasing gas price if network is busy</li>
+                        <li>Wait a few minutes - transactions can take time</li>
+                        <li>Check transaction on Etherscan using TX hash</li>
+                    </ul>
+                </div>
+
+                <div class="backup-plan">
+                    <h4>🔄 Backup Plan:</h4>
+                    <p>Implement manual payment system - users can send ETH directly to your wallet address: 0x742d35Cc6634C0532925a3b844Bc454e4438f44e</p>
+                </div>
+            </div>
+
+            <!-- Bot Issues -->
+            <div class="troubleshoot-card">
+                <h3><i class="fas fa-robot"></i> Trading Bot Issues</h3>
+
+                <div class="issue">
+                    <h4>Bot Won't Start or Status Not Updating</h4>
+                    <p>Trading bot buttons not working or status stuck</p>
+                </div>
+                <div class="solution">
+                    <h4>✅ Solutions:</h4>
+                    <ul style="margin: 0; padding-left: 20px;">
+                        <li>Check internet connection</li>
+                        <li>Try refreshing the page</li>
+                        <li>Check browser console for errors (F12)</li>
+                        <li>Wait 30 seconds for status updates</li>
+                    </ul>
+                </div>
+
+                <div class="backup-plan">
+                    <h4>🔄 Backup Plan:</h4>
+                    <p>Manual trading mode - users can execute trades manually through Uniswap or other DEX interfaces while bot is being fixed.</p>
+                </div>
+            </div>
+
+            <!-- Game Issues -->
+            <div class="troubleshoot-card">
+                <h3><i class="fas fa-gamepad"></i> Game Loading Issues</h3>
+
+                <div class="issue">
+                    <h4>Spin Game Won't Load or Play</h4>
+                    <p>Game page not loading or spinning wheel not working</p>
+                </div>
+                <div class="solution">
+                    <h4>✅ Solutions:</h4>
+                    <ul style="margin: 0; padding-left: 20px;">
+                        <li>Check if JavaScript is enabled in browser</li>
+                        <li>Try a different browser</li>
+                        <li>Disable ad blockers temporarily</li>
+                        <li>Check mobile device compatibility</li>
+                    </ul>
+                </div>
+
+                <div class="backup-plan">
+                    <h4>🔄 Backup Plan:</h4>
+                    <p>Alternative games - redirect to external crypto games or implement simple browser-based games that don't require Web3.</p>
+                </div>
+            </div>
+
+            <!-- Network Issues -->
+            <div class="troubleshoot-card">
+                <h3><i class="fas fa-wifi"></i> Network & API Issues</h3>
+
+                <div class="issue">
+                    <h4>Site Loads But Features Don't Work</h4>
+                    <p>Page loads but buttons/API calls fail</p>
+                </div>
+                <div class="solution">
+                    <h4>✅ Solutions:</h4>
+                    <ul style="margin: 0; padding-left: 20px;">
+                        <li>Check internet connection stability</li>
+                        <li>Try different network (mobile data vs WiFi)</li>
+                        <li>Check if site is blocked by firewall</li>
+                        <li>Try incognito/private browsing mode</li>
+                    </ul>
+                </div>
+
+                <div class="backup-plan">
+                    <h4>🔄 Backup Plan:</h4>
+                    <p>Offline mode - static version of site with contact info for manual transactions and support.</p>
+                </div>
+            </div>
+
+            <!-- Browser Issues -->
+            <div class="troubleshoot-card">
+                <h3><i class="fas fa-globe"></i> Browser Compatibility</h3>
+
+                <div class="issue">
+                    <h4>Features Don't Work in Certain Browsers</h4>
+                    <p>Site works in one browser but not another</p>
+                </div>
+                <div class="solution">
+                    <h4>✅ Solutions:</h4>
+                    <ul style="margin: 0; padding-left: 20px;">
+                        <li>Recommend Chrome, Firefox, or Brave</li>
+                        <li>Update browser to latest version</li>
+                        <li>Enable JavaScript and cookies</li>
+                        <li>Check for conflicting extensions</li>
+                    </ul>
+                </div>
+
+                <div class="backup-plan">
+                    <h4>🔄 Backup Plan:</h4>
+                    <p>Mobile-first approach - optimize for mobile browsers and provide mobile app alternative.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Contact Information -->
+        <div class="contact-info">
+            <h3>📞 Need More Help?</h3>
+            <p>If none of the above solutions work, contact us immediately!</p>
+
+            <div class="contact-grid">
+                <div class="contact-item">
+                    <h4><i class="fas fa-envelope"></i> Email</h4>
+                    <p>support@awesomesaucetoken.world</p>
+                    <p>Response within 24 hours</p>
+                </div>
+                <div class="contact-item">
+                    <h4><i class="fab fa-discord"></i> Discord</h4>
+                    <p>Join our support server</p>
+                    <p>Real-time help available</p>
+                </div>
+                <div class="contact-item">
+                    <h4><i class="fab fa-twitter"></i> Twitter</h4>
+                    <p>@AwesomeSauceToken</p>
+                    <p>Follow for updates</p>
+                </div>
+                <div class="contact-item">
+                    <h4><i class="fas fa-wallet"></i> Direct Wallet</h4>
+                    <p>0x742d35Cc6634C0532925a3b844Bc454e4438f44e</p>
+                    <p>For manual payments</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function refreshPage() {
+            location.reload();
+        }
+
+        function clearCache() {
+            if ('caches' in window) {
+                caches.keys().then(names => {
+                    names.forEach(name => {
+                        caches.delete(name);
+                    });
+                });
+            }
+            localStorage.clear();
+            sessionStorage.clear();
+            alert('Cache and local data cleared! Please refresh the page.');
+        }
+
+        async function checkWallet() {
+            if (window.ethereum) {
+                try {
+                    const accounts = await window.ethereum.request({ method: 'eth_accounts' });
+                    if (accounts.length > 0) {
+                        alert('✅ Wallet connected: ' + accounts[0]);
+                    } else {
+                        alert('❌ Wallet not connected. Please connect your wallet.');
+                    }
+                } catch (error) {
+                    alert('❌ Error checking wallet: ' + error.message);
+                }
+            } else {
+                alert('❌ No Web3 wallet detected. Please install MetaMask or Coinbase Wallet.');
+            }
+        }
+
+        async function testConnection() {
+            try {
+                const response = await fetch('/api/health');
+                if (response.ok) {
+                    alert('✅ API connection successful!');
+                } else {
+                    alert('❌ API connection failed. Please try again later.');
+                }
+            } catch (error) {
+                alert('❌ Network error. Check your internet connection.');
+            }
+        }
+
+        // Auto-check connection on page load
+        document.addEventListener('DOMContentLoaded', function() {
+            testConnection();
+        });
+    </script>
+</body>
+</html>
