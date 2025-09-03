@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AwesomeSauceToken - Earn Crypto & Income</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 0; padding: 20px; background: #f0f0f0; }
+        .container { max-width: 800px; margin: 0 auto; background: white; padding: 20px; border-radius: 8px; }
+        .ad { background: #e0e0e0; padding: 10px; margin: 10px 0; text-align: center; }
+        .premium { background: #ffd700; padding: 15px; margin: 10px 0; text-align: center; }
+        button { background: #007bff; color: white; border: none; padding: 10px 20px; cursor: pointer; }
+        button:hover { background: #0056b3; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Welcome to AwesomeSauceToken</h1>
+        <p>Earn crypto, play games, and generate income!</p>
+
+        <!-- Ad Section -->
+        <div class="ad">
+            <h3>Sponsored Ad</h3>
+            <p>Check out our premium features below!</p>
+            <!-- Placeholder for Google AdSense or crypto ad -->
+            <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-XXXXXXXXXXXXXXXX"
+             crossorigin="anonymous"></script>
+            <ins class="adsbygoogle"
+                 style="display:block"
+                 data-ad-client="ca-pub-XXXXXXXXXXXXXXXX"
+                 data-ad-slot="XXXXXXXXXX"
+                 data-ad-format="auto"
+                 data-full-width-responsive="true"></ins>
+            <script>
+                 (adsbygoogle = window.adsbygoogle || []).push({});
+            </script>
+        </div>
+
+        <!-- Premium Subscription -->
+        <div class="premium">
+            <h3>Premium Subscription - $9.99/month</h3>
+            <p>Unlock advanced trading bots, exclusive games, and priority support.</p>
+            <button onclick="subscribe()">Subscribe Now</button>
+        </div>
+
+        <!-- Affiliate Links -->
+        <div class="ad">
+            <h3>Earn with Affiliates</h3>
+            <a href="https://uniswap.org/" target="_blank">Trade on Uniswap</a> - Earn commissions<br>
+            <a href="https://opensea.io/" target="_blank">Buy NFTs on OpenSea</a> - Affiliate rewards
+        </div>
+
+        <!-- Donation -->
+        <div class="ad">
+            <h3>Support Us</h3>
+            <p>Donate ETH: 0x742d35Cc6634C0532925a3b844Bc454e4438f44e</p>
+            <button onclick="donate()">Donate</button>
+        </div>
+
+        <!-- Games -->
+        <h2>Play & Earn</h2>
+        <button onclick="playGame()">Spin the Wheel</button>
+        <button onclick="trade()">Start Trading Bot</button>
+
+        <script>
+            function subscribe() {
+                alert('Redirecting to payment...');
+                // Integrate Stripe or crypto payment
+            }
+            function donate() {
+                alert('Copy address to wallet');
+            }
+            function playGame() {
+                window.location.href = '/spin';
+            }
+            function trade() {
+                window.location.href = '/trade';
+            }
+        </script>
+    </div>
+</body>
+</html>
