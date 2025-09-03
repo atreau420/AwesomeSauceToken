@@ -3,6 +3,7 @@ import cors from 'cors';
 import bodyParser from 'body-parser';
 import dotenv from 'dotenv';
 import { ethers } from 'ethers';
+import { startTradingBot, stopTradingBot, getBotStatus } from '../src/trading-bots.js';
 // Load environment variables
 dotenv.config();
 const app = express();
@@ -178,5 +179,33 @@ app.get('/health', (req, res) => {
         timestamp: new Date().toISOString(),
         version: '1.0.0'
     });
+});
+// Bot Control Endpoints
+app.post('/bot/start', async (req, res) => {
+    try {
+        const result = await startTradingBot();
+        res.status(200).send(result);
+    }
+    catch (error) {
+        res.status(500).send(`❌ Failed to start bot: ${error.message}`);
+    }
+});
+app.post('/bot/stop', async (req, res) => {
+    try {
+        const result = await stopTradingBot();
+        res.status(200).send(result);
+    }
+    catch (error) {
+        res.status(500).send(`❌ Failed to stop bot: ${error.message}`);
+    }
+});
+app.get('/bot/status', async (req, res) => {
+    try {
+        const result = getBotStatus();
+        res.status(200).send(result);
+    }
+    catch (error) {
+        res.status(500).send(`❌ Failed to get bot status: ${error.message}`);
+    }
 });
 export default app;

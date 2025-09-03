@@ -70,7 +70,19 @@
         <!-- Games -->
         <h2>Play & Earn</h2>
         <button onclick="playGame()">Spin the Wheel</button>
-        <button onclick="trade()">Start Trading Bot</button>
+
+        <!-- Trading Bot Controls -->
+        <h2>🤖 Auto Trading Bot</h2>
+        <div id="bot-controls">
+            <button onclick="startBot()" id="startBotBtn">Start Trading Bot</button>
+            <button onclick="stopBot()" id="stopBotBtn" style="display:none;">Stop Trading Bot</button>
+            <button onclick="checkBotStatus()" id="statusBotBtn">Check Bot Status</button>
+        </div>
+        <div id="bot-status" style="margin-top: 10px; padding: 10px; background: #f0f0f0; border-radius: 5px;">
+            <p><strong>Bot Status:</strong> <span id="botStatusText">Not Started</span></p>
+            <p><strong>Trades Executed:</strong> <span id="tradeCount">0</span></p>
+            <p><strong>Total Profit:</strong> <span id="totalProfit">0.0000 ETH</span></p>
+        </div>
 
         <script src="https://cdn.jsdelivr.net/npm/web3@1.8.0/dist/web3.min.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/@walletconnect/web3-provider@1.8.0/dist/umd/index.min.js"></script>
@@ -168,8 +180,88 @@
                 window.location.href = '/spin';
             }
 
+            // Bot Control Functions
+            async function startBot() {
+                try {
+                    const response = await fetch('/api/bot/start', { method: 'POST' });
+                    const result = await response.text();
+                    alert(result);
+
+                    if (result.includes('✅')) {
+                        document.getElementById('startBotBtn').style.display = 'none';
+                        document.getElementById('stopBotBtn').style.display = 'inline-block';
+                        document.getElementById('botStatusText').textContent = 'Running';
+                        updateBotStatus();
+                    }
+                } catch (error) {
+                    alert('Failed to start bot: ' + error.message);
+                }
+            }
+
+            async function stopBot() {
+                try {
+                    const response = await fetch('/api/bot/stop', { method: 'POST' });
+                    const result = await response.text();
+                    alert(result);
+
+                    if (result.includes('🛑')) {
+                        document.getElementById('startBotBtn').style.display = 'inline-block';
+                        document.getElementById('stopBotBtn').style.display = 'none';
+                        document.getElementById('botStatusText').textContent = 'Stopped';
+                    }
+                } catch (error) {
+                    alert('Failed to stop bot: ' + error.message);
+                }
+            }
+
+            async function checkBotStatus() {
+                try {
+                    const response = await fetch('/api/bot/status');
+                    const result = await response.text();
+                    alert(result);
+                    updateBotStatus();
+                } catch (error) {
+                    alert('Failed to check bot status: ' + error.message);
+                }
+            }
+
+            async function updateBotStatus() {
+                try {
+                    const response = await fetch('/api/bot/status');
+                    const statusText = await response.text();
+
+                    // Parse status (this is a simple implementation)
+                    if (statusText.includes('Running')) {
+                        document.getElementById('botStatusText').textContent = 'Running';
+                        document.getElementById('startBotBtn').style.display = 'none';
+                        document.getElementById('stopBotBtn').style.display = 'inline-block';
+                    } else {
+                        document.getElementById('botStatusText').textContent = 'Stopped';
+                        document.getElementById('startBotBtn').style.display = 'inline-block';
+                        document.getElementById('stopBotBtn').style.display = 'none';
+                    }
+
+                    // Extract trade count and profit if available
+                    const tradeMatch = statusText.match(/Trades: (\d+)/);
+                    const profitMatch = statusText.match(/Profit: ([\d.]+) ETH/);
+
+                    if (tradeMatch) {
+                        document.getElementById('tradeCount').textContent = tradeMatch[1];
+                    }
+                    if (profitMatch) {
+                        document.getElementById('totalProfit').textContent = profitMatch[1] + ' ETH';
+                    }
+                } catch (error) {
+                    console.error('Failed to update bot status:', error);
+                }
+            }
+
+            // Auto-update status every 30 seconds
+            setInterval(updateBotStatus, 30000);
+
+            // Legacy function for backward compatibility
             function trade() {
-                window.location.href = '/trade';
+                startBot();
             }
         </script>
     </div>
