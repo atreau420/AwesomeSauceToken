@@ -1,6 +1,7 @@
 // Coin / Membership service (deduplicated)
 import Database from 'better-sqlite3';
 import { randomBytes } from 'crypto';
+import { verifyTransaction } from './blockchain-service';
 
 // Single database file for platform economy
 const dbFile = process.env.COIN_DB_FILE || 'coin.db';
@@ -27,6 +28,15 @@ db.exec(`CREATE TABLE IF NOT EXISTS premium_memberships (
   address TEXT PRIMARY KEY,
   startedAt TEXT NOT NULL,
   expiresAt TEXT NOT NULL
+);`);
+
+db.exec(`CREATE TABLE IF NOT EXISTS processed_transactions (
+  txHash TEXT PRIMARY KEY,
+  address TEXT NOT NULL,
+  ethAmount REAL NOT NULL,
+  coinsAwarded INTEGER NOT NULL,
+  processedAt TEXT NOT NULL,
+  blockNumber INTEGER
 );`);
 
 // Economic constants
@@ -63,19 +73,58 @@ export function getBalance(address: string) {
 
 export function earnCoins(address: string, amount: number, ref?: string) {
   if (!Number.isFinite(amount)) throw new Error('amount required');
-  if (amount <= 0 || amount > 1000) throw new Error('invalid amount');
+  if (amount === 0) throw new Error('amount cannot be zero');
+  
+  // Allow negative amounts for spending coins (game costs, etc.)
+  if (amount > 0 && amount > 1000) throw new Error('earn amount too large (max 1000)');
+  if (amount < 0 && amount < -1000) throw new Error('spend amount too large (max -1000)');
+  
   const newBal = upsertBalance(address, amount);
-  insertTx(address, 'earn', amount, ref);
+  const txType = amount > 0 ? 'earn' : 'spend';
+  insertTx(address, txType, Math.abs(amount), ref);
   return { balance: newBal, delta: amount };
 }
 
-export function purchaseCoins(address: string, ethAmount: number, txHash?: string) {
-  if (!Number.isFinite(ethAmount) || ethAmount <= 0) throw new Error('ethAmount required');
-  // Placeholder conversion; TODO: verify on-chain receipt then credit coins
-  const coins = Math.floor(ethAmount * PURCHASE_RATE);
+// Expose upsertBalance for internal use by game service
+export { upsertBalance };
+
+export async function purchaseCoins(address: string, ethAmount: number, txHash?: string) {
+  if (!txHash) throw new Error('transaction hash required for verification');
+  
+  // Check if transaction was already processed
+  const existing = db.prepare('SELECT txHash FROM processed_transactions WHERE txHash = ?').get(txHash);
+  if (existing) throw new Error('transaction already processed');
+
+  // Verify transaction on-chain
+  const verification = await verifyTransaction(txHash);
+  if (!verification.valid) {
+    throw new Error(`transaction verification failed: ${verification.error}`);
+  }
+
+  // Ensure the transaction amount matches what was claimed
+  if (Math.abs(verification.ethAmount - ethAmount) > 0.0001) {
+    throw new Error(`amount mismatch: claimed ${ethAmount} ETH, verified ${verification.ethAmount} ETH`);
+  }
+
+  // Convert ETH to coins using the rate
+  const coins = Math.floor(verification.ethAmount * PURCHASE_RATE);
+  
+  // Record transaction as processed
+  db.prepare('INSERT INTO processed_transactions (txHash, address, ethAmount, coinsAwarded, processedAt, blockNumber) VALUES (?,?,?,?,?,?)')
+    .run(txHash, address.toLowerCase(), verification.ethAmount, coins, new Date().toISOString(), verification.blockNumber);
+  
+  // Credit coins to user
   const newBal = upsertBalance(address, coins);
   insertTx(address, 'purchase', coins, txHash);
-  return { coinsAdded: coins, balance: newBal, delta: coins };
+  
+  return { 
+    coinsAdded: coins, 
+    balance: newBal, 
+    delta: coins, 
+    verified: true,
+    ethAmountVerified: verification.ethAmount,
+    blockNumber: verification.blockNumber
+  };
 }
 
 export function redeemPremium(address: string) {

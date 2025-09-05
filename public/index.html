@@ -1452,6 +1452,269 @@
             }
         }
 
+        /* Mini Games Styles */
+        .mini-games {
+            text-align: center;
+        }
+
+        .games-header h3 {
+            color: #fff;
+            margin-bottom: 15px;
+        }
+
+        .games-header p {
+            color: #4ecdc4;
+            font-size: 1.2rem;
+            font-weight: bold;
+        }
+
+        .games-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin: 30px 0;
+        }
+
+        .game-card {
+            background: linear-gradient(135deg, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0.05) 100%);
+            border: 1px solid rgba(255,255,255,0.2);
+            border-radius: 15px;
+            padding: 20px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .game-card:hover {
+            transform: translateY(-5px);
+            border-color: rgba(255,255,255,0.4);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+        }
+
+        .game-card i {
+            font-size: 2.5rem;
+            color: #4ecdc4;
+            margin-bottom: 15px;
+        }
+
+        .game-card h4 {
+            color: #fff;
+            margin-bottom: 10px;
+        }
+
+        .game-card p {
+            color: rgba(255,255,255,0.8);
+            margin: 5px 0;
+            font-size: 0.9rem;
+        }
+
+        .plays-left {
+            color: #ff6b6b;
+            font-weight: bold;
+        }
+
+        .game-actions {
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-top: 20px;
+        }
+
+        /* Wheel Game Styles */
+        .wheel-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .wheel {
+            width: 200px;
+            height: 200px;
+            border-radius: 50%;
+            position: relative;
+            border: 4px solid #4ecdc4;
+            transition: transform 2s cubic-bezier(0.23, 1, 0.32, 1);
+            display: flex;
+            overflow: hidden;
+        }
+
+        .wheel-section {
+            position: absolute;
+            width: 50%;
+            height: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            color: white;
+            font-size: 14px;
+            transform-origin: right bottom;
+        }
+
+        .wheel-section:nth-child(1) { background: #ff6b6b; transform: rotate(0deg); }
+        .wheel-section:nth-child(2) { background: #4ecdc4; transform: rotate(45deg); }
+        .wheel-section:nth-child(3) { background: #45b7d1; transform: rotate(90deg); }
+        .wheel-section:nth-child(4) { background: #f9ca24; transform: rotate(135deg); }
+        .wheel-section:nth-child(5) { background: #6c5ce7; transform: rotate(180deg); }
+        .wheel-section:nth-child(6) { background: #a55eea; transform: rotate(225deg); }
+        .wheel-section:nth-child(7) { background: #26de81; transform: rotate(270deg); }
+        .wheel-section:nth-child(8) { background: #fd79a8; transform: rotate(315deg); }
+
+        /* Dice Game Styles */
+        .dice-container {
+            display: flex;
+            justify-content: center;
+            margin: 20px 0;
+        }
+
+        .dice {
+            width: 80px;
+            height: 80px;
+            background: #fff;
+            border: 2px solid #333;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            font-weight: bold;
+            color: #333;
+        }
+
+        .dice-controls {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            margin: 20px 0;
+        }
+
+        /* Scratch Card Styles */
+        .scratch-card {
+            width: 200px;
+            height: 120px;
+            margin: 20px auto;
+            cursor: pointer;
+            position: relative;
+        }
+
+        .scratch-surface {
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, #c0c0c0, #808080);
+            border-radius: 10px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            color: #333;
+            font-weight: bold;
+            transition: all 0.5s ease;
+        }
+
+        .scratch-card.scratched .scratch-surface {
+            opacity: 0;
+        }
+
+        .win-reveal {
+            background: linear-gradient(135deg, #4ecdc4, #26de81);
+            color: white;
+            border-radius: 10px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100%;
+            font-weight: bold;
+            animation: winAnimation 0.5s ease;
+        }
+
+        .lose-reveal {
+            background: linear-gradient(135deg, #6c757d, #495057);
+            color: white;
+            border-radius: 10px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100%;
+            font-weight: bold;
+        }
+
+        @keyframes winAnimation {
+            0% { transform: scale(0.8); }
+            50% { transform: scale(1.1); }
+            100% { transform: scale(1); }
+        }
+
+        /* Game Result Styles */
+        .game-result {
+            margin-top: 20px;
+            padding: 15px;
+            border-radius: 10px;
+            text-align: center;
+        }
+
+        .game-result .win {
+            background: linear-gradient(135deg, #4ecdc4, #26de81);
+            color: white;
+            padding: 15px;
+            border-radius: 10px;
+            font-weight: bold;
+        }
+
+        .game-result .no-win {
+            background: linear-gradient(135deg, #6c757d, #495057);
+            color: white;
+            padding: 15px;
+            border-radius: 10px;
+        }
+
+        .game-result .error {
+            background: linear-gradient(135deg, #e74c3c, #c0392b);
+            color: white;
+            padding: 15px;
+            border-radius: 10px;
+        }
+
+        /* Daily Bonus Styles */
+        .daily-bonus {
+            text-align: center;
+        }
+
+        .bonus-animation {
+            font-size: 4rem;
+            margin-bottom: 20px;
+            animation: bounce 1s infinite;
+        }
+
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
+            40% { transform: translateY(-20px); }
+            60% { transform: translateY(-10px); }
+        }
+
+        /* Game History Styles */
+        .history-list {
+            max-height: 300px;
+            overflow-y: auto;
+        }
+
+        .history-item {
+            background: rgba(255,255,255,0.1);
+            padding: 10px;
+            border-radius: 8px;
+            margin-bottom: 8px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .history-date {
+            color: rgba(255,255,255,0.6);
+            font-size: 0.8rem;
+        }
+
         /* Disclaimer Section Styles */
         .disclaimer-section {
             margin: 40px 0;
@@ -1809,8 +2072,8 @@
                     <i class="fas fa-gamepad"></i>
                 </div>
                 <h3>Play & Earn Games</h3>
-                <p>Enjoy exciting crypto games and earn tokens while having fun. Spin the wheel, play trivia, and compete with others!</p>
-                <button onclick="playGame()" class="btn btn-secondary">Start Playing</button>
+                <p>Enjoy exciting mini-games and earn coins! Wheel of fortune, dice games, scratch cards and daily bonuses await you.</p>
+                <button onclick="openMiniGames()" class="btn btn-secondary">Start Playing</button>
             </div>
 
             <div class="card">
@@ -2153,7 +2416,324 @@
             }
 
             function playGame() {
-                window.location.href = '/spin.html';
+                openMiniGames();
+            }
+
+            // Mini Games Functions
+            function openMiniGames() {
+                showModal('🎮 Mini Games', `
+                    <div class="mini-games">
+                        <div class="games-header">
+                            <h3>🎮 Play & Earn Coins</h3>
+                            <p>Your Balance: <span id="gameBalance">0</span> coins</p>
+                        </div>
+                        <div class="games-grid">
+                            <div class="game-card" onclick="showWheelGame()">
+                                <i class="fas fa-dharmachakra"></i>
+                                <h4>Wheel of Fortune</h4>
+                                <p>Cost: 5 coins | Win up to 100</p>
+                                <p class="plays-left" id="wheelPlays">Loading...</p>
+                            </div>
+                            <div class="game-card" onclick="showDiceGame()">
+                                <i class="fas fa-dice"></i>
+                                <h4>Dice Game</h4>
+                                <p>Cost: 2 coins | Win up to 50</p>
+                                <p class="plays-left" id="dicePlays">Loading...</p>
+                            </div>
+                            <div class="game-card" onclick="showScratchGame()">
+                                <i class="fas fa-ticket-alt"></i>
+                                <h4>Scratch Cards</h4>
+                                <p>Cost: 1 coin | Win up to 25</p>
+                                <p class="plays-left" id="scratchPlays">Loading...</p>
+                            </div>
+                            <div class="game-card" onclick="claimDailyBonus()">
+                                <i class="fas fa-gift"></i>
+                                <h4>Daily Bonus</h4>
+                                <p>FREE | Win 10-59 coins</p>
+                                <p class="plays-left" id="dailyBonusStatus">Loading...</p>
+                            </div>
+                        </div>
+                        <div class="game-actions">
+                            <button onclick="refreshGameStats()" class="btn-secondary">Refresh Stats</button>
+                            <button onclick="showGameHistory()" class="btn-secondary">Game History</button>
+                            <button onclick="showLeaderboard()" class="btn-secondary">Leaderboard</button>
+                        </div>
+                    </div>
+                `);
+                loadGameStats();
+            }
+
+            async function loadGameStats() {
+                if (!await apiSessionEnsure()) return;
+                const token = window.__SESSION_TOKEN__;
+                try {
+                    const res = await fetch('/api/games/stats', { headers: { 'x-session-token': token }});
+                    if (res.ok) {
+                        const stats = await res.json();
+                        document.getElementById('gameBalance').textContent = stats.currentBalance;
+                        document.getElementById('wheelPlays').textContent = `${stats.wheel?.remainingPlays || 0} plays left`;
+                        document.getElementById('dicePlays').textContent = `${stats.dice?.remainingPlays || 0} plays left`;
+                        document.getElementById('scratchPlays').textContent = `${stats.scratch?.remainingPlays || 0} plays left`;
+                        document.getElementById('dailyBonusStatus').textContent = stats.dailyBonus?.remainingPlays > 0 ? 'Available' : 'Claimed';
+                    }
+                } catch (e) { console.error('Failed to load game stats:', e); }
+            }
+
+            function showWheelGame() {
+                showModal('🎡 Wheel of Fortune', `
+                    <div class="wheel-game">
+                        <div class="wheel-container">
+                            <div class="wheel" id="wheel">
+                                <div class="wheel-section win-100">100</div>
+                                <div class="wheel-section win-50">50</div>
+                                <div class="wheel-section win-20">20</div>
+                                <div class="wheel-section win-10">10</div>
+                                <div class="wheel-section no-win">0</div>
+                                <div class="wheel-section win-10">10</div>
+                                <div class="wheel-section win-20">20</div>
+                                <div class="wheel-section no-win">0</div>
+                            </div>
+                            <button id="spinBtn" onclick="spinWheel()" class="btn-primary">Spin (5 coins)</button>
+                        </div>
+                        <div id="wheelResult" class="game-result"></div>
+                    </div>
+                `);
+            }
+
+            async function spinWheel() {
+                if (!await apiSessionEnsure()) { alert('Connect wallet first.'); return; }
+                const btn = document.getElementById('spinBtn');
+                btn.disabled = true;
+                btn.textContent = 'Spinning...';
+                
+                try {
+                    const token = window.__SESSION_TOKEN__;
+                    const res = await fetch('/api/games/wheel', { 
+                        method: 'POST', 
+                        headers: { 'x-session-token': token }
+                    });
+                    const result = await res.json();
+                    
+                    if (result.success) {
+                        // Animate wheel
+                        const wheel = document.getElementById('wheel');
+                        wheel.style.transform = `rotate(${Math.random() * 720 + 720}deg)`;
+                        
+                        setTimeout(() => {
+                            const resultDiv = document.getElementById('wheelResult');
+                            if (result.coinsWon > 0) {
+                                resultDiv.innerHTML = `<div class="win">🎉 You won ${result.coinsWon} coins!</div>`;
+                                showNotification(`Won ${result.coinsWon} coins!`, 'success');
+                            } else {
+                                resultDiv.innerHTML = `<div class="no-win">😔 Better luck next time!</div>`;
+                            }
+                            resultDiv.innerHTML += `<p>New balance: ${result.newBalance} coins</p>`;
+                            refreshCoinUI();
+                        }, 2000);
+                    } else {
+                        document.getElementById('wheelResult').innerHTML = `<div class="error">${result.error}</div>`;
+                    }
+                } catch (e) {
+                    document.getElementById('wheelResult').innerHTML = `<div class="error">Game failed: ${e.message}</div>`;
+                } finally {
+                    setTimeout(() => {
+                        btn.disabled = false;
+                        btn.textContent = 'Spin (5 coins)';
+                    }, 2000);
+                }
+            }
+
+            function showDiceGame() {
+                showModal('🎲 Dice Game', `
+                    <div class="dice-game">
+                        <h4>Predict the roll result:</h4>
+                        <div class="dice-container">
+                            <div class="dice" id="dice">?</div>
+                        </div>
+                        <div class="dice-controls">
+                            <button onclick="playDice('high')" class="btn-primary">High (4-6)</button>
+                            <button onclick="playDice('low')" class="btn-secondary">Low (1-3)</button>
+                        </div>
+                        <p>Cost: 2 coins | Win: 50 coins</p>
+                        <div id="diceResult" class="game-result"></div>
+                    </div>
+                `);
+            }
+
+            async function playDice(prediction) {
+                if (!await apiSessionEnsure()) { alert('Connect wallet first.'); return; }
+                
+                try {
+                    const token = window.__SESSION_TOKEN__;
+                    const res = await fetch('/api/games/dice', { 
+                        method: 'POST', 
+                        headers: { 'Content-Type': 'application/json', 'x-session-token': token },
+                        body: JSON.stringify({ prediction })
+                    });
+                    const result = await res.json();
+                    
+                    if (result.success) {
+                        // Animate dice roll
+                        const dice = document.getElementById('dice');
+                        let rollCount = 0;
+                        const rollAnimation = setInterval(() => {
+                            dice.textContent = Math.floor(Math.random() * 6) + 1;
+                            rollCount++;
+                            if (rollCount > 10) {
+                                clearInterval(rollAnimation);
+                                const roll = parseInt(result.result.split('_')[1]);
+                                dice.textContent = roll;
+                                
+                                const resultDiv = document.getElementById('diceResult');
+                                if (result.coinsWon > 0) {
+                                    resultDiv.innerHTML = `<div class="win">🎉 You won! Rolled ${roll} and predicted ${prediction}</div>`;
+                                    showNotification(`Won ${result.coinsWon} coins!`, 'success');
+                                } else {
+                                    resultDiv.innerHTML = `<div class="no-win">😔 You lost. Rolled ${roll} and predicted ${prediction}</div>`;
+                                }
+                                resultDiv.innerHTML += `<p>New balance: ${result.newBalance} coins</p>`;
+                                refreshCoinUI();
+                            }
+                        }, 100);
+                    } else {
+                        document.getElementById('diceResult').innerHTML = `<div class="error">${result.error}</div>`;
+                    }
+                } catch (e) {
+                    document.getElementById('diceResult').innerHTML = `<div class="error">Game failed: ${e.message}</div>`;
+                }
+            }
+
+            function showScratchGame() {
+                showModal('🎫 Scratch Card', `
+                    <div class="scratch-game">
+                        <div class="scratch-card" id="scratchCard" onclick="scratchCard()">
+                            <div class="scratch-surface">
+                                <p>🪙 SCRATCH TO WIN 🪙</p>
+                                <p>Click to reveal!</p>
+                            </div>
+                        </div>
+                        <p>Cost: 1 coin | Win up to 25 coins</p>
+                        <div id="scratchResult" class="game-result"></div>
+                    </div>
+                `);
+            }
+
+            async function scratchCard() {
+                if (!await apiSessionEnsure()) { alert('Connect wallet first.'); return; }
+                
+                try {
+                    const token = window.__SESSION_TOKEN__;
+                    const res = await fetch('/api/games/scratch', { 
+                        method: 'POST', 
+                        headers: { 'x-session-token': token }
+                    });
+                    const result = await res.json();
+                    
+                    if (result.success) {
+                        const card = document.getElementById('scratchCard');
+                        card.classList.add('scratched');
+                        
+                        setTimeout(() => {
+                            const resultDiv = document.getElementById('scratchResult');
+                            if (result.coinsWon > 0) {
+                                card.innerHTML = `<div class="win-reveal">🎉 YOU WIN<br/>${result.coinsWon} COINS!</div>`;
+                                resultDiv.innerHTML = `<div class="win">Congratulations! You won ${result.coinsWon} coins!</div>`;
+                                showNotification(`Won ${result.coinsWon} coins!`, 'success');
+                            } else {
+                                card.innerHTML = `<div class="lose-reveal">😔 BETTER LUCK<br/>NEXT TIME!</div>`;
+                                resultDiv.innerHTML = `<div class="no-win">No win this time, try again!</div>`;
+                            }
+                            resultDiv.innerHTML += `<p>New balance: ${result.newBalance} coins</p>`;
+                            refreshCoinUI();
+                        }, 500);
+                    } else {
+                        document.getElementById('scratchResult').innerHTML = `<div class="error">${result.error}</div>`;
+                    }
+                } catch (e) {
+                    document.getElementById('scratchResult').innerHTML = `<div class="error">Game failed: ${e.message}</div>`;
+                }
+            }
+
+            async function claimDailyBonus() {
+                if (!await apiSessionEnsure()) { alert('Connect wallet first.'); return; }
+                
+                try {
+                    const token = window.__SESSION_TOKEN__;
+                    const res = await fetch('/api/games/daily-bonus', { 
+                        method: 'POST', 
+                        headers: { 'x-session-token': token }
+                    });
+                    const result = await res.json();
+                    
+                    if (result.success) {
+                        showModal('🎁 Daily Bonus', `
+                            <div class="daily-bonus">
+                                <div class="bonus-animation">🎉</div>
+                                <h3>Daily Bonus Claimed!</h3>
+                                <p>You received ${result.coinsWon} coins!</p>
+                                <p>New balance: ${result.newBalance} coins</p>
+                                <button onclick="closeModal()" class="btn-primary">Awesome!</button>
+                            </div>
+                        `);
+                        showNotification(`Daily bonus: ${result.coinsWon} coins!`, 'success');
+                        refreshCoinUI();
+                    } else {
+                        alert(result.error || 'Failed to claim daily bonus');
+                    }
+                } catch (e) {
+                    alert('Failed to claim daily bonus: ' + e.message);
+                }
+            }
+
+            async function showGameHistory() {
+                if (!await apiSessionEnsure()) return;
+                const token = window.__SESSION_TOKEN__;
+                try {
+                    const res = await fetch('/api/games/history', { headers: { 'x-session-token': token }});
+                    if (res.ok) {
+                        const data = await res.json();
+                        const historyHtml = data.history.length ? data.history.map(h => 
+                            `<div class="history-item">
+                                <strong>${h.gameType}</strong> - ${h.result} - ${h.coinsWon} coins
+                                <span class="history-date">${new Date(h.createdAt).toLocaleDateString()}</span>
+                            </div>`
+                        ).join('') : '<p>No game history yet.</p>';
+                        
+                        showModal('🎮 Game History', `
+                            <div class="game-history">
+                                <h3>Your Recent Games</h3>
+                                <div class="history-list">${historyHtml}</div>
+                            </div>
+                        `);
+                    }
+                } catch (e) { alert('Failed to load history: ' + e.message); }
+            }
+
+            async function showLeaderboard() {
+                try {
+                    const res = await fetch('/api/games/leaderboard');
+                    if (res.ok) {
+                        const data = await res.json();
+                        const leaderboardHtml = data.leaderboard.length ? data.leaderboard.map((p, i) => 
+                            `<div class="leader-item">
+                                <span class="rank">#${i + 1}</span>
+                                <span class="name">${p.address.slice(0, 8)}...</span>
+                                <span class="score">${p.totalCoinsWon} coins</span>
+                            </div>`
+                        ).join('') : '<p>No leaderboard data yet.</p>';
+                        
+                        showModal('🏆 Leaderboard', `
+                            <div class="leaderboard">
+                                <h3>Top Players (This Week)</h3>
+                                <div class="leader-list">${leaderboardHtml}</div>
+                            </div>
+                        `);
+                    }
+                } catch (e) { alert('Failed to load leaderboard: ' + e.message); }
+            }
+
+            function refreshGameStats() {
+                loadGameStats();
             }
 
             // Enhanced Bot Control Functions with Fallbacks
