@@ -1,9 +1,9 @@
 {
-  "ts": "2025-09-05T05:49:05.129Z",
+  "ts": "2025-09-05T06:00:48.302Z",
   "results": [
     {
       "agent": "maintenance",
-      "ts": "2025-09-05T05:49:05.128Z",
+      "ts": "2025-09-05T06:00:48.301Z",
       "actions": [],
       "metrics": {
         "botCount": 0
@@ -11,25 +11,25 @@
     },
     {
       "agent": "treasury",
-      "ts": "2025-09-05T05:49:05.128Z",
+      "ts": "2025-09-05T06:00:48.301Z",
       "actions": [],
       "metrics": {
-        "balanceETH": 0.006495557453701151,
+        "balanceETH": 0.010331579731994773,
         "targetBufferETH": 1,
         "reinvestPercent": 70
       }
     },
     {
       "agent": "game",
-      "ts": "2025-09-05T05:49:05.129Z",
+      "ts": "2025-09-05T06:00:48.301Z",
       "actions": [
         "set:difficulty 1",
-        "engagement:2.99"
+        "engagement:1.72"
       ],
       "metrics": {
         "difficulty": 1,
-        "engagementScore": 2.988489806717686,
-        "lastUpgrade": "2025-09-05T05:49:05.128Z"
+        "engagementScore": 1.7225221438168785,
+        "lastUpgrade": "2025-09-05T06:00:48.301Z"
       }
     }
   ]

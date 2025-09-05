@@ -29,7 +29,7 @@ r.get('/bot/status', async (_req, res, next) => {
     const address = process.env.WALLET_ADDRESS || '0xlegacy00000000000000000000000000000000';
     const status = await botStatus(address);
     const txt = status.running
-      ? `🤖 Status: Running | Trades: ${status.tradesExecuted || 0} | Profit: ${(status.totalProfit || 0).toFixed?.(4) || 0} ETH | WinRate: ${status.winRate || 0}%`
+      ? `🤖 Status: Running | Trades: ${status.metrics?.tradesExecuted || 0} | Profit: ${(status.metrics?.totalProfit || 0).toFixed?.(4) || 0} ETH | WinRate: ${status.metrics?.winRate || 0}%`
       : '🛑 Bot Stopped';
     res.type('text/plain').send(txt);
   } catch (e) { next(e); }

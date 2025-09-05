@@ -13,6 +13,7 @@ import { WebSocketServer } from 'ws';
 import routes from './routes';
 import { requestId } from './utils/request-id';
 import { loadConfig } from './utils/runtime-config';
+import { incrementApiRequests, incrementErrors } from './services/monitoring-service-simple';
 import path from 'path';
 import { fileURLToPath } from 'url';
 
@@ -20,6 +21,22 @@ const app = express();
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 const cfg = loadConfig();
+
+// API request tracking middleware
+app.use((req, res, next) => {
+  incrementApiRequests();
+  
+  // Track errors
+  const originalSend = res.send;
+  res.send = function(data) {
+    if (res.statusCode >= 400) {
+      incrementErrors();
+    }
+    return originalSend.call(this, data);
+  };
+  
+  next();
+});
 
 // Core middleware
 app.use(requestId());
