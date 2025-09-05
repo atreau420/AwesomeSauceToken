@@ -1783,6 +1783,15 @@
 
             <div class="card">
                 <div class="card-icon">
+                    <i class="fas fa-robot"></i>
+                </div>
+                <h3>AI Dashboard</h3>
+                <p>Monitor AI-powered continuous maintenance, treasury management, and website enhancements in real-time.</p>
+                <button onclick="openAIDashboard()" class="btn btn-secondary">View AI Status</button>
+            </div>
+
+            <div class="card">
+                <div class="card-icon">
                     <i class="fas fa-chart-line"></i>
                 </div>
                 <h3>Automated Trading</h3>
@@ -2122,6 +2131,10 @@
 
             function playGame() {
                 window.location.href = '/spin.html';
+            }
+
+            function openAIDashboard() {
+                window.location.href = '/ai-dashboard.html';
             }
 
             // Enhanced Bot Control Functions with Fallbacks
