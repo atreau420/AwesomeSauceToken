@@ -17,3 +17,7 @@ receipts/
 learning-data.json
 ai_learning_data.json
 gas_efficient_learning_data.json
+*.db
+*.db-shm
+*.db-wal
+ai_*.json

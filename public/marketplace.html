@@ -67,6 +67,7 @@ async function ensureSession(){
   const data = await verifyRes.json();
   sessionToken = data.token;
   toast('Authenticated');
+  loadUserPurchases(); // Load purchase history after authentication
 }
 
 async function loadListings(){
@@ -98,13 +99,121 @@ async function purchase(id){
   if(!account) { await connectWallet(); if(!account) return; }
   const listing = listings.find(l=>l.id===id); if(!listing){ toast('Listing missing'); return; }
   try {
+    toast('Processing transaction...');
     const valueWei = web3.utils.toWei(String(listing.priceEth),'ether');
     const tx = await web3.eth.sendTransaction({ from: account, to: treasury, value: valueWei });
-    const res = await fetch('/api/marketplace/purchase',{ method:'POST', headers:{'Content-Type':'application/json','x-session-token':sessionToken}, body: JSON.stringify({ listingId:id, buyer:account, amountEth: listing.priceEth, txHash: tx.transactionHash }) });
-    if(!res.ok){ toast('Server rejected purchase'); return; }
-    toast('Purchase complete');
-    loadStats();
-  } catch(e){ toast('Tx failed'); }
+    
+    toast('Transaction sent, validating...');
+    const res = await fetch('/api/marketplace/purchase',{ 
+      method:'POST', 
+      headers:{'Content-Type':'application/json','x-session-token':sessionToken}, 
+      body: JSON.stringify({ 
+        listingId:id, 
+        buyer:account, 
+        amountEth: listing.priceEth, 
+        txHash: tx.transactionHash 
+      }) 
+    });
+    
+    if(!res.ok){ 
+      const error = await res.json();
+      toast('Purchase failed: ' + (error.error || 'Server error')); 
+      return; 
+    }
+    
+    const result = await res.json();
+    
+    // Poll for validation status
+    let attempts = 0;
+    const maxAttempts = 30; // 30 attempts = ~1 minute
+    const pollValidation = async () => {
+      if (attempts >= maxAttempts) {
+        toast('Validation taking longer than expected. Check back later.');
+        return;
+      }
+      
+      try {
+        const validateRes = await fetch(`/api/marketplace/validate/${result.purchaseId}`, {
+          method: 'POST',
+          headers: {'x-session-token': sessionToken}
+        });
+        
+        if (validateRes.ok) {
+          const validation = await validateRes.json();
+          if (validation.success) {
+            toast('Purchase completed and validated!');
+            loadStats();
+            return;
+          } else {
+            toast('Validation failed: ' + (validation.error || 'Unknown error'));
+            return;
+          }
+        }
+      } catch (e) {
+        // Continue polling on error
+      }
+      
+      attempts++;
+      setTimeout(pollValidation, 2000); // Check every 2 seconds
+    };
+    
+    toast('Waiting for transaction confirmation...');
+    setTimeout(pollValidation, 5000); // Start polling after 5 seconds
+    
+  } catch(e){ 
+    console.error('Purchase error:', e);
+    toast('Transaction failed'); 
+  }
+}
+
+async function loadUserPurchases(){
+  if (!sessionToken) return;
+  try {
+    const res = await fetch('/api/marketplace/purchases', {
+      headers: {'x-session-token': sessionToken}
+    });
+    if (res.ok) {
+      const data = await res.json();
+      displayPurchaseHistory(data.purchases || []);
+    }
+  } catch(e) {
+    console.log('Failed to load purchase history');
+  }
+}
+
+function displayPurchaseHistory(purchases) {
+  if (purchases.length === 0) return;
+  
+  const main = document.querySelector('main');
+  let historySection = document.getElementById('purchaseHistory');
+  
+  if (!historySection) {
+    historySection = document.createElement('section');
+    historySection.id = 'purchaseHistory';
+    historySection.innerHTML = '<h2>Your Purchase History</h2><div id="purchaseList"></div>';
+    historySection.style.marginTop = '30px';
+    main.appendChild(historySection);
+  }
+  
+  const purchaseList = document.getElementById('purchaseList');
+  purchaseList.innerHTML = '';
+  
+  purchases.slice(0, 5).forEach(p => {
+    const div = document.createElement('div');
+    div.className = 'card';
+    const statusColor = p.status === 'completed' ? '#10b981' : p.status === 'failed' ? '#ef4444' : '#f59e0b';
+    div.innerHTML = `
+      <h3>${p.listingId.replace(/-/g, ' ').replace(/\b\w/g, l => l.toUpperCase())}</h3>
+      <div class="price">${p.amountEth} ETH</div>
+      <div style="color: ${statusColor}; font-weight: 600; text-transform: uppercase; font-size: 0.8rem;">
+        ${p.status}
+      </div>
+      <div style="font-size: 0.75rem; color: #9ca3af; margin-top: 8px;">
+        ${new Date(p.createdAt).toLocaleDateString()}
+      </div>
+    `;
+    purchaseList.appendChild(div);
+  });
 }
 
 document.getElementById('walletBtn').addEventListener('click', connectWallet);

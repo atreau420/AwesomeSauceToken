@@ -4,6 +4,7 @@ import cors from 'cors';
 import helmet from 'helmet';
 import morgan from 'morgan';
 import compression from 'compression';
+import rateLimit from 'express-rate-limit';
 import { errorHandler, notFoundHandler } from './utils/errors';
 import { logger } from './utils/logger';
 import { tickAgents, getAgentSnapshot } from './ai/agent-runner';
@@ -22,7 +23,48 @@ const cfg = loadConfig();
 
 // Core middleware
 app.use(requestId());
-app.use(helmet());
+app.use(helmet({
+  contentSecurityPolicy: {
+    directives: {
+      defaultSrc: ["'self'"],
+      scriptSrc: ["'self'", "'unsafe-inline'", "https://cdn.jsdelivr.net"],
+      styleSrc: ["'self'", "'unsafe-inline'", "https://cdnjs.cloudflare.com"],
+      imgSrc: ["'self'", "data:", "https:"],
+      connectSrc: ["'self'", "https:", "wss:"],
+      fontSrc: ["'self'", "https://cdnjs.cloudflare.com"],
+    },
+  },
+}));
+
+// Rate limiting
+const generalLimiter = rateLimit({
+  windowMs: 15 * 60 * 1000, // 15 minutes
+  max: 100, // Limit each IP to 100 requests per windowMs
+  standardHeaders: true,
+  legacyHeaders: false,
+  message: { error: 'Too many requests, please try again later.' }
+});
+
+const authLimiter = rateLimit({
+  windowMs: 15 * 60 * 1000, // 15 minutes
+  max: 20, // More restrictive for auth endpoints
+  standardHeaders: true,
+  legacyHeaders: false,
+  message: { error: 'Too many authentication attempts, please try again later.' }
+});
+
+const purchaseLimiter = rateLimit({
+  windowMs: 60 * 60 * 1000, // 1 hour
+  max: 10, // Max 10 purchases per hour per IP
+  standardHeaders: true,
+  legacyHeaders: false,
+  message: { error: 'Purchase rate limit exceeded, please try again later.' }
+});
+
+app.use(generalLimiter);
+app.use('/api/auth', authLimiter);
+app.use('/api/marketplace/purchase', purchaseLimiter);
+
 app.use(cors({ origin: cfg.corsOrigins, credentials: true }));
 app.use(express.json({ limit: '1mb' }));
 app.use(express.urlencoded({ extended: true }));
