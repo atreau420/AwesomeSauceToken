@@ -6,6 +6,7 @@ import system from './system';
 import marketplace from './marketplace';
 import auth from './auth';
 import legacy from './legacy';
+import coin from './coin';
 
 const router = Router();
 
@@ -15,6 +16,7 @@ router.use('/metrics', metrics);
 router.use('/system', system);
 router.use('/auth', auth);
 router.use('/marketplace', marketplace);
+router.use('/coins', coin);
 // Legacy compatibility endpoints expected by existing frontend (index.html)
 router.use('/', legacy);
 

@@ -2,6 +2,7 @@ import 'dotenv/config';
 import express from 'express';
 import cors from 'cors';
 import helmet from 'helmet';
+import rateLimit from 'express-rate-limit';
 import morgan from 'morgan';
 import compression from 'compression';
 import { errorHandler, notFoundHandler } from './utils/errors';
@@ -22,8 +23,19 @@ const cfg = loadConfig();
 
 // Core middleware
 app.use(requestId());
-app.use(helmet());
-app.use(cors({ origin: cfg.corsOrigins, credentials: true }));
+app.use(helmet({
+  crossOriginResourcePolicy: { policy: 'cross-origin' },
+  contentSecurityPolicy: false // Frontend is static bundle; can be hardened later with nonce hashes
+}));
+app.use(rateLimit({ windowMs: 60 * 1000, max: 120 }));
+app.use(cors({
+  origin: (origin, cb) => {
+    if (!origin) return cb(null, true); // non-browser
+    if (cfg.allowAllCors || cfg.corsOrigins.includes(origin)) return cb(null, true);
+    return cb(new Error('CORS blocked'));
+  },
+  credentials: true
+}));
 app.use(express.json({ limit: '1mb' }));
 app.use(express.urlencoded({ extended: true }));
 app.use(compression());

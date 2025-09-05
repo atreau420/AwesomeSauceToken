@@ -58,3 +58,10 @@ export function stats() {
   const totals = db.prepare('SELECT COUNT(*) as purchases, COALESCE(SUM(amountEth),0) as volume FROM purchases').get();
   return totals;
 }
+
+export function verifyTxHash(txHash: string): boolean {
+  if (!txHash) return false;
+  if (!/^0x([A-Fa-f0-9]{64})$/.test(txHash)) return false;
+  // Future: look up with provider to confirm to + value
+  return true;
+}

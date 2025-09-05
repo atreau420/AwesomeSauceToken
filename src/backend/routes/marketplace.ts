@@ -1,5 +1,5 @@
 import { Router } from 'express';
-import { listActiveListings, recordPurchase, recentPurchases, stats } from '../services/marketplace-service';
+import { listActiveListings, recordPurchase, recentPurchases, stats, verifyTxHash } from '../services/marketplace-service';
 import { getSession } from '../services/auth-service';
 
 const r = Router();
@@ -28,8 +28,9 @@ r.get('/purchases', requireSession, (_req, res) => {
 
 r.post('/purchase', requireSession, (req, res, next) => {
   try {
-    const { listingId, buyer, amountEth, txHash } = req.body || {};
+  const { listingId, buyer, amountEth, txHash } = req.body || {};
     if (!listingId || !buyer || !amountEth) throw new Error('listingId, buyer, amountEth required');
+  if (txHash && !verifyTxHash(txHash)) throw new Error('txHash invalid');
     const result = recordPurchase(listingId, buyer, Number(amountEth), txHash);
     res.json({ success: true, result });
   } catch (e) { next(e); }
