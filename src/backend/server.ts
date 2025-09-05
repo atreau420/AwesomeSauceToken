@@ -6,6 +6,9 @@ import morgan from 'morgan';
 import compression from 'compression';
 import { errorHandler, notFoundHandler } from './utils/errors';
 import { logger } from './utils/logger';
+import { tickAgents, getAgentSnapshot } from './ai/agent-runner';
+import swaggerUi from 'swagger-ui-express';
+import { WebSocketServer } from 'ws';
 import routes from './routes';
 import { requestId } from './utils/request-id';
 import { loadConfig } from './utils/runtime-config';
@@ -41,7 +44,33 @@ app.get('/healthz', (_req, res) => res.json({ ok: true }));
 // Static frontend
 app.use(express.static(path.join(__dirname, '../../public')));
 
+// Simple OpenAPI stub
+const openApiDoc = { openapi: '3.0.0', info: { title: 'AwesomeSauce API', version: cfg.version }, paths: { '/api/ai/status': { get: { summary: 'AI status', responses: { '200': { description: 'OK' } } } } } };
+app.use('/api/docs', swaggerUi.serve, swaggerUi.setup(openApiDoc));
+
 app.use('/api', routes);
+
+// AI agent snapshot endpoint
+app.get('/api/ai/status', (_req, res) => {
+  res.json({ agents: getAgentSnapshot() });
+});
+
+// Basic in-process scheduler
+const wsPort = Number(process.env.WS_PORT || 0);
+let wss: WebSocketServer | undefined;
+if (wsPort > 0) {
+  wss = new WebSocketServer({ port: wsPort });
+  logger.info('WebSocket server started', { wsPort });
+}
+
+setInterval(() => {
+  tickAgents();
+  const snapshot = getAgentSnapshot();
+  if (wss && snapshot.length) {
+    const payload = JSON.stringify({ type: 'agentUpdate', data: snapshot });
+    wss.clients.forEach(c => { try { c.send(payload); } catch {} });
+  }
+}, 60 * 1000); // scheduler cadence
 
 app.use(notFoundHandler);
 app.use(errorHandler);
