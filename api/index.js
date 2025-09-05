@@ -3,49 +3,12 @@ import cors from 'cors';
 import bodyParser from 'body-parser';
 import dotenv from 'dotenv';
 import { ethers } from 'ethers';
-// import { startTradingBot, stopTradingBot, getBotStatus } from '../src/trading-bots.js';
+import { startTradingBot, stopTradingBot, getBotStatus } from '../src/trading-bots.js';
 // Load environment variables
 dotenv.config();
 const app = express();
 app.use(cors());
 app.use(bodyParser.json());
-
-// Simple Trading Bot for Immediate Income
-let tradingBot = {
-    isRunning: false,
-    tradeCount: 0,
-    totalProfit: 0,
-    start: async function() {
-        if (this.isRunning) return 'Bot already running';
-        this.isRunning = true;
-        console.log('🚀 IMMEDIATE INCOME BOT STARTED!');
-        console.log('⚡ Executing first trade for proof of ignition...');
-        
-        // Simulate immediate trade
-        setTimeout(() => {
-            this.tradeCount++;
-            this.totalProfit += 0.001;
-            console.log('✅ FIRST TRADE EXECUTED - Income generation active!');
-            console.log(`📊 Trade #${this.tradeCount} completed. Profit: ${this.totalProfit} ETH`);
-        }, 2000);
-        
-        return 'Bot started successfully - Income generation active!';
-    },
-    stop: async function() {
-        this.isRunning = false;
-        console.log('🛑 Bot stopped');
-        return 'Bot stopped successfully';
-    },
-    getStatus: function() {
-        return {
-            isRunning: this.isRunning,
-            tradeCount: this.tradeCount,
-            totalProfit: this.totalProfit
-        };
-    }
-};
-
-console.log('🤖 Simple Trading Bot initialized for immediate income');
 // Initialize Trading Bot
 const botConfig = {
     privateKey: process.env.PRIVATE_KEY || '',
@@ -258,24 +221,3 @@ app.get('/bot/status', async (req, res) => {
     }
 });
 export default app;
-
-// Start server if not in Vercel environment
-if (process.env.NODE_ENV !== 'production') {
-    const PORT = process.env.PORT || 3000;
-    app.listen(PORT, async () => {
-        console.log(`🚀 Server running on port ${PORT}`);
-        console.log(`🤖 Bot endpoints available at http://localhost:${PORT}/api/bot`);
-        console.log(`📊 Health check at http://localhost:${PORT}/api/health`);
-
-        // AUTO-START TRADING BOT FOR IMMEDIATE INCOME
-        if (tradingBot) {
-            try {
-                console.log('🔥 AUTO-STARTING TRADING BOT FOR IMMEDIATE INCOME GENERATION...');
-                await tradingBot.start();
-                console.log('✅ TRADING BOT STARTED - INCOME GENERATION ACTIVE!');
-            } catch (error) {
-                console.error('❌ Failed to auto-start trading bot:', error);
-            }
-        }
-    });
-}

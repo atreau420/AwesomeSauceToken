@@ -1,0 +1,127 @@
+{
+  "aiLearningConfig": {
+    "version": "1.0.0",
+    "description": "AI Learning Trading Bot Configuration",
+
+    "learningParameters": {
+      "learningRate": 0.1,
+      "memorySize": 100,
+      "adaptationThreshold": 5,
+      "marketAnalysisInterval": 300000,
+      "performanceTracking": true,
+      "strategyAdaptation": true
+    },
+
+    "tradingParameters": {
+      "baseGasReserveMultiplier": 1.1,
+      "baseMinTradePercentage": 0.05,
+      "baseMaxTradePercentage": 0.2,
+      "baseMinProfitThreshold": 0.0001,
+      "baseMaxTradesPerHour": 30,
+
+      "conservativeMode": {
+        "minTradePercentage": 0.01,
+        "maxTradePercentage": 0.05,
+        "minProfitThreshold": 0.001,
+        "maxTradesPerHour": 10
+      },
+
+      "aggressiveMode": {
+        "minTradePercentage": 0.1,
+        "maxTradePercentage": 0.5,
+        "minProfitThreshold": 0.00001,
+        "maxTradesPerHour": 60
+      },
+
+      "scalpingMode": {
+        "minTradePercentage": 0.005,
+        "maxTradePercentage": 0.02,
+        "minProfitThreshold": 0.00005,
+        "maxTradesPerHour": 120
+      }
+    },
+
+    "marketAnalysis": {
+      "gasEfficiencyThresholds": {
+        "good": 50,
+        "moderate": 100,
+        "poor": 200
+      },
+
+      "networkCongestionThresholds": {
+        "low": 0.3,
+        "medium": 0.6,
+        "high": 0.8
+      },
+
+      "volatilityThresholds": {
+        "low": 0.02,
+        "medium": 0.05,
+        "high": 0.1
+      }
+    },
+
+    "strategyWeights": {
+      "conservative_arbitrage": 0.4,
+      "momentum_trading": 0.3,
+      "mean_reversion": 0.2,
+      "scalping": 0.1
+    },
+
+    "riskManagement": {
+      "maxDailyLoss": 0.1,
+      "maxConsecutiveLosses": 10,
+      "emergencyStopLoss": 0.05,
+      "profitTakingThreshold": 0.01,
+      "positionSizeLimits": {
+        "min": 0.001,
+        "max": 0.5
+      }
+    },
+
+    "performanceMetrics": {
+      "targetWinRate": 0.6,
+      "targetProfitFactor": 1.5,
+      "targetSharpeRatio": 1.0,
+      "maxDrawdownLimit": 0.2
+    },
+
+    "logging": {
+      "consoleLevel": "info",
+      "fileLevel": "debug",
+      "performanceLogs": true,
+      "tradeLogs": true,
+      "learningLogs": true
+    }
+  },
+
+  "networkConfig": {
+    "polygon": {
+      "rpcUrl": "https://polygon-rpc.com",
+      "chainId": 137,
+      "dexRouter": "0xa5E0829CaCEd8fFDD4De3c43696c57F7D7A678ff",
+      "wrappedNative": "0x0d500B1d8E8eF31E21C99d1Db9A6444d3ADf1270",
+      "gasPriceMultiplier": 1.1
+    }
+  },
+
+  "tokenConfig": {
+    "supportedTokens": [
+      {
+        "symbol": "MATIC",
+        "address": "0x0d500B1d8E8eF31E21C99d1Db9A6444d3ADf1270",
+        "decimals": 18
+      },
+      {
+        "symbol": "USDC",
+        "address": "0x2791Bca1f2de4661ED88A30C99A7a9449Aa84174",
+        "decimals": 6
+      },
+      {
+        "symbol": "WETH",
+        "address": "0x7ceB23fD6bC0adD59E62ac25578270cFf1b9f619",
+        "decimals": 18
+      }
+    ]
+  }
+}
