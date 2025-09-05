@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<title>Marketplace - AwesomeSauceToken</title>
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet" />
+<style>
+ body { font-family: system-ui, sans-serif; margin:0; background:#0e1220; color:#e6e8ef; }
+ header { padding:20px; display:flex; justify-content:space-between; align-items:center; background:#161b2e; }
+ h1 { font-size:1.3rem; margin:0; }
+ .wallet-btn { background:#4f46e5; color:#fff; border:none; padding:10px 18px; border-radius:8px; cursor:pointer; font-weight:600; }
+ .wallet-btn:hover { background:#6366f1; }
+ main { max-width:1100px; margin:30px auto; padding:0 20px 60px; }
+ .grid { display:grid; gap:22px; grid-template-columns:repeat(auto-fill,minmax(250px,1fr)); }
+ .card { background:#1f253b; padding:20px; border-radius:14px; position:relative; display:flex; flex-direction:column; gap:12px; box-shadow:0 4px 14px rgba(0,0,0,0.4); }
+ .card h3 { margin:0; font-size:1.05rem; }
+ .price { font-weight:700; color:#60a5fa; }
+ .buy-btn { background:#10b981; color:#fff; border:none; padding:10px 14px; border-radius:8px; cursor:pointer; font-weight:600; }
+ .buy-btn:hover { background:#34d399; }
+ .footer { text-align:center; padding:30px 10px; font-size:.8rem; color:#6b7280; }
+ .status { margin-top:10px; font-size:.85rem; }
+ .tag { position:absolute; top:10px; right:10px; background:#312e81; color:#c7d2fe; padding:4px 8px; font-size:.65rem; border-radius:6px; letter-spacing:.5px; text-transform:uppercase; }
+ .volume { margin:25px 0; background:#161b2e; padding:12px 16px; border-radius:10px; display:flex; gap:30px; font-size:.85rem; }
+ a.back { color:#93c5fd; text-decoration:none; font-size:.85rem; }
+ a.back:hover { text-decoration:underline; }
+ .toast { position:fixed; bottom:20px; right:20px; background:#1f2937; color:#fff; padding:14px 18px; border-radius:10px; box-shadow:0 6px 20px rgba(0,0,0,.4); font-size:.85rem; display:none; }
+ .toast.show { display:block; animation:fadeIn .3s ease; }
+ @keyframes fadeIn { from { opacity:0; transform:translateY(8px); } to { opacity:1; transform:translateY(0);} }
+</style>
+</head>
+<body>
+<header>
+  <a class="back" href="/">← Back</a>
+  <h1>Marketplace</h1>
+  <button id="walletBtn" class="wallet-btn">Connect Wallet</button>
+</header>
+<main>
+  <section class="volume" id="marketStats">Loading stats...</section>
+  <section class="grid" id="listingGrid"></section>
+  <div class="status" id="status"></div>
+</main>
+<div class="toast" id="toast"></div>
+<script src="https://cdn.jsdelivr.net/npm/web3@4.6.0/dist/web3.min.js"></script>
+<script>
+let web3; let account; let sessionToken; let listings=[];
+const treasury = (window.MARKETPLACE_TREASURY || '0x742d35Cc6634C0532925a3b844Bc454e4438f44e');
+
+function toast(msg){ const t=document.getElementById('toast'); t.textContent=msg; t.classList.add('show'); setTimeout(()=>t.classList.remove('show'),4000); }
+
+async function connectWallet(){
+  try {
+    if(!window.ethereum){ toast('No wallet provider'); return; }
+    web3 = new Web3(window.ethereum);
+    const accs = await window.ethereum.request({ method:'eth_requestAccounts' });
+    account = accs[0];
+    document.getElementById('walletBtn').textContent = account.slice(0,6)+'...'+account.slice(-4);
+    await ensureSession();
+  } catch(e){ toast('Wallet connect failed'); }
+}
+
+async function ensureSession(){
+  const nonceRes = await fetch('/api/auth/nonce',{ method:'POST', headers:{'Content-Type':'application/json'}, body:JSON.stringify({ address: account }) });
+  const { nonce } = await nonceRes.json();
+  const signature = await web3.eth.personal.sign(nonce, account, nonce);
+  const verifyRes = await fetch('/api/auth/verify',{ method:'POST', headers:{'Content-Type':'application/json'}, body:JSON.stringify({ address: account, signature }) });
+  const data = await verifyRes.json();
+  sessionToken = data.token;
+  toast('Authenticated');
+}
+
+async function loadListings(){
+  const res = await fetch('/api/marketplace/listings');
+  const data = await res.json();
+  listings = data.listings || [];
+  renderListings();
+}
+
+async function loadStats(){
+  const res = await fetch('/api/marketplace/stats');
+  const data = await res.json();
+  document.getElementById('marketStats').textContent = `Purchases: ${data.purchases || 0} | Volume: ${(data.volume||0).toFixed(4)} ETH`;
+}
+
+function renderListings(){
+  const grid = document.getElementById('listingGrid');
+  grid.innerHTML = '';
+  for(const l of listings){
+    const div = document.createElement('div');
+    div.className='card';
+    div.innerHTML = `<span class='tag'>LIVE</span><h3>${l.title}</h3><div class='price'>${l.priceEth} ETH</div><p>${l.description}</p><button class='buy-btn'>Purchase</button>`;
+    div.querySelector('.buy-btn').onclick=()=>purchase(l.id);
+    grid.appendChild(div);
+  }
+}
+
+async function purchase(id){
+  if(!account) { await connectWallet(); if(!account) return; }
+  const listing = listings.find(l=>l.id===id); if(!listing){ toast('Listing missing'); return; }
+  try {
+    const valueWei = web3.utils.toWei(String(listing.priceEth),'ether');
+    const tx = await web3.eth.sendTransaction({ from: account, to: treasury, value: valueWei });
+    const res = await fetch('/api/marketplace/purchase',{ method:'POST', headers:{'Content-Type':'application/json','x-session-token':sessionToken}, body: JSON.stringify({ listingId:id, buyer:account, amountEth: listing.priceEth, txHash: tx.transactionHash }) });
+    if(!res.ok){ toast('Server rejected purchase'); return; }
+    toast('Purchase complete');
+    loadStats();
+  } catch(e){ toast('Tx failed'); }
+}
+
+document.getElementById('walletBtn').addEventListener('click', connectWallet);
+loadListings(); loadStats(); setInterval(loadStats, 30000);
+</script>
+</body>
+</html>

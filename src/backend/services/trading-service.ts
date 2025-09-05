@@ -47,3 +47,20 @@ export async function botStatus(address: string) {
 export function listBots() {
   return Array.from(bots.keys());
 }
+
+export function getAllBotMetrics() {
+  const out: any[] = [];
+  for (const [addr, data] of bots.entries()) {
+    const inst: any = data.instance || {};
+    out.push({
+      address: addr,
+      running: !!inst.isRunning,
+      tradesExecuted: inst.tradesExecuted || 0,
+      totalProfit: inst.totalProfit || 0,
+      winRate: inst.winRate || 0,
+      startedAt: data.startedAt,
+      roiEstimate: inst.tradesExecuted ? (inst.totalProfit / Math.max(inst.tradesExecuted,1)) : 0
+    });
+  }
+  return out;
+}
