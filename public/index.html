@@ -504,6 +504,1062 @@
         .sound-toggle.muted {
             opacity: 0.5;
         }
+
+        /* New Feature Cards Styles */
+        .feature-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin: 40px 0;
+        }
+
+        .feature-card {
+            background: linear-gradient(135deg, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0.05) 100%);
+            border: 1px solid rgba(255,255,255,0.2);
+            border-radius: 20px;
+            padding: 30px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(10px);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .feature-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+            transition: left 0.5s;
+        }
+
+        .feature-card:hover::before {
+            left: 100%;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+            border-color: rgba(255,255,255,0.4);
+        }
+
+        .feature-card .icon {
+            font-size: 3rem;
+            margin-bottom: 20px;
+            background: linear-gradient(135deg, #ff6b6b, #4ecdc4);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .feature-card h3 {
+            color: #fff;
+            margin-bottom: 15px;
+            font-size: 1.5rem;
+            font-weight: 600;
+        }
+
+        .feature-card p {
+            color: rgba(255,255,255,0.8);
+            margin-bottom: 20px;
+            line-height: 1.6;
+        }
+
+        .feature-card .btn {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            padding: 12px 30px;
+            border-radius: 25px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .feature-card .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+        }
+
+        /* Modal Styles */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+            animation: fadeIn 0.3s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .modal-content {
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+            border-radius: 20px;
+            max-width: 700px;
+            width: 90%;
+            max-height: 80vh;
+            overflow-y: auto;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+            animation: slideUp 0.3s ease;
+            border: 1px solid rgba(255,255,255,0.1);
+        }
+
+        @keyframes slideUp {
+            from { transform: translateY(50px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 25px 30px;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .modal-header h2 {
+            margin: 0;
+            color: #fff;
+            font-size: 1.8rem;
+            font-weight: 600;
+        }
+
+        .close-btn {
+            background: none;
+            border: none;
+            font-size: 28px;
+            cursor: pointer;
+            color: rgba(255,255,255,0.7);
+            transition: color 0.2s;
+        }
+
+        .close-btn:hover {
+            color: #fff;
+        }
+
+        .modal-body {
+            padding: 30px;
+        }
+
+        /* NFT Marketplace Styles */
+        .nft-marketplace .marketplace-header {
+            margin-bottom: 30px;
+        }
+
+        .nft-marketplace h3 {
+            color: #fff;
+            font-size: 2rem;
+            margin-bottom: 10px;
+        }
+
+        .nft-marketplace p {
+            color: rgba(255,255,255,0.7);
+            font-size: 1.1rem;
+        }
+
+        .marketplace-actions {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            margin-bottom: 30px;
+            flex-wrap: wrap;
+        }
+
+        .marketplace-actions .btn-primary,
+        .marketplace-actions .btn-secondary {
+            padding: 12px 25px;
+            border-radius: 25px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .marketplace-actions .btn-primary {
+            background: linear-gradient(135deg, #ff6b6b, #4ecdc4);
+            border: none;
+            color: white;
+        }
+
+        .marketplace-actions .btn-secondary {
+            background: rgba(255,255,255,0.1);
+            border: 1px solid rgba(255,255,255,0.3);
+            color: white;
+        }
+
+        .marketplace-actions .btn-primary:hover,
+        .marketplace-actions .btn-secondary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+        }
+
+        .nft-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+            gap: 20px;
+            margin-top: 30px;
+        }
+
+        .nft-item {
+            background: linear-gradient(135deg, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0.05) 100%);
+            border-radius: 15px;
+            overflow: hidden;
+            border: 1px solid rgba(255,255,255,0.2);
+            transition: all 0.3s ease;
+        }
+
+        .nft-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.3);
+            border-color: rgba(255,255,255,0.4);
+        }
+
+        .nft-item img {
+            width: 100%;
+            height: 180px;
+            object-fit: cover;
+        }
+
+        .nft-item h4 {
+            margin: 15px;
+            color: #fff;
+            font-size: 1.1rem;
+        }
+
+        .nft-item p {
+            margin: 0 15px 15px;
+            color: #4ecdc4;
+            font-weight: bold;
+            font-size: 1rem;
+        }
+
+        .nft-item .btn-primary {
+            width: calc(100% - 30px);
+            margin: 0 15px 15px;
+            padding: 10px;
+            border-radius: 20px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border: none;
+            color: white;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .nft-item .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+        }
+
+        /* Token Creator Styles */
+        .token-creator .creator-header {
+            margin-bottom: 30px;
+        }
+
+        .token-creator h3 {
+            color: #fff;
+            font-size: 2rem;
+            margin-bottom: 10px;
+        }
+
+        .creator-form {
+            max-width: 500px;
+            margin: 0 auto;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+            text-align: left;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            color: #fff;
+            font-weight: 500;
+        }
+
+        .form-group input,
+        .form-group textarea,
+        .form-group select {
+            width: 100%;
+            padding: 12px 15px;
+            border: 1px solid rgba(255,255,255,0.3);
+            border-radius: 10px;
+            background: rgba(255,255,255,0.1);
+            color: #fff;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus,
+        .form-group select:focus {
+            outline: none;
+            border-color: #4ecdc4;
+            box-shadow: 0 0 0 2px rgba(78, 205, 196, 0.2);
+        }
+
+        .form-group textarea {
+            resize: vertical;
+            min-height: 80px;
+        }
+
+        .checkbox-group {
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+
+        .checkbox-group label {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            color: #fff;
+            cursor: pointer;
+        }
+
+        .checkbox-group input[type="checkbox"] {
+            width: auto;
+            margin: 0;
+        }
+
+        .creator-form .btn-primary {
+            width: 100%;
+            padding: 15px;
+            border-radius: 25px;
+            background: linear-gradient(135deg, #ff6b6b, #4ecdc4);
+            border: none;
+            color: white;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .creator-form .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.3);
+        }
+
+        /* Global Trading Styles */
+        .global-trading .trading-header {
+            margin-bottom: 30px;
+        }
+
+        .global-trading h3 {
+            color: #fff;
+            font-size: 2rem;
+            margin-bottom: 10px;
+        }
+
+        .global-trading p {
+            color: rgba(255,255,255,0.7);
+            font-size: 1.1rem;
+        }
+
+        .platform-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin: 30px 0;
+        }
+
+        .platform-card {
+            background: linear-gradient(135deg, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0.05) 100%);
+            padding: 25px;
+            border-radius: 15px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: 1px solid rgba(255,255,255,0.2);
+        }
+
+        .platform-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.3);
+            border-color: rgba(255,255,255,0.4);
+        }
+
+        .platform-card i {
+            font-size: 2.5rem;
+            margin-bottom: 15px;
+            background: linear-gradient(135deg, #ff6b6b, #4ecdc4);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .platform-card h4 {
+            color: #fff;
+            margin-bottom: 8px;
+            font-size: 1.2rem;
+        }
+
+        .platform-card p {
+            color: rgba(255,255,255,0.7);
+            margin: 0;
+        }
+
+        .trading-tools {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .trading-tools .btn-primary,
+        .trading-tools .btn-secondary {
+            padding: 12px 25px;
+            border-radius: 25px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .trading-tools .btn-primary {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border: none;
+            color: white;
+        }
+
+        .trading-tools .btn-secondary {
+            background: rgba(255,255,255,0.1);
+            border: 1px solid rgba(255,255,255,0.3);
+            color: white;
+        }
+
+        .trading-tools .btn-primary:hover,
+        .trading-tools .btn-secondary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+        }
+
+        /* Trading Bot Styles */
+        .trading-bot {
+            text-align: center;
+        }
+
+        .trading-bot h3 {
+            color: #fff;
+            margin-bottom: 20px;
+        }
+
+        .bot-status {
+            margin: 20px 0;
+        }
+
+        .bot-status p {
+            color: rgba(255,255,255,0.8);
+            font-size: 1.1rem;
+        }
+
+        .bot-controls {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            margin: 25px 0;
+            flex-wrap: wrap;
+        }
+
+        .bot-controls .btn-success {
+            background: linear-gradient(135deg, #4CAF50, #45a049);
+            border: none;
+            color: white;
+            padding: 12px 25px;
+            border-radius: 25px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .bot-controls .btn-danger {
+            background: linear-gradient(135deg, #f44336, #d32f2f);
+            border: none;
+            color: white;
+            padding: 12px 25px;
+            border-radius: 25px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .bot-controls .btn-secondary {
+            background: rgba(255,255,255,0.1);
+            border: 1px solid rgba(255,255,255,0.3);
+            color: white;
+            padding: 12px 25px;
+            border-radius: 25px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .bot-controls button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+        }
+
+        .bot-stats {
+            display: flex;
+            justify-content: space-around;
+            margin-top: 30px;
+            flex-wrap: wrap;
+        }
+
+        .bot-stats .stat {
+            text-align: center;
+            min-width: 120px;
+        }
+
+        .bot-stats .stat h4 {
+            color: rgba(255,255,255,0.7);
+            margin-bottom: 10px;
+            font-size: 0.9rem;
+        }
+
+        .bot-stats .stat p {
+            color: #4ecdc4;
+            font-size: 1.5rem;
+            font-weight: bold;
+            margin: 0;
+        }
+
+        /* Social Hub Styles */
+        .social-hub .social-header {
+            margin-bottom: 30px;
+        }
+
+        .social-hub h3 {
+            color: #fff;
+            font-size: 2rem;
+            margin-bottom: 10px;
+        }
+
+        .social-hub p {
+            color: rgba(255,255,255,0.7);
+            font-size: 1.1rem;
+        }
+
+        .social-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin: 30px 0;
+        }
+
+        .social-card {
+            background: linear-gradient(135deg, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0.05) 100%);
+            padding: 25px;
+            border-radius: 15px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: 1px solid rgba(255,255,255,0.2);
+        }
+
+        .social-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.3);
+            border-color: rgba(255,255,255,0.4);
+        }
+
+        .social-card i {
+            font-size: 2.5rem;
+            margin-bottom: 15px;
+            background: linear-gradient(135deg, #ff6b6b, #4ecdc4);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .social-card h4 {
+            color: #fff;
+            margin-bottom: 8px;
+            font-size: 1.2rem;
+        }
+
+        .social-card p {
+            color: rgba(255,255,255,0.7);
+            margin: 0;
+        }
+
+        .social-stats {
+            display: flex;
+            justify-content: space-around;
+            margin-top: 40px;
+            padding-top: 25px;
+            border-top: 1px solid rgba(255,255,255,0.2);
+            flex-wrap: wrap;
+        }
+
+        .social-stats .stat {
+            text-align: center;
+            min-width: 120px;
+        }
+
+        .social-stats .stat h4 {
+            color: rgba(255,255,255,0.7);
+            margin-bottom: 10px;
+            font-size: 0.9rem;
+        }
+
+        .social-stats .stat p {
+            color: #4ecdc4;
+            font-size: 1.5rem;
+            font-weight: bold;
+            margin: 0;
+        }
+
+        /* Leaderboard Styles */
+        .leaderboard {
+            text-align: center;
+        }
+
+        .leaderboard h3 {
+            color: #fff;
+            margin-bottom: 25px;
+        }
+
+        .leaderboard-list {
+            margin-top: 25px;
+        }
+
+        .leader-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 20px;
+            background: linear-gradient(135deg, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0.05) 100%);
+            margin-bottom: 8px;
+            border-radius: 10px;
+            border: 1px solid rgba(255,255,255,0.2);
+            transition: all 0.3s ease;
+        }
+
+        .leader-item:hover {
+            transform: translateX(5px);
+            border-color: rgba(255,255,255,0.4);
+        }
+
+        .leader-item .rank {
+            font-weight: bold;
+            color: #4ecdc4;
+            font-size: 1.2rem;
+            min-width: 30px;
+        }
+
+        .leader-item .name {
+            color: #fff;
+            font-weight: 600;
+            flex: 1;
+            text-align: left;
+        }
+
+        .leader-item .score {
+            color: #ff6b6b;
+            font-weight: bold;
+        }
+
+        /* Chat Styles */
+        .chat-modal {
+            max-width: 500px;
+        }
+
+        .chat-modal h3 {
+            color: #fff;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .chat-messages {
+            max-height: 300px;
+            overflow-y: auto;
+            background: linear-gradient(135deg, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0.05) 100%);
+            padding: 15px;
+            border-radius: 10px;
+            margin-bottom: 15px;
+            border: 1px solid rgba(255,255,255,0.2);
+        }
+
+        .message {
+            margin-bottom: 12px;
+            padding: 8px 0;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .message:last-child {
+            border-bottom: none;
+        }
+
+        .message strong {
+            color: #4ecdc4;
+        }
+
+        .chat-input {
+            display: flex;
+            gap: 10px;
+        }
+
+        .chat-input input {
+            flex: 1;
+            padding: 12px 15px;
+            border: 1px solid rgba(255,255,255,0.3);
+            border-radius: 20px;
+            background: rgba(255,255,255,0.1);
+            color: #fff;
+            font-size: 1rem;
+        }
+
+        .chat-input input:focus {
+            outline: none;
+            border-color: #4ecdc4;
+            box-shadow: 0 0 0 2px rgba(78, 205, 196, 0.2);
+        }
+
+        .chat-input .btn-primary {
+            padding: 12px 20px;
+            border-radius: 20px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border: none;
+            color: white;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .chat-input .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+        }
+
+        /* Share Achievement Styles */
+        .share-achievement {
+            text-align: center;
+        }
+
+        .share-achievement h3 {
+            color: #fff;
+            margin-bottom: 25px;
+        }
+
+        .achievement-options {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            margin-top: 25px;
+        }
+
+        .achievement-options .btn-primary {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            padding: 15px 20px;
+            border-radius: 25px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border: none;
+            color: white;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+        }
+
+        .achievement-options .btn-secondary {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            padding: 15px 20px;
+            border-radius: 25px;
+            background: rgba(255,255,255,0.1);
+            border: 1px solid rgba(255,255,255,0.3);
+            color: white;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+        }
+
+        .achievement-options button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+        }
+
+        /* Events Styles */
+        .events-modal h3 {
+            color: #fff;
+            margin-bottom: 25px;
+            text-align: center;
+        }
+
+        .events-list {
+            margin-top: 25px;
+        }
+
+        .event-item {
+            background: linear-gradient(135deg, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0.05) 100%);
+            padding: 20px;
+            border-radius: 15px;
+            margin-bottom: 15px;
+            border: 1px solid rgba(255,255,255,0.2);
+            transition: all 0.3s ease;
+        }
+
+        .event-item:hover {
+            transform: translateY(-2px);
+            border-color: rgba(255,255,255,0.4);
+        }
+
+        .event-item h4 {
+            color: #fff;
+            margin-bottom: 12px;
+            font-size: 1.2rem;
+        }
+
+        .event-item p {
+            color: rgba(255,255,255,0.7);
+            margin: 5px 0;
+        }
+
+        .event-item .btn-primary {
+            margin-top: 15px;
+            padding: 10px 20px;
+            border-radius: 20px;
+            background: linear-gradient(135deg, #ff6b6b, #4ecdc4);
+            border: none;
+            color: white;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .event-item .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+        }
+
+        /* Notification Styles */
+        .notification {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            padding: 15px 20px;
+            border-radius: 10px;
+            color: white;
+            z-index: 1001;
+            animation: slideInRight 0.3s ease;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.3);
+            max-width: 300px;
+        }
+
+        .notification.success {
+            background: linear-gradient(135deg, #4CAF50, #45a049);
+        }
+
+        .notification.error {
+            background: linear-gradient(135deg, #f44336, #d32f2f);
+        }
+
+        .notification.info {
+            background: linear-gradient(135deg, #2196F3, #1976D2);
+        }
+
+        @keyframes slideInRight {
+            from {
+                transform: translateX(100%);
+                opacity: 0;
+            }
+            to {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+
+        .notification button {
+            background: none;
+            border: none;
+            color: white;
+            font-size: 18px;
+            cursor: pointer;
+            margin-left: 10px;
+            opacity: 0.8;
+            transition: opacity 0.2s;
+        }
+
+        .notification button:hover {
+            opacity: 1;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .feature-cards {
+                grid-template-columns: 1fr;
+                gap: 15px;
+            }
+
+            .platform-grid,
+            .social-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .nft-grid {
+                grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+            }
+
+            .bot-stats,
+            .social-stats {
+                flex-direction: column;
+                gap: 20px;
+            }
+
+            .leader-item {
+                flex-direction: column;
+                text-align: center;
+                gap: 5px;
+            }
+
+            .chat-input {
+                flex-direction: column;
+            }
+
+            .achievement-options {
+                flex-direction: column;
+            }
+
+            .modal-content {
+                width: 95%;
+                margin: 10px;
+            }
+
+            .modal-header,
+            .modal-body {
+                padding: 20px;
+            }
+        }
+
+        /* Disclaimer Section Styles */
+        .disclaimer-section {
+            margin: 40px 0;
+            padding: 20px;
+        }
+
+        .disclaimer-content {
+            background: linear-gradient(135deg, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0.05) 100%);
+            border-radius: 20px;
+            padding: 30px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255,255,255,0.2);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+
+        .disclaimer-header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .disclaimer-header i {
+            font-size: 2rem;
+            color: #ff6b6b;
+            margin-bottom: 15px;
+        }
+
+        .disclaimer-header h3 {
+            color: #fff;
+            font-size: 1.8rem;
+            margin-bottom: 10px;
+        }
+
+        .disclaimer-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .disclaimer-card {
+            background: linear-gradient(135deg, rgba(255,255,255,0.05) 0%, rgba(255,255,255,0.02) 100%);
+            border-radius: 15px;
+            padding: 25px;
+            border: 1px solid rgba(255,255,255,0.1);
+            transition: all 0.3s ease;
+        }
+
+        .disclaimer-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.2);
+            border-color: rgba(255,255,255,0.3);
+        }
+
+        .disclaimer-card h4 {
+            color: #ff6b6b;
+            font-size: 1.2rem;
+            margin-bottom: 15px;
+            font-weight: 600;
+        }
+
+        .disclaimer-card p {
+            color: rgba(255,255,255,0.9);
+            line-height: 1.6;
+            font-size: 0.95rem;
+        }
+
+        .disclaimer-card strong {
+            color: #fff;
+            font-weight: 600;
+        }
+
+        .disclaimer-footer {
+            text-align: center;
+            padding-top: 25px;
+            border-top: 1px solid rgba(255,255,255,0.2);
+        }
+
+        .disclaimer-footer p {
+            color: rgba(255,255,255,0.8);
+            margin-bottom: 10px;
+            font-size: 0.9rem;
+            line-height: 1.5;
+        }
+
+        .disclaimer-footer em {
+            color: rgba(255,255,255,0.7);
+            font-style: italic;
+        }
+
+        /* Responsive Disclaimer */
+        @media (max-width: 768px) {
+            .disclaimer-grid {
+                grid-template-columns: 1fr;
+                gap: 15px;
+            }
+
+            .disclaimer-content {
+                padding: 20px;
+            }
+
+            .disclaimer-card {
+                padding: 20px;
+            }
+
+            .disclaimer-header h3 {
+                font-size: 1.5rem;
+            }
+        }
     </style>
 </head>
 <body>
@@ -536,8 +1592,55 @@
                     <p>Trading Volume</p>
                 </div>
                 <div class="stat">
-                    <h3 id="totalProfit">$127K</h3>
+                    <h3 id="totalProfits">$127K</h3>
                     <p>Total Profits</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Legal Disclaimers -->
+        <div class="disclaimer-section">
+            <div class="disclaimer-content">
+                <div class="disclaimer-header">
+                    <i class="fas fa-exclamation-triangle"></i>
+                    <h3>⚠️ Important Legal Disclaimers</h3>
+                </div>
+
+                <div class="disclaimer-grid">
+                    <div class="disclaimer-card">
+                        <h4>🔴 HIGH RISK WARNING</h4>
+                        <p><strong>Trading cryptocurrencies involves substantial risk of loss and is not suitable for every investor.</strong> The value of cryptocurrencies can go up or down, and you may lose money investing in them. You should carefully consider your investment objectives, level of experience, and risk appetite before investing.</p>
+                    </div>
+
+                    <div class="disclaimer-card">
+                        <h4>🚫 NO FINANCIAL ADVICE</h4>
+                        <p><strong>This platform does not provide financial, investment, or trading advice.</strong> All information provided is for educational and entertainment purposes only. Any decisions to buy, sell, or hold cryptocurrencies are your own responsibility.</p>
+                    </div>
+
+                    <div class="disclaimer-card">
+                        <h4>⚖️ REGULATORY COMPLIANCE</h4>
+                        <p><strong>Cryptocurrency trading may be subject to legal restrictions in your jurisdiction.</strong> It is your responsibility to ensure compliance with all applicable laws and regulations in your country or region before engaging in any trading activities.</p>
+                    </div>
+
+                    <div class="disclaimer-card">
+                        <h4>🔐 SECURITY NOTICE</h4>
+                        <p><strong>Never share your private keys, seed phrases, or wallet credentials with anyone.</strong> We will never ask for your private information. Protect your assets by using hardware wallets and enabling two-factor authentication.</p>
+                    </div>
+
+                    <div class="disclaimer-card">
+                        <h4>🤖 AUTOMATED TRADING RISKS</h4>
+                        <p><strong>Automated trading bots carry additional risks including technical failures, market volatility, and potential losses.</strong> Past performance does not guarantee future results. Always trade with funds you can afford to lose.</p>
+                    </div>
+
+                    <div class="disclaimer-card">
+                        <h4>📊 PERFORMANCE CLAIMS</h4>
+                        <p><strong>Any profit projections or performance claims are hypothetical and for illustrative purposes only.</strong> Actual results may vary significantly. Trading involves substantial risk and there are no guarantees of profits.</p>
+                    </div>
+                </div>
+
+                <div class="disclaimer-footer">
+                    <p><strong>By using this platform, you acknowledge that you have read, understood, and agree to these disclaimers.</strong></p>
+                    <p><em>This platform is provided "as is" without warranties of any kind. We are not responsible for any losses incurred through the use of this platform.</em></p>
                 </div>
             </div>
         </div>
@@ -643,6 +1746,18 @@
                 <button onclick="stopBot()" id="stopBotBtn" class="btn btn-secondary" style="display:none; margin-right: 10px;">Stop Trading Bot</button>
                 <button onclick="checkBotStatus()" id="statusBotBtn" class="btn">Check Status</button>
             </div>
+
+            <!-- Wallet Connection Section -->
+            <div id="wallet-section" style="text-align: center; margin: 20px 0; padding: 20px; background: rgba(255,255,255,0.1); border-radius: 15px;">
+                <h3 style="color: white; margin-bottom: 10px;"><i class="fas fa-wallet"></i> Connect Your Wallet</h3>
+                <p style="color: rgba(255,255,255,0.8); margin-bottom: 15px;">Connect your Coinbase Wallet, MetaMask, or any Web3 wallet to start earning!</p>
+                <button onclick="connectWallet()" id="connectWalletBtn" class="btn btn-primary" style="background: linear-gradient(45deg, #ff6b6b, #4ecdc4); border: none; padding: 12px 30px; font-size: 1.1rem;">
+                    <i class="fas fa-plug"></i> Connect Wallet
+                </button>
+                <div id="walletStatus" style="margin-top: 10px; color: rgba(255,255,255,0.9); font-size: 0.9rem;">
+                    <i class="fas fa-info-circle"></i> Not connected - Click above to connect
+                </div>
+            </div>
         </div>
 
         <!-- Main Features -->
@@ -668,6 +1783,15 @@
 
             <div class="card">
                 <div class="card-icon">
+                    <i class="fas fa-robot"></i>
+                </div>
+                <h3>AI Dashboard</h3>
+                <p>Monitor AI-powered continuous maintenance, treasury management, and website enhancements in real-time.</p>
+                <button onclick="openAIDashboard()" class="btn btn-secondary">View AI Status</button>
+            </div>
+
+            <div class="card">
+                <div class="card-icon">
                     <i class="fas fa-chart-line"></i>
                 </div>
                 <h3>Automated Trading</h3>
@@ -686,11 +1810,38 @@
 
             <div class="card">
                 <div class="card-icon">
-                    <i class="fas fa-trophy"></i>
+                    <i class="fas fa-palette"></i>
                 </div>
-                <h3>Global Leaderboard</h3>
-                <p>Compete with players worldwide! Check your ranking, see top earners, and climb the charts to become the ultimate crypto champion.</p>
-                <button onclick="window.location.href='/leaderboard.html'" class="btn btn-secondary">View Leaderboard</button>
+                <h3>NFT Marketplace</h3>
+                <p>Create, mint, buy, and sell NFTs on our global marketplace. Cross-platform listings for maximum exposure and sales.</p>
+                <button onclick="openNFTMarketplace()" class="btn btn-primary">Explore NFTs</button>
+            </div>
+
+            <div class="card">
+                <div class="card-icon">
+                    <i class="fas fa-coins"></i>
+                </div>
+                <h3>Token Creator</h3>
+                <p>Launch your own tokens and coins with our easy-to-use creator. Full DeFi integration and automated liquidity.</p>
+                <button onclick="openTokenCreator()" class="btn btn-success">Create Token</button>
+            </div>
+
+            <div class="card">
+                <div class="card-icon">
+                    <i class="fas fa-globe"></i>
+                </div>
+                <h3>Global Trading</h3>
+                <p>Trade across multiple platforms with cross-chain capabilities. Available in 50+ languages with real-time translation.</p>
+                <button onclick="openGlobalTrading()" class="btn btn-info">Trade Globally</button>
+            </div>
+
+            <div class="card">
+                <div class="card-icon">
+                    <i class="fas fa-share-alt"></i>
+                </div>
+                <h3>Social Hub</h3>
+                <p>Connect with traders worldwide. Share strategies, join communities, and participate in global crypto discussions.</p>
+                <button onclick="openSocialHub()" class="btn btn-warning">Join Community</button>
             </div>
         </div>
 
@@ -713,42 +1864,133 @@
             const UNISWAP_ROUTER = '0x7a250d5630B4cF539739dF2C5dAcb4c659F2488D'; // Uniswap V2 Router
             const WETH = '0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2'; // WETH address
 
-            // Enhanced Wallet Connection with Fallbacks
+            // Enhanced Wallet Connection with Coinbase Wallet Support
             async function connectWallet() {
                 try {
-                    if (window.ethereum) {
+                    console.log('🔗 Attempting wallet connection...');
+
+                    // Check for Coinbase Wallet specifically
+                    if (window.ethereum && window.ethereum.isCoinbaseWallet) {
+                        console.log('🎯 Coinbase Wallet detected');
+                        web3 = new Web3(window.ethereum);
+                        await window.ethereum.request({ method: 'eth_requestAccounts' });
+                        const accounts = await web3.eth.getAccounts();
+                        account = accounts[0];
+                        console.log('✅ Coinbase Wallet connected:', account);
+                        updateWalletStatus('Coinbase Wallet', account);
+                        return true;
+                    }
+                    // Check for MetaMask
+                    else if (window.ethereum && window.ethereum.isMetaMask) {
+                        console.log('🦊 MetaMask detected');
+                        web3 = new Web3(window.ethereum);
+                        await window.ethereum.request({ method: 'eth_requestAccounts' });
+                        const accounts = await web3.eth.getAccounts();
+                        account = accounts[0];
+                        console.log('✅ MetaMask connected:', account);
+                        updateWalletStatus('MetaMask', account);
+                        return true;
+                    }
+                    // Check for generic Ethereum provider (could be Coinbase or others)
+                    else if (window.ethereum) {
+                        console.log('🌐 Generic Ethereum provider detected');
                         web3 = new Web3(window.ethereum);
                         await window.ethereum.request({ method: 'eth_requestAccounts' });
                         const accounts = await web3.eth.getAccounts();
                         account = accounts[0];
                         console.log('✅ Wallet connected:', account);
+                        updateWalletStatus('Web3 Wallet', account);
                         return true;
-                    } else if (window.web3) {
+                    }
+                    // Check for legacy web3
+                    else if (window.web3) {
+                        console.log('📱 Legacy web3 detected');
                         web3 = new Web3(window.web3.currentProvider);
                         const accounts = await web3.eth.getAccounts();
                         account = accounts[0];
                         console.log('✅ Legacy web3 wallet connected:', account);
+                        updateWalletStatus('Legacy Web3', account);
                         return true;
-                    } else {
-                        throw new Error('No Web3 wallet detected');
+                    }
+                    // Try WalletConnect as fallback
+                    else if (typeof WalletConnectProvider !== 'undefined') {
+                        console.log('🔗 Trying WalletConnect...');
+                        const provider = new WalletConnectProvider({
+                            rpc: {
+                                1: 'https://mainnet.infura.io/v3/9aa3d95b3bc440fa88ea12eaa4456161'
+                            }
+                        });
+
+                        await provider.enable();
+                        web3 = new Web3(provider);
+                        const accounts = await web3.eth.getAccounts();
+                        account = accounts[0];
+                        console.log('✅ WalletConnect connected:', account);
+                        updateWalletStatus('WalletConnect', account);
+                        return true;
+                    }
+                    else {
+                        throw new Error('No Web3 wallet detected. Please install MetaMask, Coinbase Wallet, or another Web3 wallet.');
                     }
                 } catch (error) {
-                    console.error('Wallet connection failed:', error);
+                    console.error('❌ Wallet connection failed:', error);
 
-                    // Fallback: Show manual payment option
-                    const fallback = confirm(
-                        '❌ Wallet connection failed!\n\n' +
-                        'This could be due to:\n' +
-                        '• MetaMask not installed\n' +
-                        '• Browser compatibility issues\n' +
-                        '• Network problems\n\n' +
-                        'Would you like to see manual payment instructions instead?'
-                    );
-
-                    if (fallback) {
-                        showManualPayment();
+                    // More specific error messages
+                    if (error.code === 4001) {
+                        alert('❌ Connection rejected by user. Please approve the connection in your wallet.');
+                    } else if (error.code === -32002) {
+                        alert('❌ Connection request already pending. Please check your wallet.');
+                    } else {
+                        alert('❌ Wallet connection failed: ' + error.message);
                     }
+
+                    updateWalletStatus('Error', null);
                     return false;
+                }
+            }
+
+            // Update wallet status display
+            function updateWalletStatus(walletType, address) {
+                const statusDiv = document.getElementById('walletStatus');
+                const connectBtn = document.getElementById('connectWalletBtn');
+
+                if (address && walletType) {
+                    statusDiv.innerHTML = `<i class="fas fa-check-circle" style="color: #4CAF50;"></i> Connected to ${walletType}: ${address.substring(0, 6)}...${address.substring(address.length - 4)}`;
+                    connectBtn.style.display = 'none';
+                } else {
+                    statusDiv.innerHTML = '<i class="fas fa-info-circle"></i> Not connected - Click above to connect';
+                    connectBtn.style.display = 'inline-block';
+                }
+            }
+
+            // Check if wallet is already connected on page load
+            async function checkWalletConnection() {
+                try {
+                    if (window.ethereum) {
+                        const accounts = await window.ethereum.request({ method: 'eth_accounts' });
+                        if (accounts.length > 0) {
+                            account = accounts[0];
+                            web3 = new Web3(window.ethereum);
+
+                            // Determine wallet type
+                            let walletType = 'Web3 Wallet';
+                            if (window.ethereum.isCoinbaseWallet) {
+                                walletType = 'Coinbase Wallet';
+                            } else if (window.ethereum.isMetaMask) {
+                                walletType = 'MetaMask';
+                            }
+
+                            updateWalletStatus(walletType, account);
+                            console.log('✅ Wallet already connected:', account);
+                        } else {
+                            updateWalletStatus(null, null);
+                        }
+                    } else {
+                        updateWalletStatus(null, null);
+                    }
+                } catch (error) {
+                    console.log('No wallet connected on page load');
+                    updateWalletStatus(null, null);
                 }
             }
 
@@ -891,13 +2133,17 @@
                 window.location.href = '/spin.html';
             }
 
+            function openAIDashboard() {
+                window.location.href = '/ai-dashboard.html';
+            }
+
             // Enhanced Bot Control Functions with Fallbacks
             async function startBot() {
                 try {
                     document.getElementById('startBotBtn').disabled = true;
                     document.getElementById('startBotBtn').innerHTML = '<i class="fas fa-spinner fa-spin"></i> Starting...';
 
-                    const response = await fetch('http://localhost:5000/api/bot/start', {
+                    const response = await fetch('/api/bot/start', {
                         method: 'POST',
                         headers: {
                             'Content-Type': 'application/json',
@@ -957,7 +2203,7 @@
 
             async function stopBot() {
                 try {
-                    const response = await fetch('http://localhost:5000/api/bot/stop', { method: 'POST' });
+                    const response = await fetch('/api/bot/stop', { method: 'POST' });
                     const result = await response.text();
                     alert(result);
 
@@ -973,7 +2219,7 @@
 
             async function checkBotStatus() {
                 try {
-                    const response = await fetch('http://localhost:5000/api/bot/status');
+                    const response = await fetch('/api/bot/status');
                     const result = await response.text();
                     alert(result);
                     updateBotStatus();
@@ -984,7 +2230,7 @@
 
             async function updateBotStatus() {
                 try {
-                    const response = await fetch('http://localhost:5000/api/bot/status');
+                    const response = await fetch('/api/bot/status');
                     const statusText = await response.text();
 
                     // Parse status (this is a simple implementation)
@@ -1034,6 +2280,7 @@
             // Initialize page
             document.addEventListener('DOMContentLoaded', function() {
                 updateBotStatus();
+                checkWalletConnection();
                 checkSystemHealth();
             });
 
@@ -1104,6 +2351,972 @@
                         });
                 });
             }
+
+            // Theme Toggle Function
+            function toggleTheme() {
+                const body = document.body;
+                const themeBtn = document.querySelector('.theme-toggle i');
+
+                if (body.classList.contains('dark-mode')) {
+                    body.classList.remove('dark-mode');
+                    themeBtn.className = 'fas fa-moon';
+                    localStorage.setItem('theme', 'light');
+                } else {
+                    body.classList.add('dark-mode');
+                    themeBtn.className = 'fas fa-sun';
+                    localStorage.setItem('theme', 'dark');
+                }
+            }
+
+            // Sound Toggle Function
+            function toggleSound() {
+                const soundBtn = document.querySelector('.sound-toggle i');
+                const isMuted = localStorage.getItem('sound') === 'muted';
+
+                if (isMuted) {
+                    soundBtn.className = 'fas fa-volume-up';
+                    localStorage.setItem('sound', 'enabled');
+                    // Enable sound effects here
+                } else {
+                    soundBtn.className = 'fas fa-volume-mute';
+                    localStorage.setItem('sound', 'muted');
+                    // Disable sound effects here
+                }
+            }
+
+            // Load market data and update social stats
+            async function loadMarketData() {
+                try {
+                    const response = await fetch('/.netlify/functions/api/market/data');
+                    const result = await response.json();
+
+                    if (result.success) {
+                        const data = result.data;
+                        document.getElementById('activeUsers').textContent = data.activeUsers.toLocaleString();
+                        document.getElementById('totalTradesSocial').textContent = data.totalTrades.toLocaleString();
+                        document.getElementById('communityPool').textContent = data.communityPool.toFixed(1) + ' ETH';
+                    }
+                } catch (error) {
+                    console.error('Error loading market data:', error);
+                }
+            }
+
+            // Initialize page with dynamic data
+            async function initializePage() {
+                await loadMarketData();
+                // Load initial bot stats
+                updateBotStats();
+            }
+
+            // Call initialization when page loads
+            document.addEventListener('DOMContentLoaded', function() {
+                // Load theme preference
+                const savedTheme = localStorage.getItem('theme');
+                if (savedTheme === 'dark') {
+                    document.body.classList.add('dark-mode');
+                    const themeBtn = document.querySelector('.theme-toggle i');
+                    if (themeBtn) themeBtn.className = 'fas fa-sun';
+                }
+
+                // Load sound preference
+                const savedSound = localStorage.getItem('sound');
+                if (savedSound === 'muted') {
+                    const soundBtn = document.querySelector('.sound-toggle i');
+                    if (soundBtn) soundBtn.className = 'fas fa-volume-mute';
+                }
+
+                // Initialize dynamic data
+                initializePage();
+            });
+
+            // NFT Marketplace Functions
+            function openNFTMarketplace() {
+                showModal('NFT Marketplace', `
+                    <div class="nft-marketplace">
+                        <div class="marketplace-header">
+                            <h3>🎨 NFT Marketplace</h3>
+                            <p>Create, buy, sell, and trade unique digital assets</p>
+                        </div>
+                        <div class="marketplace-actions">
+                            <button onclick="createNFT()" class="btn-primary">Create NFT</button>
+                            <button onclick="browseNFTs()" class="btn-secondary">Browse NFTs</button>
+                            <button onclick="myNFTs()" class="btn-secondary">My NFTs</button>
+                        </div>
+                        <div class="nft-grid" id="nftGrid">
+                            <!-- NFT items will be loaded here -->
+                        </div>
+                    </div>
+                `);
+                loadNFTs();
+            }
+
+            function createNFT() {
+                showModal('Create New NFT', `
+                    <div class="create-nft-form">
+                        <form id="nftForm">
+                            <div class="form-group">
+                                <label for="nftName">NFT Name:</label>
+                                <input type="text" id="nftName" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="nftDescription">Description:</label>
+                                <textarea id="nftDescription" required></textarea>
+                            </div>
+                            <div class="form-group">
+                                <label for="nftImage">Image URL:</label>
+                                <input type="url" id="nftImage" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="nftPrice">Price (ETH):</label>
+                                <input type="number" id="nftPrice" step="0.01" required>
+                            </div>
+                            <button type="submit" class="btn-primary">Mint NFT</button>
+                        </form>
+                    </div>
+                `);
+                document.getElementById('nftForm').addEventListener('submit', handleNFTCreation);
+            }
+
+            async function handleNFTCreation(e) {
+                e.preventDefault();
+                const name = document.getElementById('nftName').value;
+                const description = document.getElementById('nftDescription').value;
+                const image = document.getElementById('nftImage').value;
+                const price = document.getElementById('nftPrice').value;
+
+                try {
+                    const response = await fetch('/.netlify/functions/api/nfts/create', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify({ name, description, image, price })
+                    });
+
+                    const result = await response.json();
+
+                    if (result.success) {
+                        showNotification('NFT created successfully!', 'success');
+                        closeModal();
+                        openNFTMarketplace();
+                    } else {
+                        showNotification('Failed to create NFT: ' + result.message, 'error');
+                    }
+                } catch (error) {
+                    showNotification('Error creating NFT: ' + error.message, 'error');
+                }
+            }
+
+            async function loadNFTs() {
+                try {
+                    const response = await fetch('/.netlify/functions/api/nfts');
+                    const result = await response.json();
+
+                    if (result.success) {
+                        const nftGrid = document.getElementById('nftGrid');
+                        nftGrid.innerHTML = result.nfts.map(nft => `
+                            <div class="nft-item">
+                                <img src="${nft.image}" alt="${nft.name}">
+                                <h4>${nft.name}</h4>
+                                <p>${nft.price} ETH</p>
+                                <button onclick="buyNFT(${nft.id})" class="btn-primary">Buy Now</button>
+                            </div>
+                        `).join('');
+                    }
+                } catch (error) {
+                    console.error('Error loading NFTs:', error);
+                    // Fallback to sample data
+                    const nftGrid = document.getElementById('nftGrid');
+                    nftGrid.innerHTML = `
+                        <div class="nft-item">
+                            <img src="https://via.placeholder.com/200" alt="Sample NFT">
+                            <h4>Sample NFT</h4>
+                            <p>0.5 ETH</p>
+                            <button onclick="buyNFT(1)" class="btn-primary">Buy Now</button>
+                        </div>
+                    `;
+                }
+            }
+
+            async function buyNFT(id) {
+                try {
+                    const response = await fetch(`/.netlify/functions/api/nfts/buy/${id}`, {
+                        method: 'POST'
+                    });
+
+                    const result = await response.json();
+
+                    if (result.success) {
+                        showNotification('Purchase initiated! Please confirm in your wallet.', 'success');
+                        loadNFTs(); // Refresh the NFT list
+                    } else {
+                        showNotification('Purchase failed: ' + result.message, 'error');
+                    }
+                } catch (error) {
+                    showNotification('Error purchasing NFT: ' + error.message, 'error');
+                }
+            }
+
+            // Token Creator Functions
+            function openTokenCreator() {
+                showModal('Token Creator', `
+                    <div class="token-creator">
+                        <div class="creator-header">
+                            <h3>🚀 Token Creator</h3>
+                            <p>Create your own ERC-20 tokens with custom features</p>
+                        </div>
+                        <div class="creator-form">
+                            <form id="tokenForm">
+                                <div class="form-group">
+                                    <label for="tokenName">Token Name:</label>
+                                    <input type="text" id="tokenName" placeholder="e.g., My Awesome Token" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="tokenSymbol">Token Symbol:</label>
+                                    <input type="text" id="tokenSymbol" placeholder="e.g., MAT" maxlength="10" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="totalSupply">Total Supply:</label>
+                                    <input type="number" id="totalSupply" placeholder="1000000" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="decimals">Decimals:</label>
+                                    <input type="number" id="decimals" value="18" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="features">Features:</label>
+                                    <div class="checkbox-group">
+                                        <label><input type="checkbox" id="burnable"> Burnable</label>
+                                        <label><input type="checkbox" id="mintable"> Mintable</label>
+                                        <label><input type="checkbox" id="pausable"> Pausable</label>
+                                    </div>
+                                </div>
+                                <button type="submit" class="btn-primary">Create Token</button>
+                            </form>
+                        </div>
+                    </div>
+                `);
+                document.getElementById('tokenForm').addEventListener('submit', handleTokenCreation);
+            }
+
+            async function handleTokenCreation(e) {
+                e.preventDefault();
+                const name = document.getElementById('tokenName').value;
+                const symbol = document.getElementById('tokenSymbol').value;
+                const supply = document.getElementById('totalSupply').value;
+                const decimals = document.getElementById('decimals').value;
+
+                const features = [];
+                if (document.getElementById('burnable').checked) features.push('burnable');
+                if (document.getElementById('mintable').checked) features.push('mintable');
+                if (document.getElementById('pausable').checked) features.push('pausable');
+
+                try {
+                    const response = await fetch('/.netlify/functions/api/tokens/create', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify({ name, symbol, totalSupply: supply, decimals, features })
+                    });
+
+                    const result = await response.json();
+
+                    if (result.success) {
+                        showNotification(`Token "${name} (${symbol})" created successfully!`, 'success');
+                        closeModal();
+                    } else {
+                        showNotification('Failed to create token: ' + result.message, 'error');
+                    }
+                } catch (error) {
+                    showNotification('Error creating token: ' + error.message, 'error');
+                }
+            }
+
+            // Global Trading Functions
+            function openGlobalTrading() {
+                showModal('Global Trading Hub', `
+                    <div class="global-trading">
+                        <div class="trading-header">
+                            <h3>🌍 Global Trading Hub</h3>
+                            <p>Trade across multiple blockchains and exchanges</p>
+                        </div>
+                        <div class="trading-platforms">
+                            <div class="platform-grid">
+                                <div class="platform-card" onclick="tradeOnUniswap()">
+                                    <i class="fab fa-ethereum"></i>
+                                    <h4>Uniswap</h4>
+                                    <p>Decentralized Exchange</p>
+                                </div>
+                                <div class="platform-card" onclick="tradeOnPancake()">
+                                    <i class="fas fa-coins"></i>
+                                    <h4>PancakeSwap</h4>
+                                    <p>BSC Trading</p>
+                                </div>
+                                <div class="platform-card" onclick="tradeOnSushi()">
+                                    <i class="fas fa-utensils"></i>
+                                    <h4>SushiSwap</h4>
+                                    <p>Cross-chain DEX</p>
+                                </div>
+                                <div class="platform-card" onclick="tradeOn1inch()">
+                                    <i class="fas fa-exchange-alt"></i>
+                                    <h4>1inch</h4>
+                                    <p>Aggregator</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="trading-tools">
+                            <button onclick="openTradingBot()" class="btn-primary">Launch Trading Bot</button>
+                            <button onclick="viewMarketData()" class="btn-secondary">Market Data</button>
+                        </div>
+                    </div>
+                `);
+            }
+
+            function tradeOnUniswap() {
+                window.open('https://app.uniswap.org/', '_blank');
+            }
+
+            function tradeOnPancake() {
+                window.open('https://pancakeswap.finance/', '_blank');
+            }
+
+            function tradeOnSushi() {
+                window.open('https://app.sushi.com/', '_blank');
+            }
+
+            function tradeOn1inch() {
+                window.open('https://app.1inch.io/', '_blank');
+            }
+
+            function openTradingBot() {
+                showModal('Trading Bot Control', `
+                    <div class="trading-bot">
+                        <h3>🤖 Trading Bot</h3>
+                        <div class="bot-status">
+                            <p>Status: <span id="botStatus">Inactive</span></p>
+                        </div>
+                        <div class="bot-controls">
+                            <button onclick="startTradingBot()" class="btn-success">Start Bot</button>
+                            <button onclick="stopTradingBot()" class="btn-danger">Stop Bot</button>
+                            <button onclick="configureBot()" class="btn-secondary">Configure</button>
+                        </div>
+                        <div class="bot-stats">
+                            <div class="stat">
+                                <h4>Total Trades</h4>
+                                <p id="totalTrades">0</p>
+                            </div>
+                            <div class="stat">
+                                <h4>Profit/Loss</h4>
+                                <p id="pnl">$0.00</p>
+                            </div>
+                        </div>
+                    </div>
+                `);
+            }
+
+            async function startTradingBot() {
+                try {
+                    const response = await fetch('/.netlify/functions/api/bot/start', {
+                        method: 'POST'
+                    });
+
+                    const result = await response.text();
+
+                    if (response.ok) {
+                        document.getElementById('botStatus').textContent = 'Active';
+                        document.getElementById('botStatus').style.color = 'green';
+                        showNotification('Trading bot started successfully!', 'success');
+                        updateBotStats();
+                    } else {
+                        showNotification('Failed to start bot: ' + result, 'error');
+                    }
+                } catch (error) {
+                    showNotification('Error starting bot: ' + error.message, 'error');
+                }
+            }
+
+            async function stopTradingBot() {
+                try {
+                    const response = await fetch('/.netlify/functions/api/bot/stop', {
+                        method: 'POST'
+                    });
+
+                    const result = await response.text();
+
+                    if (response.ok) {
+                        document.getElementById('botStatus').textContent = 'Inactive';
+                        document.getElementById('botStatus').style.color = 'red';
+                        showNotification('Trading bot stopped.', 'info');
+                        updateBotStats();
+                    } else {
+                        showNotification('Failed to stop bot: ' + result, 'error');
+                    }
+                } catch (error) {
+                    showNotification('Error stopping bot: ' + error.message, 'error');
+                }
+            }
+
+            async function updateBotStats() {
+                try {
+                    const response = await fetch('/.netlify/functions/api/bot/status');
+                    const statusText = await response.text();
+
+                    // Parse the status text to extract stats
+                    const lines = statusText.split('\n');
+                    const tradeLine = lines.find(line => line.includes('Trades:'));
+                    const profitLine = lines.find(line => line.includes('Profit:'));
+
+                    if (tradeLine) {
+                        const tradeCount = tradeLine.split(': ')[1];
+                        document.getElementById('totalTrades').textContent = tradeCount;
+                    }
+
+                    if (profitLine) {
+                        const profit = profitLine.split(': ')[1];
+                        document.getElementById('pnl').textContent = profit;
+                    }
+                } catch (error) {
+                    console.error('Error updating bot stats:', error);
+                }
+            }
+
+            async function configureBot() {
+                const tradingPair = document.getElementById('tradingPair').value;
+                const strategy = document.getElementById('strategy').value;
+                const riskLevel = document.getElementById('riskLevel').value;
+
+                try {
+                    const response = await fetch('/.netlify/functions/api/bot/configure', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify({ tradingPair, strategy, riskLevel })
+                    });
+
+                    const result = await response.json();
+
+                    if (result.success) {
+                        showNotification('Bot configuration saved successfully!', 'success');
+                        closeModal();
+                    } else {
+                        showNotification('Failed to save configuration: ' + result.message, 'error');
+                    }
+                } catch (error) {
+                    showNotification('Error saving configuration: ' + error.message, 'error');
+                }
+            }
+
+            // Social Hub Functions
+            function openSocialHub() {
+                showModal('Social Hub', `
+                    <div class="social-hub">
+                        <div class="social-header">
+                            <h3>🌐 Social Hub</h3>
+                            <p>Connect, share, and engage with the community</p>
+                        </div>
+                        <div class="social-features">
+                            <div class="social-grid">
+                                <div class="social-card" onclick="openLeaderboard()">
+                                    <i class="fas fa-trophy"></i>
+                                    <h4>Leaderboard</h4>
+                                    <p>Top traders & achievers</p>
+                                </div>
+                                <div class="social-card" onclick="openChat()">
+                                    <i class="fas fa-comments"></i>
+                                    <h4>Community Chat</h4>
+                                    <p>Real-time discussions</p>
+                                </div>
+                                <div class="social-card" onclick="shareAchievement()">
+                                    <i class="fas fa-share"></i>
+                                    <h4>Share Achievements</h4>
+                                    <p>Show off your success</p>
+                                </div>
+                                <div class="social-card" onclick="joinEvents()">
+                                    <i class="fas fa-calendar"></i>
+                                    <h4>Events & Tournaments</h4>
+                                    <p>Compete and win prizes</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="social-stats">
+                            <div class="stat">
+                                <h4>Active Users</h4>
+                                <p id="activeUsers">1,234</p>
+                            </div>
+                            <div class="stat">
+                                <h4>Total Trades</h4>
+                                <p id="totalTradesSocial">45,678</p>
+                            </div>
+                            <div class="stat">
+                                <h4>Community Pool</h4>
+                                <p id="communityPool">12.5 ETH</p>
+                            </div>
+                        </div>
+                    </div>
+                `);
+            }
+
+            async function openLeaderboard() {
+                try {
+                    const response = await fetch('/.netlify/functions/api/leaderboard');
+                    const result = await response.json();
+
+                    if (result.success) {
+                        const leaderboardHTML = result.leaderboard.map(item => `
+                            <div class="leader-item">
+                                <span class="rank">${item.rank}</span>
+                                <span class="name">${item.name}</span>
+                                <span class="score">$${item.score.toLocaleString()}</span>
+                            </div>
+                        `).join('');
+
+                        showModal('Leaderboard', `
+                            <div class="leaderboard">
+                                <h3>🏆 Top Traders</h3>
+                                <div class="leaderboard-list">
+                                    ${leaderboardHTML}
+                                </div>
+                            </div>
+                        `);
+                    }
+                } catch (error) {
+                    console.error('Error loading leaderboard:', error);
+                    // Fallback to static data
+                    showModal('Leaderboard', `
+                        <div class="leaderboard">
+                            <h3>🏆 Top Traders</h3>
+                            <div class="leaderboard-list">
+                                <div class="leader-item">
+                                    <span class="rank">1</span>
+                                    <span class="name">CryptoKing</span>
+                                    <span class="score">$125,430</span>
+                                </div>
+                                <div class="leader-item">
+                                    <span class="rank">2</span>
+                                    <span class="name">DeFiMaster</span>
+                                    <span class="score">$98,210</span>
+                                </div>
+                                <div class="leader-item">
+                                    <span class="rank">3</span>
+                                    <span class="name">TokenTrader</span>
+                                    <span class="score">$87,650</span>
+                                </div>
+                            </div>
+                        </div>
+                    `);
+                }
+            }
+
+            async function openChat() {
+                try {
+                    const response = await fetch('/.netlify/functions/api/chat/messages');
+                    const result = await response.json();
+
+                    let messagesHTML = '';
+                    if (result.success) {
+                        messagesHTML = result.messages.map(msg => `
+                            <div class="message">
+                                <strong>${msg.user}:</strong> ${msg.message}
+                            </div>
+                        `).join('');
+                    }
+
+                    showModal('Community Chat', `
+                        <div class="chat-modal">
+                            <h3>💬 Community Chat</h3>
+                            <div class="chat-messages" id="chatMessages">
+                                ${messagesHTML}
+                            </div>
+                            <div class="chat-input">
+                                <input type="text" id="chatInput" placeholder="Type your message...">
+                                <button onclick="sendMessage()" class="btn-primary">Send</button>
+                            </div>
+                        </div>
+                    `);
+                } catch (error) {
+                    console.error('Error loading chat:', error);
+                    // Fallback to static chat
+                    showModal('Community Chat', `
+                        <div class="chat-modal">
+                            <h3>💬 Community Chat</h3>
+                            <div class="chat-messages" id="chatMessages">
+                                <div class="message">
+                                    <strong>CryptoKing:</strong> Just made a killer trade! 🚀
+                                </div>
+                                <div class="message">
+                                    <strong>DeFiMaster:</strong> Congrats! What's your strategy?
+                                </div>
+                            </div>
+                            <div class="chat-input">
+                                <input type="text" id="chatInput" placeholder="Type your message...">
+                                <button onclick="sendMessage()" class="btn-primary">Send</button>
+                            </div>
+                        </div>
+                    `);
+                }
+            }
+
+            async function sendMessage() {
+                const input = document.getElementById('chatInput');
+                const message = input.value.trim();
+                if (message) {
+                    try {
+                        const response = await fetch('/.netlify/functions/api/chat/send', {
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/json',
+                            },
+                            body: JSON.stringify({ message })
+                        });
+
+                        const result = await response.json();
+
+                        if (result.success) {
+                            const chatMessages = document.getElementById('chatMessages');
+                            chatMessages.innerHTML += `<div class="message"><strong>You:</strong> ${message}</div>`;
+                            input.value = '';
+                            chatMessages.scrollTop = chatMessages.scrollHeight;
+                        } else {
+                            showNotification('Failed to send message: ' + result.message, 'error');
+                        }
+                    } catch (error) {
+                        showNotification('Error sending message: ' + error.message, 'error');
+                    }
+                }
+            }
+
+            function shareAchievement() {
+                showModal('Share Achievement', `
+                    <div class="share-achievement">
+                        <h3>🎉 Share Your Success</h3>
+                        <div class="achievement-options">
+                            <button onclick="shareToTwitter()" class="btn-primary">
+                                <i class="fab fa-twitter"></i> Share on Twitter
+                            </button>
+                            <button onclick="shareToTelegram()" class="btn-secondary">
+                                <i class="fab fa-telegram"></i> Share on Telegram
+                            </button>
+                            <button onclick="shareToDiscord()" class="btn-secondary">
+                                <i class="fab fa-discord"></i> Share on Discord
+                            </button>
+                        </div>
+                    </div>
+                `);
+            }
+
+            function shareToTwitter() {
+                const text = encodeURIComponent("Just achieved something amazing on AwesomeSauceToken! 🚀 #AwesomeSauce #Crypto");
+                window.open(`https://twitter.com/intent/tweet?text=${text}`, '_blank');
+            }
+
+            function shareToTelegram() {
+                const text = encodeURIComponent("Just achieved something amazing on AwesomeSauceToken! 🚀");
+                window.open(`https://t.me/share/url?url=${window.location.href}&text=${text}`, '_blank');
+            }
+
+            function shareToDiscord() {
+                showNotification('Discord sharing coming soon!', 'info');
+            }
+
+            function joinEvents() {
+                showModal('Events & Tournaments', `
+                    <div class="events-modal">
+                        <h3>🎪 Upcoming Events</h3>
+                        <div class="events-list">
+                            <div class="event-item">
+                                <h4>Trading Championship</h4>
+                                <p>Prize Pool: 10 ETH</p>
+                                <p>Starts: Tomorrow 2:00 PM UTC</p>
+                                <button class="btn-primary">Join Now</button>
+                            </div>
+                            <div class="event-item">
+                                <h4>NFT Creation Contest</h4>
+                                <p>Prize Pool: 5 ETH</p>
+                                <p>Starts: Next Week</p>
+                                <button class="btn-primary">Join Now</button>
+                            </div>
+                        </div>
+                    </div>
+                `);
+            }
+
+            // Utility Functions
+            function showModal(title, content) {
+                const modal = document.createElement('div');
+                modal.className = 'modal-overlay';
+                modal.innerHTML = `
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h2>${title}</h2>
+                            <button onclick="closeModal()" class="close-btn">&times;</button>
+                        </div>
+                        <div class="modal-body">
+                            ${content}
+                        </div>
+                    </div>
+                `;
+                document.body.appendChild(modal);
+                modal.style.display = 'flex';
+            }
+
+            function closeModal() {
+                const modal = document.querySelector('.modal-overlay');
+                if (modal) {
+                    modal.remove();
+                }
+            }
+
+            function showNotification(message, type = 'info') {
+                const notification = document.createElement('div');
+                notification.className = `notification ${type}`;
+                notification.innerHTML = `
+                    <span>${message}</span>
+                    <button onclick="this.parentElement.remove()">&times;</button>
+                `;
+                document.body.appendChild(notification);
+                setTimeout(() => notification.remove(), 5000);
+            }
+
+            // Add modal and notification styles
+            const style = document.createElement('style');
+            style.textContent = `
+                .modal-overlay {
+                    position: fixed;
+                    top: 0;
+                    left: 0;
+                    width: 100%;
+                    height: 100%;
+                    background: rgba(0, 0, 0, 0.8);
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    z-index: 1000;
+                }
+                .modal-content {
+                    background: var(--bg-color);
+                    border-radius: 15px;
+                    max-width: 600px;
+                    width: 90%;
+                    max-height: 80vh;
+                    overflow-y: auto;
+                    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+                }
+                .modal-header {
+                    display: flex;
+                    justify-content: space-between;
+                    align-items: center;
+                    padding: 20px;
+                    border-bottom: 1px solid var(--border-color);
+                }
+                .modal-header h2 {
+                    margin: 0;
+                    color: var(--text-color);
+                }
+                .close-btn {
+                    background: none;
+                    border: none;
+                    font-size: 24px;
+                    cursor: pointer;
+                    color: var(--text-color);
+                }
+                .modal-body {
+                    padding: 20px;
+                }
+                .notification {
+                    position: fixed;
+                    top: 20px;
+                    right: 20px;
+                    padding: 15px 20px;
+                    border-radius: 8px;
+                    color: white;
+                    z-index: 1001;
+                    animation: slideIn 0.3s ease;
+                }
+                .notification.success { background: #4CAF50; }
+                .notification.error { background: #f44336; }
+                .notification.info { background: #2196F3; }
+                @keyframes slideIn {
+                    from { transform: translateX(100%); }
+                    to { transform: translateX(0); }
+                }
+                .nft-marketplace, .token-creator, .global-trading, .social-hub {
+                    text-align: center;
+                }
+                .marketplace-actions, .creator-form, .trading-platforms, .social-features {
+                    margin: 20px 0;
+                }
+                .platform-grid, .social-grid {
+                    display: grid;
+                    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+                    gap: 15px;
+                    margin: 20px 0;
+                }
+                .platform-card, .social-card {
+                    background: var(--card-bg);
+                    padding: 20px;
+                    border-radius: 10px;
+                    cursor: pointer;
+                    transition: transform 0.2s;
+                    border: 1px solid var(--border-color);
+                }
+                .platform-card:hover, .social-card:hover {
+                    transform: translateY(-5px);
+                    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+                }
+                .nft-grid {
+                    display: grid;
+                    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+                    gap: 15px;
+                    margin-top: 20px;
+                }
+                .nft-item {
+                    background: var(--card-bg);
+                    border-radius: 10px;
+                    overflow: hidden;
+                    border: 1px solid var(--border-color);
+                }
+                .nft-item img {
+                    width: 100%;
+                    height: 150px;
+                    object-fit: cover;
+                }
+                .nft-item h4 {
+                    margin: 10px;
+                    color: var(--text-color);
+                }
+                .nft-item p {
+                    margin: 0 10px 10px;
+                    color: var(--accent-color);
+                    font-weight: bold;
+                }
+                .form-group {
+                    margin-bottom: 15px;
+                    text-align: left;
+                }
+                .form-group label {
+                    display: block;
+                    margin-bottom: 5px;
+                    color: var(--text-color);
+                }
+                .form-group input, .form-group textarea, .form-group select {
+                    width: 100%;
+                    padding: 10px;
+                    border: 1px solid var(--border-color);
+                    border-radius: 5px;
+                    background: var(--bg-color);
+                    color: var(--text-color);
+                }
+                .checkbox-group {
+                    display: flex;
+                    gap: 15px;
+                    flex-wrap: wrap;
+                }
+                .checkbox-group label {
+                    display: flex;
+                    align-items: center;
+                    gap: 5px;
+                }
+                .leaderboard-list {
+                    margin-top: 20px;
+                }
+                .leader-item {
+                    display: flex;
+                    justify-content: space-between;
+                    align-items: center;
+                    padding: 10px;
+                    background: var(--card-bg);
+                    margin-bottom: 5px;
+                    border-radius: 5px;
+                    border: 1px solid var(--border-color);
+                }
+                .rank {
+                    font-weight: bold;
+                    color: var(--accent-color);
+                }
+                .chat-messages {
+                    max-height: 300px;
+                    overflow-y: auto;
+                    background: var(--card-bg);
+                    padding: 10px;
+                    border-radius: 5px;
+                    margin-bottom: 10px;
+                }
+                .message {
+                    margin-bottom: 10px;
+                    padding: 5px 0;
+                }
+                .chat-input {
+                    display: flex;
+                    gap: 10px;
+                }
+                .chat-input input {
+                    flex: 1;
+                    padding: 10px;
+                    border: 1px solid var(--border-color);
+                    border-radius: 5px;
+                    background: var(--bg-color);
+                    color: var(--text-color);
+                }
+                .achievement-options {
+                    display: flex;
+                    flex-direction: column;
+                    gap: 10px;
+                    margin-top: 20px;
+                }
+                .events-list {
+                    margin-top: 20px;
+                }
+                .event-item {
+                    background: var(--card-bg);
+                    padding: 15px;
+                    border-radius: 10px;
+                    margin-bottom: 10px;
+                    border: 1px solid var(--border-color);
+                }
+                .event-item h4 {
+                    margin: 0 0 10px 0;
+                    color: var(--text-color);
+                }
+                .event-item p {
+                    margin: 5px 0;
+                    color: var(--text-secondary);
+                }
+                .bot-status, .bot-controls, .bot-stats {
+                    margin: 20px 0;
+                }
+                .bot-controls {
+                    display: flex;
+                    gap: 10px;
+                    justify-content: center;
+                }
+                .bot-stats {
+                    display: flex;
+                    justify-content: space-around;
+                    margin-top: 20px;
+                }
+                .stat {
+                    text-align: center;
+                }
+                .stat h4 {
+                    margin: 0 0 10px 0;
+                    color: var(--text-secondary);
+                }
+                .stat p {
+                    font-size: 24px;
+                    font-weight: bold;
+                    color: var(--accent-color);
+                }
+                .social-stats {
+                    display: flex;
+                    justify-content: space-around;
+                    margin-top: 30px;
+                    padding-top: 20px;
+                    border-top: 1px solid var(--border-color);
+                }
+            `;
+            document.head.appendChild(style);
         </script>
     </div>
 </body>

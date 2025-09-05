@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Systems Test - AwesomeSauceToken</title>
+    <style>
+        body { 
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white; 
+            padding: 20px;
+            min-height: 100vh;
+        }
+        .container { max-width: 800px; margin: 0 auto; }
+        .header { text-align: center; margin-bottom: 40px; }
+        .test-section { 
+            background: rgba(255, 255, 255, 0.1); 
+            padding: 20px; 
+            border-radius: 15px; 
+            margin-bottom: 20px;
+            backdrop-filter: blur(10px);
+        }
+        .btn { 
+            background: rgba(255, 255, 255, 0.2); 
+            color: white; 
+            border: none; 
+            padding: 10px 20px; 
+            border-radius: 8px; 
+            cursor: pointer; 
+            margin: 5px;
+        }
+        .btn:hover { background: rgba(255, 255, 255, 0.3); }
+        .result { 
+            background: rgba(0, 0, 0, 0.2); 
+            padding: 15px; 
+            border-radius: 10px; 
+            margin-top: 15px; 
+            white-space: pre-wrap; 
+            font-family: monospace;
+        }
+        .success { border-left: 4px solid #4CAF50; }
+        .error { border-left: 4px solid #f44336; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🤖 AI Systems Test</h1>
+            <p>Testing the AI backend functionality</p>
+        </div>
+
+        <div class="test-section">
+            <h3>AI Health Check</h3>
+            <button class="btn" onclick="testHealth()">Test Health Endpoint</button>
+            <div id="health-result" class="result" style="display: none;"></div>
+        </div>
+
+        <div class="test-section">
+            <h3>AI Status</h3>
+            <button class="btn" onclick="testStatus()">Get AI Status</button>
+            <div id="status-result" class="result" style="display: none;"></div>
+        </div>
+
+        <div class="test-section">
+            <h3>AI Insights</h3>
+            <button class="btn" onclick="testInsights()">Get AI Insights</button>
+            <div id="insights-result" class="result" style="display: none;"></div>
+        </div>
+
+        <div class="test-section">
+            <h3>Treasury Strategy</h3>
+            <button class="btn" onclick="setStrategy('conservative')">Conservative</button>
+            <button class="btn" onclick="setStrategy('moderate')">Moderate</button>
+            <button class="btn" onclick="setStrategy('aggressive')">Aggressive</button>
+            <div id="strategy-result" class="result" style="display: none;"></div>
+        </div>
+    </div>
+
+    <script>
+        async function testHealth() {
+            const resultDiv = document.getElementById('health-result');
+            resultDiv.style.display = 'block';
+            resultDiv.textContent = 'Testing...';
+            
+            try {
+                const response = await fetch('/api/ai/health');
+                const data = await response.json();
+                
+                resultDiv.className = 'result success';
+                resultDiv.textContent = JSON.stringify(data, null, 2);
+            } catch (error) {
+                resultDiv.className = 'result error';
+                resultDiv.textContent = 'Error: ' + error.message;
+            }
+        }
+
+        async function testStatus() {
+            const resultDiv = document.getElementById('status-result');
+            resultDiv.style.display = 'block';
+            resultDiv.textContent = 'Testing...';
+            
+            try {
+                const response = await fetch('/api/ai/status');
+                const data = await response.json();
+                
+                resultDiv.className = 'result success';
+                resultDiv.textContent = JSON.stringify(data, null, 2);
+            } catch (error) {
+                resultDiv.className = 'result error';
+                resultDiv.textContent = 'Error: ' + error.message;
+            }
+        }
+
+        async function testInsights() {
+            const resultDiv = document.getElementById('insights-result');
+            resultDiv.style.display = 'block';
+            resultDiv.textContent = 'Testing...';
+            
+            try {
+                const response = await fetch('/api/ai/insights?limit=3');
+                const data = await response.json();
+                
+                resultDiv.className = 'result success';
+                resultDiv.textContent = JSON.stringify(data, null, 2);
+            } catch (error) {
+                resultDiv.className = 'result error';
+                resultDiv.textContent = 'Error: ' + error.message;
+            }
+        }
+
+        async function setStrategy(strategy) {
+            const resultDiv = document.getElementById('strategy-result');
+            resultDiv.style.display = 'block';
+            resultDiv.textContent = 'Setting strategy...';
+            
+            try {
+                const response = await fetch('/api/ai/treasury/strategy', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ strategy })
+                });
+                const data = await response.json();
+                
+                resultDiv.className = 'result success';
+                resultDiv.textContent = JSON.stringify(data, null, 2);
+            } catch (error) {
+                resultDiv.className = 'result error';
+                resultDiv.textContent = 'Error: ' + error.message;
+            }
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,594 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Dashboard - AwesomeSauceToken</title>
+    <meta name="description" content="AI-powered continuous maintenance, treasury management, and enhancement dashboard">
+    
+    <!-- PWA -->
+    <link rel="manifest" href="/manifest.json">
+    <link rel="icon" href="/icon-192.png" sizes="192x192">
+    <link rel="apple-touch-icon" href="/icon-192.png">
+    <meta name="theme-color" content="#667eea">
+    
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            color: #333;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .header {
+            text-align: center;
+            padding: 30px 20px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            margin-bottom: 30px;
+            backdrop-filter: blur(10px);
+        }
+
+        .header h1 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: white;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .header p {
+            font-size: 1.1rem;
+            color: rgba(255, 255, 255, 0.9);
+        }
+
+        .dashboard-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .card {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 15px;
+            padding: 25px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .card h3 {
+            color: white;
+            font-size: 1.3rem;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .status-indicator {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            display: inline-block;
+        }
+
+        .status-running { background: #4CAF50; }
+        .status-stopped { background: #f44336; }
+        .status-warning { background: #ff9800; }
+
+        .metric-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+            margin-top: 15px;
+        }
+
+        .metric {
+            background: rgba(0, 0, 0, 0.1);
+            padding: 15px;
+            border-radius: 10px;
+            text-align: center;
+        }
+
+        .metric-value {
+            font-size: 1.8rem;
+            font-weight: bold;
+            color: white;
+            margin-bottom: 5px;
+        }
+
+        .metric-label {
+            font-size: 0.9rem;
+            color: rgba(255, 255, 255, 0.8);
+        }
+
+        .insights-section {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 15px;
+            padding: 25px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            margin-bottom: 20px;
+        }
+
+        .insights-section h3 {
+            color: white;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .insight {
+            background: rgba(0, 0, 0, 0.1);
+            padding: 15px;
+            border-radius: 10px;
+            margin-bottom: 10px;
+            border-left: 4px solid #4CAF50;
+        }
+
+        .insight.priority-high {
+            border-left-color: #ff9800;
+        }
+
+        .insight.priority-critical {
+            border-left-color: #f44336;
+        }
+
+        .insight-title {
+            color: white;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+
+        .insight-description {
+            color: rgba(255, 255, 255, 0.8);
+            font-size: 0.9rem;
+        }
+
+        .insight-timestamp {
+            color: rgba(255, 255, 255, 0.6);
+            font-size: 0.8rem;
+            margin-top: 5px;
+        }
+
+        .controls {
+            display: flex;
+            gap: 10px;
+            margin-top: 20px;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 8px;
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 0.9rem;
+        }
+
+        .btn:hover {
+            background: rgba(255, 255, 255, 0.3);
+            transform: translateY(-2px);
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+        }
+
+        .loading {
+            text-align: center;
+            color: rgba(255, 255, 255, 0.8);
+            padding: 40px;
+        }
+
+        .error {
+            background: rgba(244, 67, 54, 0.2);
+            border: 1px solid rgba(244, 67, 54, 0.5);
+            color: white;
+            padding: 15px;
+            border-radius: 10px;
+            margin: 10px 0;
+        }
+
+        @media (max-width: 768px) {
+            .dashboard-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .metric-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .header h1 {
+                font-size: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1><i class="fas fa-robot"></i> AI Dashboard</h1>
+            <p>Continuous Maintenance • Treasury Management • Enhancement Optimization</p>
+        </div>
+
+        <div id="loading" class="loading">
+            <i class="fas fa-spinner fa-spin fa-2x"></i>
+            <p>Loading AI systems status...</p>
+        </div>
+
+        <div id="dashboard" style="display: none;">
+            <div class="dashboard-grid">
+                <!-- Maintenance AI Card -->
+                <div class="card">
+                    <h3>
+                        <i class="fas fa-tools"></i>
+                        Maintenance AI
+                        <span id="maintenance-status" class="status-indicator status-stopped"></span>
+                    </h3>
+                    <div class="metric-grid">
+                        <div class="metric">
+                            <div class="metric-value" id="maintenance-health">--</div>
+                            <div class="metric-label">System Health</div>
+                        </div>
+                        <div class="metric">
+                            <div class="metric-value" id="maintenance-actions">--</div>
+                            <div class="metric-label">Actions Today</div>
+                        </div>
+                    </div>
+                    <div class="controls">
+                        <button class="btn" onclick="restartSystem('maintenance')">
+                            <i class="fas fa-redo"></i> Restart
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Treasury AI Card -->
+                <div class="card">
+                    <h3>
+                        <i class="fas fa-coins"></i>
+                        Treasury AI
+                        <span id="treasury-status" class="status-indicator status-stopped"></span>
+                    </h3>
+                    <div class="metric-grid">
+                        <div class="metric">
+                            <div class="metric-value" id="treasury-value">$--</div>
+                            <div class="metric-label">Total Value</div>
+                        </div>
+                        <div class="metric">
+                            <div class="metric-value" id="treasury-risk">--</div>
+                            <div class="metric-label">Risk Level</div>
+                        </div>
+                    </div>
+                    <div class="controls">
+                        <button class="btn" onclick="setTreasuryStrategy('conservative')">Conservative</button>
+                        <button class="btn" onclick="setTreasuryStrategy('moderate')">Moderate</button>
+                        <button class="btn" onclick="setTreasuryStrategy('aggressive')">Aggressive</button>
+                        <button class="btn" onclick="restartSystem('treasury')">
+                            <i class="fas fa-redo"></i> Restart
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Enhancement AI Card -->
+                <div class="card">
+                    <h3>
+                        <i class="fas fa-chart-line"></i>
+                        Enhancement AI
+                        <span id="enhancement-status" class="status-indicator status-stopped"></span>
+                    </h3>
+                    <div class="metric-grid">
+                        <div class="metric">
+                            <div class="metric-value" id="enhancement-tests">--</div>
+                            <div class="metric-label">Active Tests</div>
+                        </div>
+                        <div class="metric">
+                            <div class="metric-value" id="enhancement-completed">--</div>
+                            <div class="metric-label">Completed</div>
+                        </div>
+                    </div>
+                    <div class="controls">
+                        <button class="btn" onclick="startABTest()">
+                            <i class="fas fa-flask"></i> New A/B Test
+                        </button>
+                        <button class="btn" onclick="restartSystem('enhancement')">
+                            <i class="fas fa-redo"></i> Restart
+                        </button>
+                    </div>
+                </div>
+
+                <!-- System Overview Card -->
+                <div class="card">
+                    <h3>
+                        <i class="fas fa-tachometer-alt"></i>
+                        System Overview
+                    </h3>
+                    <div class="metric-grid">
+                        <div class="metric">
+                            <div class="metric-value" id="total-insights">--</div>
+                            <div class="metric-label">Active Insights</div>
+                        </div>
+                        <div class="metric">
+                            <div class="metric-value" id="critical-alerts">--</div>
+                            <div class="metric-label">Critical Alerts</div>
+                        </div>
+                    </div>
+                    <div class="controls">
+                        <button class="btn btn-primary" onclick="startAllSystems()">
+                            <i class="fas fa-play"></i> Start All AI
+                        </button>
+                        <button class="btn" onclick="stopAllSystems()">
+                            <i class="fas fa-stop"></i> Stop All
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- AI Insights Section -->
+            <div class="insights-section">
+                <h3>
+                    <i class="fas fa-lightbulb"></i>
+                    Recent AI Insights
+                    <button class="btn" onclick="refreshInsights()" style="margin-left: auto;">
+                        <i class="fas fa-sync"></i> Refresh
+                    </button>
+                </h3>
+                <div id="insights-container">
+                    <!-- Insights will be loaded here -->
+                </div>
+            </div>
+        </div>
+
+        <div id="error-container"></div>
+    </div>
+
+    <script>
+        let refreshInterval;
+        let aiSystemsStarted = false;
+
+        async function fetchAIStatus() {
+            try {
+                const response = await fetch('/api/ai/status');
+                const data = await response.json();
+                
+                if (data.success) {
+                    updateDashboard(data.data);
+                    if (!aiSystemsStarted) {
+                        await startAllSystems();
+                        aiSystemsStarted = true;
+                    }
+                } else {
+                    throw new Error(data.error || 'Failed to fetch AI status');
+                }
+            } catch (error) {
+                showError('Failed to connect to AI systems: ' + error.message);
+                console.error('AI Status Error:', error);
+            }
+        }
+
+        async function fetchInsights() {
+            try {
+                const response = await fetch('/api/ai/insights?limit=20');
+                const data = await response.json();
+                
+                if (data.success) {
+                    displayInsights(data.data);
+                    
+                    // Update insight counts
+                    document.getElementById('total-insights').textContent = data.count;
+                    
+                    // Count critical alerts
+                    const criticalCount = data.data.filter(insight => 
+                        insight.priority === 'critical' || insight.priority === 'high'
+                    ).length;
+                    document.getElementById('critical-alerts').textContent = criticalCount;
+                }
+            } catch (error) {
+                console.error('Failed to fetch insights:', error);
+            }
+        }
+
+        function updateDashboard(status) {
+            // Update maintenance AI
+            const maintenanceStatus = status.maintenance.running ? 'status-running' : 'status-stopped';
+            document.getElementById('maintenance-status').className = `status-indicator ${maintenanceStatus}`;
+            document.getElementById('maintenance-health').textContent = status.maintenance.healthy ? 'Healthy' : 'Issues';
+            document.getElementById('maintenance-actions').textContent = status.maintenance.actionsToday;
+
+            // Update treasury AI
+            const treasuryStatus = status.treasury.running ? 'status-running' : 'status-stopped';
+            document.getElementById('treasury-status').className = `status-indicator ${treasuryStatus}`;
+            document.getElementById('treasury-value').textContent = `$${(status.treasury.totalValue || 0).toLocaleString()}`;
+            document.getElementById('treasury-risk').textContent = status.treasury.riskLevel.toUpperCase();
+
+            // Update enhancement AI
+            const enhancementStatus = status.enhancement.running ? 'status-running' : 'status-stopped';
+            document.getElementById('enhancement-status').className = `status-indicator ${enhancementStatus}`;
+            document.getElementById('enhancement-tests').textContent = status.enhancement.activeTests;
+            document.getElementById('enhancement-completed').textContent = status.enhancement.completedEnhancements;
+
+            // Show dashboard
+            document.getElementById('loading').style.display = 'none';
+            document.getElementById('dashboard').style.display = 'block';
+        }
+
+        function displayInsights(insights) {
+            const container = document.getElementById('insights-container');
+            
+            if (insights.length === 0) {
+                container.innerHTML = '<p style="color: rgba(255, 255, 255, 0.6); text-align: center;">No insights available</p>';
+                return;
+            }
+
+            container.innerHTML = insights.slice(0, 10).map(insight => `
+                <div class="insight priority-${insight.priority}">
+                    <div class="insight-title">
+                        <i class="fas fa-${getInsightIcon(insight.type)}"></i>
+                        ${insight.title}
+                    </div>
+                    <div class="insight-description">${insight.description}</div>
+                    <div class="insight-timestamp">${new Date(insight.timestamp).toLocaleString()}</div>
+                </div>
+            `).join('');
+        }
+
+        function getInsightIcon(type) {
+            const icons = {
+                maintenance: 'tools',
+                treasury: 'coins',
+                enhancement: 'chart-line',
+                system: 'server'
+            };
+            return icons[type] || 'info-circle';
+        }
+
+        async function startAllSystems() {
+            try {
+                const response = await fetch('/api/ai/start', { method: 'POST' });
+                const data = await response.json();
+                
+                if (data.success) {
+                    showSuccess('All AI systems started successfully');
+                    setTimeout(fetchAIStatus, 2000); // Refresh status after 2 seconds
+                } else {
+                    throw new Error(data.error);
+                }
+            } catch (error) {
+                showError('Failed to start AI systems: ' + error.message);
+            }
+        }
+
+        async function stopAllSystems() {
+            try {
+                const response = await fetch('/api/ai/stop', { method: 'POST' });
+                const data = await response.json();
+                
+                if (data.success) {
+                    showSuccess('All AI systems stopped');
+                    setTimeout(fetchAIStatus, 2000);
+                } else {
+                    throw new Error(data.error);
+                }
+            } catch (error) {
+                showError('Failed to stop AI systems: ' + error.message);
+            }
+        }
+
+        async function restartSystem(system) {
+            try {
+                const response = await fetch(`/api/ai/restart/${system}`, { method: 'POST' });
+                const data = await response.json();
+                
+                if (data.success) {
+                    showSuccess(`${system} AI system restarted successfully`);
+                    setTimeout(fetchAIStatus, 3000);
+                } else {
+                    throw new Error(data.error);
+                }
+            } catch (error) {
+                showError(`Failed to restart ${system} AI: ` + error.message);
+            }
+        }
+
+        async function setTreasuryStrategy(strategy) {
+            try {
+                const response = await fetch('/api/ai/treasury/strategy', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ strategy })
+                });
+                const data = await response.json();
+                
+                if (data.success) {
+                    showSuccess(`Treasury strategy set to: ${strategy}`);
+                    setTimeout(fetchAIStatus, 1000);
+                } else {
+                    throw new Error(data.error);
+                }
+            } catch (error) {
+                showError('Failed to set treasury strategy: ' + error.message);
+            }
+        }
+
+        async function startABTest() {
+            const testName = prompt('Enter A/B test name:') || 'Button Color Test';
+            const metric = prompt('Enter metric to track:', 'conversion_rate') || 'conversion_rate';
+            
+            try {
+                const response = await fetch('/api/ai/abtest', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        name: testName,
+                        metric: metric,
+                        variant: 'A'
+                    })
+                });
+                const data = await response.json();
+                
+                if (data.success) {
+                    showSuccess(`A/B test "${testName}" started successfully`);
+                    setTimeout(fetchAIStatus, 1000);
+                } else {
+                    throw new Error(data.error);
+                }
+            } catch (error) {
+                showError('Failed to start A/B test: ' + error.message);
+            }
+        }
+
+        function refreshInsights() {
+            fetchInsights();
+        }
+
+        function showError(message) {
+            const container = document.getElementById('error-container');
+            container.innerHTML = `<div class="error"><i class="fas fa-exclamation-triangle"></i> ${message}</div>`;
+            setTimeout(() => container.innerHTML = '', 5000);
+        }
+
+        function showSuccess(message) {
+            const container = document.getElementById('error-container');
+            container.innerHTML = `<div class="error" style="background: rgba(76, 175, 80, 0.2); border-color: rgba(76, 175, 80, 0.5);"><i class="fas fa-check-circle"></i> ${message}</div>`;
+            setTimeout(() => container.innerHTML = '', 3000);
+        }
+
+        // Initialize dashboard
+        document.addEventListener('DOMContentLoaded', async function() {
+            await fetchAIStatus();
+            await fetchInsights();
+            
+            // Set up auto-refresh
+            refreshInterval = setInterval(() => {
+                fetchAIStatus();
+                fetchInsights();
+            }, 30000); // Refresh every 30 seconds
+        });
+
+        // Cleanup on page unload
+        window.addEventListener('beforeunload', function() {
+            if (refreshInterval) {
+                clearInterval(refreshInterval);
+            }
+        });
+    </script>
+</body>
+</html>

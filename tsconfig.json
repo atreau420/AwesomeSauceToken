@@ -3,14 +3,19 @@
     "target": "ES2022",
     "module": "ES2020",
     "moduleResolution": "node",
-    "outDir": ".",
+    "outDir": "./dist",
     "rootDir": ".",
     "esModuleInterop": true,
     "skipLibCheck": true,
     "strict": false,
     "resolveJsonModule": true,
-    "forceConsistentCasingInFileNames": true
+    "forceConsistentCasingInFileNames": true,
+    "incremental": true,
+    "tsBuildInfoFile": "./dist/.tsbuildinfo",
+    "declaration": true,
+    "declarationMap": true,
+    "sourceMap": true
   },
-  "include": ["src/**/*", "api/**/*"],
-  "exclude": []
+  "include": ["src/**/*", "api/**/*", "src/backend/**/*"],
+  "exclude": ["node_modules", "dist"]
 }
