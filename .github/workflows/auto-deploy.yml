@@ -1,0 +1,94 @@
+name: 🚀 Auto-Deploy AI Income Generator
+
+on:
+  push:
+    branches: [ main, copilot/* ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  deploy-income-generator:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: 🔄 Checkout Code
+      uses: actions/checkout@v4
+      
+    - name: ⚡ Setup Node.js 20
+      uses: actions/setup-node@v4
+      with:
+        node-version: '20'
+        cache: 'npm'
+        
+    - name: 📦 Install Dependencies
+      run: |
+        npm ci
+        echo "✅ Dependencies installed"
+        
+    - name: 🧪 Run Tests (Income Features)
+      run: |
+        npm test
+        echo "✅ All income generation tests passed!"
+        
+    - name: 🔍 Security Audit
+      run: |
+        npm audit --audit-level=moderate
+        echo "✅ Security check passed"
+        
+    - name: 🏗️ Build for Production
+      run: |
+        npm run build:netlify
+        echo "✅ AI Marketplace built for production"
+        
+    - name: 🚀 Deploy to Netlify
+      uses: nwtgck/actions-netlify@v2.0
+      with:
+        publish-dir: '.'
+        production-branch: main
+        github-token: ${{ secrets.GITHUB_TOKEN }}
+        deploy-message: |
+          🚀 AI Income Generator LIVE!
+          💰 Revenue streams: Platform fees, Premium features, Dynamic pricing
+          🤖 AI Features: Strategy generator, Fraud detection, Analytics
+          ⛓️ Blockchain: Polygon mainnet integration
+        enable-pull-request-comment: true
+        enable-commit-comment: true
+        overwrites-pull-request-comment: true
+      env:
+        NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
+        NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
+        # Blockchain credentials for income generation
+        PRIVATE_KEY: ${{ secrets.PRIVATE_KEY }}
+        POLYGON_RPC_URL: ${{ secrets.POLYGON_RPC_URL }}
+        ETHERSCAN_API_KEY: ${{ secrets.ETHERSCAN_API_KEY }}
+        # AI & Revenue settings
+        NODE_ENV: production
+        AI_PRICING_ENABLED: true
+        PLATFORM_FEE_BP: 150
+        FEATURED_DAILY_RATE_ETH: 0.001
+        SPONSORED_SLOT_RATE_ETH: 0.005
+        
+    - name: 🎉 Deployment Success
+      if: success()
+      run: |
+        echo "🎉 INCOME GENERATOR IS LIVE!"
+        echo "💰 Revenue streams are now ACTIVE:"
+        echo "   • Platform fees: 1.5% of all transactions"
+        echo "   • Featured listings: Dynamic AI pricing"
+        echo "   • Sponsored slots: Demand-based rates"
+        echo "   • Premium AI features: Strategy generator"
+        echo ""
+        echo "📊 Monitor your income at:"
+        echo "   • Live site: https://your-site.netlify.app"
+        echo "   • Analytics: Built-in AI dashboard"
+        echo "   • Revenue tracking: Real-time metrics"
+        
+    - name: 🚨 Deployment Failure Alert
+      if: failure()
+      run: |
+        echo "🚨 DEPLOYMENT FAILED - Income generation delayed!"
+        echo "🔧 Check logs above for issues"
+        echo "💡 Common fixes:"
+        echo "   • Verify secrets are set in GitHub"
+        echo "   • Check Netlify auth token"
+        echo "   • Ensure tests pass"

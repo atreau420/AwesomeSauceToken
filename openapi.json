@@ -1,0 +1,139 @@
+{
+  "openapi": "3.0.3",
+  "info": {
+    "title": "AwesomeSauceToken API",
+    "version": "0.1.0",
+    "description": "Marketplace, games, monetization & trading bot endpoints"
+  },
+  "paths": {
+    "/api/auth/nonce": {"post": {"summary": "Request a nonce","requestBody": {"required": true},"responses": {"200": {"description": "Nonce issued"}}}},
+    "/api/auth/verify": {"post": {"summary": "Verify signature & create session","responses": {"200": {"description": "Session token"}}}},
+    "/api/marketplace/listings": {"get": {"summary": "List active listings","responses": {"200": {"description": "OK"}}}},
+    "/api/marketplace/listings/user": {"post": {"summary": "Create user listing (session)","responses": {"200": {"description": "Created"}}}},
+    "/api/marketplace/listings/{id}/feature": {"post": {"summary": "Feature a listing","parameters": [{"name": "id","in": "path","required": true,"schema": {"type": "string"}}],"responses": {"200": {"description": "Featured"}}}},
+    "/api/marketplace/sponsored/active": {"get": {"summary": "Active sponsored slots","responses": {"200": {"description": "OK"}}}},
+    "/api/marketplace/sponsored/buy": {"post": {"summary": "Buy sponsored slot","responses": {"200": {"description": "OK"}}}},
+    "/api/marketplace/aggregate": {"get": {"summary": "Aggregate listings (optional api key)","parameters": [{"name": "platforms","in": "query","schema": {"type": "string"}}],"responses": {"200": {"description": "OK"}}}},
+    "/api/marketplace/purchase": {"post": {"summary": "Purchase a listing","responses": {"200": {"description": "OK"}}}},
+    "/api/games/credits/packs": {"get": {"summary": "Credit packs"}},
+    "/api/games/credits/purchase": {"post": {"summary": "Buy a credit pack"}},
+    "/api/games/coinflip/play": {"post": {"summary": "Play coinflip"}},
+    "/api/games/wheel/spin": {"post": {"summary": "Spin wheel"}},
+    "/api/games/fair/current": {"get": {"summary": "Current fairness seed hash"}},
+    "/api/games/fair/reveal": {"post": {"summary": "Rotate & reveal previous seed"}},
+    "/api/mystery/boxes": {"get": {"summary": "List mystery boxes"}},
+    "/api/mystery/open": {"post": {"summary": "Open mystery box"}},
+    "/api/mint/free": {"post": {"summary": "Claim free mint"}},
+    "/api/referral/register": {"post": {"summary": "Register referral code"}},
+    "/api/referral/apply": {"post": {"summary": "Apply referral code"}},
+    "/api/referral/earnings/{address}": {"get": {"summary": "Referral earnings","parameters": [{"name": "address","in": "path","required": true,"schema": {"type": "string"}}]}},
+    "/api/auctions/create": {"post": {"summary": "Create auction"}},
+    "/api/auctions/{id}/bid": {"post": {"summary": "Bid on auction"}},
+    "/api/auctions/{id}/finalize": {"post": {"summary": "Finalize auction"}},
+    "/api/auctions/active": {"get": {"summary": "Active auctions"}},
+    "/api/bundles/create": {"post": {"summary": "Create bundle"}},
+    "/api/bundles/{id}/purchase": {"post": {"summary": "Purchase bundle"}},
+    "/api/bundles/active": {"get": {"summary": "Active bundles"}},
+    "/api/keys/issue": {"post": {"summary": "Issue API key"}},
+    "/api/keys/usage": {"get": {"summary": "List API keys"}},
+    "/api/revenue/summary": {"get": {"summary": "Revenue summary (admin)"}},
+    "/api/ai/optimizer/status": {
+      "get": {
+        "tags": ["AI Optimizer"],
+        "summary": "Get current AI pricing optimizer status",
+        "security": [{"ApiKeyAuth": []}],
+        "responses": {
+          "200": {
+            "description": "Current optimizer status"
+          }
+        }
+      }
+    },
+    "/api/ai/optimizer/adjust": {
+      "post": {
+        "tags": ["AI Optimizer"],
+        "summary": "Force AI pricing adjustment",
+        "security": [{"ApiKeyAuth": []}],
+        "responses": {
+          "200": {
+            "description": "Adjustment completed"
+          }
+        }
+      }
+    },
+    "/api/ai/suggestions": {
+      "get": {
+        "tags": ["AI Optimizer"],
+        "summary": "Get AI-generated suggestions",
+        "security": [{"ApiKeyAuth": []}],
+        "responses": {
+          "200": {
+            "description": "List of AI suggestions"
+          }
+        }
+      }
+    },
+    "/api/ai/strategy/generate": {
+      "post": {
+        "tags": ["AI Strategy"],
+        "summary": "Generate AI-powered trading strategy",
+        "security": [{"ApiKeyAuth": []}],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "riskTolerance": {
+                    "type": "string",
+                    "enum": ["conservative", "moderate", "aggressive"]
+                  },
+                  "investmentGoal": {
+                    "type": "string",
+                    "enum": ["income", "growth", "quick"]
+                  },
+                  "marketFocus": {
+                    "type": "string",
+                    "enum": ["tokens", "nfts", "defi", "mixed"]
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Generated trading strategy"
+          }
+        }
+      }
+    },
+    "/api/ai/security/scan": {
+      "post": {
+        "tags": ["AI Security"],
+        "summary": "Run comprehensive AI security scan",
+        "security": [{"ApiKeyAuth": []}],
+        "responses": {
+          "200": {
+            "description": "Security scan results including risk assessment"
+          }
+        }
+      }
+    },
+    "/api/ai/analytics/metrics": {
+      "get": {
+        "tags": ["AI Analytics"],
+        "summary": "Get advanced AI analytics metrics",
+        "security": [{"ApiKeyAuth": []}],
+        "responses": {
+          "200": {
+            "description": "Comprehensive analytics metrics"
+          }
+        }
+      }
+    },
+    "/metrics": {"get": {"summary": "Prometheus metrics"}},
+    "/health": {"get": {"summary": "Health check"}}
+  }
+}

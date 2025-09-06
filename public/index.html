@@ -1390,21 +1390,6 @@
             }
         }
 
-        .notification button {
-            background: none;
-            border: none;
-            color: white;
-            font-size: 18px;
-            cursor: pointer;
-            margin-left: 10px;
-            opacity: 0.8;
-            transition: opacity 0.2s;
-        }
-
-        .notification button:hover {
-            opacity: 1;
-        }
-
         /* Responsive Design */
         @media (max-width: 768px) {
             .feature-cards {
@@ -1577,6 +1562,43 @@
     <div class="notification-container" id="notificationContainer"></div>
 
     <div class="container">
+        <!-- Global Navigation -->
+        <nav id="mainNav" style="display:flex;flex-wrap:wrap;gap:14px;align-items:center;justify-content:center;margin:15px 0 35px 0;padding:14px 20px;border-radius:60px;background:rgba(255,255,255,0.15);backdrop-filter:blur(12px);box-shadow:0 8px 24px -6px rgba(0,0,0,0.35);">
+            <a href="#marketHub" class="nav-link" style="color:#fff;font-weight:600;text-decoration:none;padding:8px 16px;border-radius:30px;transition:.25s">Marketplace</a>
+            <a href="#gamesHub" class="nav-link" style="color:#fff;font-weight:600;text-decoration:none;padding:8px 16px;border-radius:30px;transition:.25s">Games</a>
+            <a href="#referralHub" class="nav-link" style="color:#fff;font-weight:600;text-decoration:none;padding:8px 16px;border-radius:30px;transition:.25s">Mint & Referral</a>
+            <a href="#promoHub" class="nav-link" style="color:#fff;font-weight:600;text-decoration:none;padding:8px 16px;border-radius:30px;transition:.25s">Promotions</a>
+            <a href="#auctionHub" class="nav-link" style="color:#fff;font-weight:600;text-decoration:none;padding:8px 16px;border-radius:30px;transition:.25s">Auctions</a>
+            <a href="#bundleHub" class="nav-link" style="color:#fff;font-weight:600;text-decoration:none;padding:8px 16px;border-radius:30px;transition:.25s">Bundles</a>
+            <a href="#apiHub" class="nav-link" style="color:#fff;font-weight:600;text-decoration:none;padding:8px 16px;border-radius:30px;transition:.25s">API Keys</a>
+            <a href="#revenueHub" class="nav-link" style="color:#fff;font-weight:600;text-decoration:none;padding:8px 16px;border-radius:30px;transition:.25s">Revenue</a>
+        </nav>
+        <style>
+            #mainNav .nav-link:hover, #mainNav .nav-link.active {background:linear-gradient(135deg,#667eea,#764ba2);box-shadow:0 4px 18px -4px rgba(118,75,162,0.55)}
+            section.feature-slab{margin:60px 0;padding:40px 35px;border-radius:32px;background:linear-gradient(145deg,rgba(255,255,255,0.15),rgba(255,255,255,0.05));backdrop-filter:blur(14px);box-shadow:0 25px 60px -15px rgba(0,0,0,0.45);}
+            .glass-card{background:linear-gradient(145deg,rgba(255,255,255,0.25),rgba(255,255,255,0.10));padding:18px 22px;border:1px solid rgba(255,255,255,0.25);border-radius:20px;backdrop-filter:blur(12px);transition:.25s;}
+            .glass-card:hover{transform:translateY(-4px);box-shadow:0 18px 40px -12px rgba(0,0,0,0.4)}
+            .flex-row{display:flex;flex-wrap:wrap;gap:18px;align-items:stretch}
+            .w-25{flex:1 1 240px;min-width:240px}
+            .badge-chip{display:inline-block;padding:4px 10px;border-radius:18px;background:rgba(255,255,255,0.18);font-size:.7rem;letter-spacing:.5px;text-transform:uppercase;margin-right:6px;margin-bottom:6px}
+            .pill-btn{border:none;background:linear-gradient(135deg,#4facfe,#00f2fe);padding:10px 20px;border-radius:30px;color:#fff;font-weight:600;cursor:pointer;box-shadow:0 8px 24px -6px rgba(0,0,0,.4);transition:.25s}
+            .pill-btn.alt{background:linear-gradient(135deg,#ff6b6b,#f093fb)}
+            .pill-btn.outline{background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.35);backdrop-filter:blur(8px)}
+            .pill-btn:hover{transform:translateY(-3px);box-shadow:0 12px 32px -8px rgba(0,0,0,.5)}
+            table.slim{width:100%;border-collapse:collapse;margin-top:14px;font-size:.85rem}
+            table.slim th,table.slim td{padding:6px 8px;text-align:left;border-bottom:1px solid rgba(255,255,255,.15)}
+            table.slim th{font-weight:600;color:#fff}
+            table.slim td{color:#e7e7e7}
+            .text-accent{color:#4ecdc4;font-weight:600}
+            .grid{display:grid;gap:16px}
+            .grid.cols-4{grid-template-columns:repeat(auto-fit,minmax(200px,1fr))}
+            .mini-input{width:100%;padding:8px 10px;border-radius:12px;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.25);color:#fff;font-size:.85rem}
+            .mini-input:focus{outline:none;border-color:#4ecdc4;box-shadow:0 0 0 2px rgba(78,205,196,.3)}
+            .section-title{font-size:2rem;font-weight:700;letter-spacing:.5px;margin-bottom:6px;color:#fff;text-shadow:0 4px 16px rgba(0,0,0,.4)}
+            .muted{color:rgba(255,255,255,.7);font-size:.85rem;margin-bottom:18px}
+            .tag{display:inline-block;padding:3px 9px;border-radius:14px;background:#ff6b6b;color:#fff;font-size:.65rem;font-weight:700;letter-spacing:.5px;margin-left:6px}
+            @media(max-width:820px){#mainNav{border-radius:30px}.section-title{font-size:1.6rem}}
+        </style>
         <!-- Header -->
         <div class="header">
             <h1>🚀 AwesomeSauceToken</h1>
@@ -1843,353 +1865,707 @@
             <p><a href="/troubleshooting.html" style="color: #4facfe;">🔧 Having Issues? Check Troubleshooting Guide</a> | <a href="#" onclick="showReportForm()" style="color: #ff6b6b;">📝 Report an Issue</a></p>
             <p><small>© 2025 AwesomeSauceToken. All rights reserved.</small></p>
         </div>
+
+        <!-- MARKETPLACE HUB -->
+        <section id="marketHub" class="feature-slab">
+            <h2 class="section-title">Marketplace Hub <span class="tag">LIVE</span></h2>
+            <p class="muted">Discover internal & aggregated listings, create your own, and boost visibility.</p>
+            <div class="flex-row">
+                <div class="glass-card w-25">
+                    <h4 style="margin:0 0 6px;color:#fff">Session / Auth</h4>
+                    <p class="muted">Connect & sign a nonce to unlock authenticated actions.</p>
+                    <button class="pill-btn" onclick="authFlow()" id="authBtn">Authenticate</button>
+                    <div id="authStatus" style="margin-top:8px;font-size:.7rem;color:#4ecdc4"></div>
+                </div>
+                <div class="glass-card w-25">
+                    <h4 style="margin:0 0 6px;color:#fff">Create Listing</h4>
+                    <input class="mini-input" placeholder="Title" id="newListingTitle"/>
+                    <input class="mini-input" placeholder="Price (ETH)" id="newListingPrice"/>
+                    <input class="mini-input" placeholder="Description" id="newListingDesc"/>
+                    <button class="pill-btn alt" style="margin-top:6px" onclick="createUserListing()">Submit</button>
+                    <div id="listingCreateMsg" style="margin-top:6px;font-size:.65rem"></div>
+                </div>
+                <div class="glass-card w-25">
+                    <h4 style="margin:0 0 6px;color:#fff">Aggregate Fetch</h4>
+                    <div style="display:flex;gap:4px;margin-bottom:4px"><input class="mini-input" id="aggLimit" placeholder="Limit (max 100)" value="25"/><input class="mini-input" id="aggPlatforms" placeholder="internal,reservoir,opensea" value="internal,reservoir,opensea"/></div>
+                    <button class="pill-btn outline" onclick="loadAggregate()">Load Listings</button>
+                    <div style="margin-top:8px;font-size:.65rem" id="aggMeta"></div>
+                </div>
+                <div class="glass-card w-25">
+                    <h4 style="margin:0 0 6px;color:#fff">Featured & Sponsored</h4>
+                    <input class="mini-input" id="featureListingId" placeholder="Listing ID"/>
+                    <input class="mini-input" id="featureHours" placeholder="Hours (24)"/>
+                    <button class="pill-btn" style="margin-top:6px" onclick="featureListing()">Feature</button>
+                    <button class="pill-btn outline" style="margin-top:6px" onclick="buySponsored()">Buy Sponsored Slot</button>
+                    <div id="promoMsg" style="margin-top:6px;font-size:.65rem"></div>
+                </div>
+            </div>
+            <div class="glass-card" style="margin-top:22px">
+                <h4 style="margin:0 0 10px;color:#fff">Listings (Aggregated)</h4>
+                <div style="overflow:auto;max-height:380px;border:1px solid rgba(255,255,255,.15);border-radius:14px;padding:8px;background:rgba(0,0,0,.15)" id="aggregateContainer">Load to view...</div>
+            </div>
+        </section>
+
+        <!-- GAMES HUB -->
+        <section id="gamesHub" class="feature-slab">
+            <h2 class="section-title">Games & Credits</h2>
+            <p class="muted">Acquire credits, play Coinflip or Wheel, open mystery boxes.</p>
+            <div class="flex-row">
+                <div class="glass-card w-25">
+                    <h4 style="margin:0 0 6px;color:#fff">Credit Packs</h4>
+                    <button class="pill-btn" onclick="loadCreditPacks()">Load Packs</button>
+                    <div id="creditPacks" style="margin-top:8px;font-size:.7rem"></div>
+                </div>
+                <div class="glass-card w-25">
+                    <h4 style="margin:0 0 6px;color:#fff">Play Coinflip</h4>
+                    <input class="mini-input" id="cfChoice" placeholder="heads or tails"/>
+                    <input class="mini-input" id="cfWager" placeholder="Wager credits"/>
+                    <button class="pill-btn alt" onclick="playCoinflip()">Flip</button>
+                    <div id="coinflipMsg" style="margin-top:6px;font-size:.65rem"></div>
+                </div>
+                <div class="glass-card w-25">
+                    <h4 style="margin:0 0 6px;color:#fff">Spin Wheel</h4>
+                    <input class="mini-input" id="wheelWager" placeholder="Wager credits"/>
+                    <button class="pill-btn" onclick="spinWheel()">Spin</button>
+                    <div id="wheelMsg" style="margin-top:6px;font-size:.65rem"></div>
+                </div>
+                <div class="glass-card w-25">
+                    <h4 style="margin:0 0 6px;color:#fff">Mystery Boxes</h4>
+                    <button class="pill-btn outline" onclick="loadBoxes()">List Boxes</button>
+                    <input class="mini-input" id="boxType" placeholder="basic / premium"/>
+                    <button class="pill-btn alt" onclick="openBox()">Open Box</button>
+                    <div id="boxMsg" style="margin-top:6px;font-size:.65rem"></div>
+                </div>
+            </div>
+            <div class="glass-card" style="margin-top:22px">
+                <h4 style="margin:0 0 10px;color:#fff">Leaderboard (Credits)</h4>
+                <div id="leaderboardCredits" style="font-size:.7rem">(coming: fetch /api/games/leaderboard)</div>
+            </div>
+        </section>
+
+        <!-- REFERRAL & MINT HUB -->
+        <section id="referralHub" class="feature-slab">
+            <h2 class="section-title">Free Mint & Referral</h2>
+            <p class="muted">Claim your access badge, register & apply referral codes, monitor earnings.</p>
+            <div class="flex-row">
+                <div class="glass-card w-25">
+                    <h4 style="margin:0;color:#fff">Free Mint</h4>
+                    <button class="pill-btn" onclick="freeMint()">Claim Badge</button>
+                    <div id="mintMsg" style="margin-top:6px;font-size:.65rem"></div>
+                </div>
+                <div class="glass-card w-25">
+                    <h4 style="margin:0;color:#fff">Register Code</h4>
+                    <input class="mini-input" id="refCodeReg" placeholder="desired code"/>
+                    <button class="pill-btn alt" onclick="registerReferral()">Register</button>
+                    <div id="refRegMsg" style="margin-top:6px;font-size:.65rem"></div>
+                </div>
+                <div class="glass-card w-25">
+                    <h4 style="margin:0;color:#fff">Apply Code</h4>
+                    <input class="mini-input" id="refCodeApply" placeholder="code to apply"/>
+                    <button class="pill-btn outline" onclick="applyReferral()">Apply</button>
+                    <div id="refApplyMsg" style="margin-top:6px;font-size:.65rem"></div>
+                </div>
+                <div class="glass-card w-25">
+                    <h4 style="margin:0;color:#fff">Earnings</h4>
+                    <button class="pill-btn" onclick="loadReferralEarnings()">Refresh</button>
+                    <div id="refEarnMsg" style="margin-top:6px;font-size:.65rem"></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- PROMOTIONS HUB -->
+        <section id="promoHub" class="feature-slab">
+            <h2 class="section-title">Promotions & Visibility</h2>
+            <p class="muted">Boost your listings visibility instantly with featured & sponsored placements.</p>
+            <div class="glass-card">
+                <button class="pill-btn" onclick="loadSponsored()">Refresh Sponsored Slots</button>
+                <div id="sponsoredSlots" style="margin-top:10px;font-size:.7rem"></div>
+            </div>
+        </section>
+
+        <!-- AUCTIONS HUB -->
+        <section id="auctionHub" class="feature-slab">
+            <h2 class="section-title">Auctions</h2>
+            <p class="muted">Create, bid, and finalize timed auctions.</p>
+            <div class="flex-row">
+                <div class="glass-card w-25">
+                    <h4 style="margin:0;color:#fff">Create Auction</h4>
+                    <input class="mini-input" id="aucTitle" placeholder="Title"/>
+                    <input class="mini-input" id="aucMinBid" placeholder="Min Bid ETH"/>
+                    <input class="mini-input" id="aucDuration" placeholder="Duration (min)"/>
+                    <button class="pill-btn" onclick="createAuction()">Create</button>
+                    <div id="aucCreateMsg" style="margin-top:6px;font-size:.65rem"></div>
+                </div>
+                <div class="glass-card w-25">
+                    <h4 style="margin:0;color:#fff">Bid / Finalize</h4>
+                    <input class="mini-input" id="aucId" placeholder="Auction ID"/>
+                    <input class="mini-input" id="aucBidAmount" placeholder="Bid ETH"/>
+                    <button class="pill-btn alt" onclick="bidAuction()">Bid</button>
+                    <button class="pill-btn outline" onclick="finalizeAuction()">Finalize</button>
+                    <div id="aucBidMsg" style="margin-top:6px;font-size:.65rem"></div>
+                </div>
+                <div class="glass-card w-25" style="flex:2 1 400px">
+                    <h4 style="margin:0 0 6px;color:#fff">Active Auctions</h4>
+                    <div id="activeAuctions" style="max-height:300px;overflow:auto;font-size:.65rem"></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- BUNDLES HUB -->
+        <section id="bundleHub" class="feature-slab">
+            <h2 class="section-title">Bundles</h2>
+            <p class="muted">Combine multiple listings into a single purchase.</p>
+            <div class="flex-row">
+                <div class="glass-card w-25">
+                    <h4 style="margin:0;color:#fff">Create Bundle</h4>
+                    <input class="mini-input" id="bundleListingIds" placeholder="listing1,listing2"/>
+                    <input class="mini-input" id="bundlePrice" placeholder="Price ETH"/>
+                    <button class="pill-btn" onclick="createBundle()">Create</button>
+                    <div id="bundleCreateMsg" style="margin-top:6px;font-size:.65rem"></div>
+                </div>
+                <div class="glass-card w-25">
+                    <h4 style="margin:0;color:#fff">Purchase Bundle</h4>
+                    <input class="mini-input" id="bundleIdBuy" placeholder="Bundle ID"/>
+                    <button class="pill-btn alt" onclick="purchaseBundle()">Purchase</button>
+                    <div id="bundleBuyMsg" style="margin-top:6px;font-size:.65rem"></div>
+                </div>
+                <div class="glass-card" style="flex:2 1 400px">
+                    <h4 style="margin:0 0 6px;color:#fff">Active Bundles</h4>
+                    <div id="activeBundles" style="max-height:260px;overflow:auto;font-size:.65rem"></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- API KEYS HUB -->
+        <section id="apiHub" class="feature-slab">
+            <h2 class="section-title">API Keys</h2>
+            <p class="muted">Issue keys and monitor usage quotas.</p>
+            <div class="flex-row">
+                <div class="glass-card w-25">
+                    <h4 style="margin:0;color:#fff">Issue Key</h4>
+                    <button class="pill-btn" onclick="issueKey()">Issue</button>
+                    <div id="issueKeyMsg" style="margin-top:6px;font-size:.65rem"></div>
+                </div>
+                <div class="glass-card" style="flex:2 1 400px">
+                    <h4 style="margin:0 0 6px;color:#fff">My Keys</h4>
+                    <div id="apiKeysList" style="font-size:.65rem"></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- REVENUE HUB -->
+        <section id="revenueHub" class="feature-slab">
+            <h2 class="section-title">Revenue Dashboard</h2>
+            <p class="muted">Platform-level fee streams (for owner visibility).</p>
+            <div class="glass-card">
+                <button class="pill-btn" onclick="loadRevenue()">Refresh</button>
+                <div id="revenueSummary" style="margin-top:10px;font-size:.7rem"></div>
+            </div>
+        </section>
+
+        <!-- AI Monetization & Live Events Panel -->
+        <div id="aiMonetizationPanel" class="card" style="background:#0d1117;color:#eee;">
+            <h3 style="margin-top:0;">AI Monetization Live</h3>
+            <div style="display:flex;gap:20px;flex-wrap:wrap;">
+                <div style="flex:1;min-width:200px;">
+                    <h4>Dynamic Rates</h4>
+                    <div id="dynRates">Loading...</div>
+                    <button onclick="forceAiAdjust()" class="pill-btn outline" style="margin-top:8px;">Force Re‑evaluate</button>
+                    <button onclick="refreshAiPanels()" class="pill-btn" style="margin-top:8px;background:#4ecdc4;">Refresh All</button>
+                </div>
+                <div style="flex:2;min-width:260px;">
+                    <h4>Suggestions (AI)</h4>
+                    <ul id="aiSuggestions" style="list-style:disc;padding-left:20px;font-size:0.75rem;max-height:160px;overflow:auto;"></ul>
+                </div>
+                <div style="flex:2;min-width:260px;">
+                    <h4>Recent Pricing Changes</h4>
+                    <div id="pricingHistory" style="max-height:160px;overflow:auto;font-size:0.7rem;font-family:monospace;"></div>
+                </div>
+                <div style="flex:2;min-width:260px;">
+                    <h4>Monetization Plan</h4>
+                    <ul id="aiPlan" style="list-style:disc;padding-left:18px;font-size:0.7rem;max-height:160px;overflow:auto;"></ul>
+                    <button onclick="loadMonetizationPlan()" class="pill-btn outline" style="margin-top:6px;">Generate Plan</button>
+                </div>
+            </div>
+            <hr style="margin:18px 0;border-color:#222;"/>
+            <div style="display:flex;flex-wrap:wrap;gap:18px;">
+                <div style="flex:1;min-width:260px;">
+                    <h4>Listing Recommendations</h4>
+                    <button onclick="loadListingRecs()" class="pill-btn outline" style="margin-bottom:6px;">Load Recs</button>
+                    <ul id="listingRecs" style="font-size:0.65rem;max-height:140px;overflow:auto;list-style:disc;padding-left:16px;"></ul>
+                </div>
+                <div style="flex:1;min-width:260px;">
+                    <h4>Auction Suggestions</h4>
+                    <button onclick="loadAuctionSuggestions()" class="pill-btn outline" style="margin-bottom:6px;">Load Auction AI</button>
+                    <ul id="auctionSuggestions" style="font-size:0.65rem;max-height:140px;overflow:auto;list-style:disc;padding-left:16px;"></ul>
+                </div>
+                <div style="flex:1;min-width:260px;">
+                    <h4>Referral Optimization</h4>
+                    <button onclick="loadReferralSuggestion()" class="pill-btn outline" style="margin-bottom:6px;">Load Referral AI</button>
+                    <div id="referralSuggestion" style="font-size:0.65rem;max-height:140px;overflow:auto;background:#161b22;padding:6px;border-radius:8px;"></div>
+                </div>
+                <div style="flex:1;min-width:260px;">
+                    <h4>Anomalies</h4>
+                    <button onclick="loadAnomalyReport()" class="pill-btn outline" style="margin-bottom:6px;">Scan Now</button>
+                    <ul id="anomalyList" style="font-size:0.65rem;max-height:140px;overflow:auto;list-style:disc;padding-left:16px;"></ul>
+                </div>
+            </div>
+            <hr style="margin:18px 0;border-color:#222;"/>
+            <div style="display:flex;flex-wrap:wrap;gap:18px;">
+                <div style="flex:1;min-width:300px;">
+                    <h4>Featured Rate History</h4>
+                    <canvas id="featuredChart" height="110" style="width:100%;background:#161b22;border:1px solid #222;border-radius:8px;"></canvas>
+                </div>
+                <div style="flex:1;min-width:300px;">
+                    <h4>Sponsored Rate History</h4>
+                    <canvas id="sponsoredChart" height="110" style="width:100%;background:#161b22;border:1px solid #222;border-radius:8px;"></canvas>
+                </div>
+                <div style="flex:1;min-width:300px;">
+                    <h4>Credit Multiplier History</h4>
+                    <canvas id="creditChart" height="110" style="width:100%;background:#161b22;border:1px solid #222;border-radius:8px;"></canvas>
+                </div>
+            </div>
+            <h4 style="margin-top:24px;">Live Event Stream</h4>
+            <div id="eventStream" style="background:#161b22;padding:10px;border-radius:8px;max-height:200px;overflow:auto;font-size:0.65rem;font-family:monospace;"></div>
+        </div>
+
+        <!-- Advanced AI Analytics Dashboard -->
+        <div class="card" style="background:#0d1117;color:#eee;margin-top:20px;">
+            <h3 style="margin-top:0;color:#4ecdc4;">📊 Advanced AI Analytics</h3>
+            <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:20px;">
+                <div style="background:#161b22;padding:15px;border-radius:12px;">
+                    <h4 style="color:#f39c12;">Revenue Optimization</h4>
+                    <canvas id="revenue-chart" height="80" style="width:100%;"></canvas>
+                    <p style="font-size:0.8rem;margin:8px 0 0;">24h Change: <span id="revenue-change" style="color:#4caf50;">+12.5%</span></p>
+                </div>
+                <div style="background:#161b22;padding:15px;border-radius:12px;">
+                    <h4 style="color:#9b59b6;">Conversion Rate</h4>
+                    <canvas id="conversion-chart" height="80" style="width:100%;"></canvas>
+                    <p style="font-size:0.8rem;margin:8px 0 0;">Current: <span id="conversion-rate" style="color:#3498db;">8.7%</span></p>
+                </div>
+                <div style="background:#161b22;padding:15px;border-radius:12px;">
+                    <h4 style="color:#e74c3c;">AI Confidence</h4>
+                    <div id="confidence-gauge" style="height:80px;display:flex;align-items:center;justify-content:center;">
+                        <div style="width:60px;height:60px;border:8px solid #333;border-top:8px solid #4caf50;border-radius:50%;animation:spin 2s linear infinite;"></div>
+                    </div>
+                    <p style="font-size:0.8rem;margin:8px 0 0;">Score: <span id="confidence-score" style="color:#4caf50;">94%</span></p>
+                </div>
+                <div style="background:#161b22;padding:15px;border-radius:12px;">
+                    <h4 style="color:#1abc9c;">User Engagement</h4>
+                    <canvas id="engagement-trend" height="80" style="width:100%;"></canvas>
+                    <p style="font-size:0.8rem;margin:8px 0 0;">Trend: <span id="engagement-direction" style="color:#4caf50;">Rising</span></p>
+                </div>
+            </div>
+        </div>
+
+        <!-- AI Strategy Generator -->
+        <div class="card" style="background:#0d1117;color:#eee;margin-top:20px;">
+            <h3 style="margin-top:0;color:#f39c12;">🧠 AI Strategy Generator</h3>
+            <div style="display:flex;gap:20px;flex-wrap:wrap;">
+                <div style="flex:1;min-width:300px;">
+                    <div style="display:grid;grid-template-columns:1fr 1fr;gap:15px;margin-bottom:15px;">
+                        <div>
+                            <label style="display:block;margin-bottom:5px;font-size:0.9rem;">Risk Tolerance:</label>
+                            <select id="risk-tolerance" style="width:100%;padding:8px;background:#161b22;color:#eee;border:1px solid #333;border-radius:6px;">
+                                <option value="conservative">Conservative</option>
+                                <option value="moderate" selected>Moderate</option>
+                                <option value="aggressive">Aggressive</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label style="display:block;margin-bottom:5px;font-size:0.9rem;">Investment Goal:</label>
+                            <select id="investment-goal" style="width:100%;padding:8px;background:#161b22;color:#eee;border:1px solid #333;border-radius:6px;">
+                                <option value="income">Steady Income</option>
+                                <option value="growth" selected>Long-term Growth</option>
+                                <option value="quick">Quick Profits</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div>
+                        <label style="display:block;margin-bottom:5px;font-size:0.9rem;">Market Focus:</label>
+                        <select id="market-focus" style="width:100%;padding:8px;background:#161b22;color:#eee;border:1px solid #333;border-radius:6px;margin-bottom:15px;">
+                            <option value="tokens">Tokens</option>
+                            <option value="nfts">NFTs</option>
+                            <option value="defi" selected>DeFi</option>
+                            <option value="mixed">Mixed Portfolio</option>
+                        </select>
+                    </div>
+                    <button onclick="generateStrategy()" class="pill-btn" style="background:#4ecdc4;width:100%;">🎯 Generate AI Strategy</button>
+                </div>
+                <div style="flex:2;min-width:400px;">
+                    <div id="generated-strategy" style="background:#161b22;padding:15px;border-radius:8px;min-height:200px;">
+                        <div style="text-align:center;color:#666;padding:50px 20px;">
+                            <div style="font-size:2rem;">🎯</div>
+                            <p>Configure your preferences and generate an AI-powered trading strategy</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Anomaly Detection Center -->
+        <div class="card" style="background:#0d1117;color:#eee;margin-top:20px;">
+            <h3 style="margin-top:0;color:#e74c3c;">🛡️ AI Security & Anomaly Detection</h3>
+            <div style="display:flex;gap:20px;flex-wrap:wrap;margin-bottom:20px;">
+                <div style="flex:1;min-width:250px;">
+                    <div id="security-status" style="display:flex;align-items:center;background:#161b22;padding:15px;border-radius:8px;">
+                        <div style="width:12px;height:12px;background:#4caf50;border-radius:50%;margin-right:10px;animation:pulse 2s infinite;"></div>
+                        <span style="font-weight:bold;">All Systems Normal</span>
+                    </div>
+                    <div style="margin-top:15px;">
+                        <h4 style="margin:0 0 10px;">Risk Assessment</h4>
+                        <div style="margin-bottom:8px;">
+                            <label style="font-size:0.8rem;">Fraud Risk:</label>
+                            <div style="background:#333;height:8px;border-radius:4px;overflow:hidden;">
+                                <div id="fraud-risk" style="width:5%;height:100%;background:#4caf50;transition:all 0.3s;"></div>
+                            </div>
+                        </div>
+                        <div style="margin-bottom:8px;">
+                            <label style="font-size:0.8rem;">Market Manipulation:</label>
+                            <div style="background:#333;height:8px;border-radius:4px;overflow:hidden;">
+                                <div id="manipulation-risk" style="width:3%;height:100%;background:#4caf50;transition:all 0.3s;"></div>
+                            </div>
+                        </div>
+                        <div>
+                            <label style="font-size:0.8rem;">Suspicious Activity:</label>
+                            <div style="background:#333;height:8px;border-radius:4px;overflow:hidden;">
+                                <div id="suspicious-activity" style="width:8%;height:100%;background:#f39c12;transition:all 0.3s;"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div style="flex:2;min-width:400px;">
+                    <h4 style="margin:0 0 10px;">Recent Detections</h4>
+                    <div id="recent-anomalies" style="background:#161b22;padding:15px;border-radius:8px;max-height:200px;overflow:auto;font-size:0.8rem;">
+                        <div style="color:#4caf50;margin-bottom:8px;">✓ Normal trading patterns detected</div>
+                        <div style="color:#4caf50;margin-bottom:8px;">✓ Price movements within expected ranges</div>
+                        <div style="color:#f39c12;margin-bottom:8px;">⚠ Unusual volume spike detected at 14:32 (investigating)</div>
+                        <div style="color:#4caf50;margin-bottom:8px;">✓ User behavior patterns normal</div>
+                        <div style="color:#4caf50;">✓ No suspicious wallet connections found</div>
+                    </div>
+                </div>
+            </div>
+            <button onclick="runFullAnomalyScan()" class="pill-btn outline" style="margin-right:10px;">🔍 Run Full Scan</button>
+            <button onclick="loadAnomalyReport()" class="pill-btn outline">📊 Generate Report</button>
+        </div>
     </div>
-
-        <script src="https://cdn.jsdelivr.net/npm/web3@1.8.0/dist/web3.min.js"></script>
-        <script src="https://cdn.jsdelivr.net/npm/@walletconnect/web3-provider@1.8.0/dist/umd/index.min.js"></script>
-        <script>
-            let web3;
-            let provider;
-            let account;
-
-            const UNISWAP_ROUTER = '0x7a250d5630B4cF539739dF2C5dAcb4c659F2488D'; // Uniswap V2 Router
-            const WETH = '0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2'; // WETH address
-
-            // Enhanced Wallet Connection with Coinbase Wallet Support
-            async function connectWallet() {
-                try {
-                    console.log('🔗 Attempting wallet connection...');
-
-                    // Check for Coinbase Wallet specifically
-                    if (window.ethereum && window.ethereum.isCoinbaseWallet) {
-                        console.log('🎯 Coinbase Wallet detected');
-                        web3 = new Web3(window.ethereum);
-                        await window.ethereum.request({ method: 'eth_requestAccounts' });
-                        const accounts = await web3.eth.getAccounts();
-                        account = accounts[0];
-                        console.log('✅ Coinbase Wallet connected:', account);
-                        updateWalletStatus('Coinbase Wallet', account);
-                        return true;
-                    }
-                    // Check for MetaMask
-                    else if (window.ethereum && window.ethereum.isMetaMask) {
-                        console.log('🦊 MetaMask detected');
-                        web3 = new Web3(window.ethereum);
-                        await window.ethereum.request({ method: 'eth_requestAccounts' });
-                        const accounts = await web3.eth.getAccounts();
-                        account = accounts[0];
-                        console.log('✅ MetaMask connected:', account);
-                        updateWalletStatus('MetaMask', account);
-                        return true;
-                    }
-                    // Check for generic Ethereum provider (could be Coinbase or others)
-                    else if (window.ethereum) {
-                        console.log('🌐 Generic Ethereum provider detected');
-                        web3 = new Web3(window.ethereum);
-                        await window.ethereum.request({ method: 'eth_requestAccounts' });
-                        const accounts = await web3.eth.getAccounts();
-                        account = accounts[0];
-                        console.log('✅ Wallet connected:', account);
-                        updateWalletStatus('Web3 Wallet', account);
-                        return true;
-                    }
-                    // Check for legacy web3
-                    else if (window.web3) {
-                        console.log('📱 Legacy web3 detected');
-                        web3 = new Web3(window.web3.currentProvider);
-                        const accounts = await web3.eth.getAccounts();
-                        account = accounts[0];
-                        console.log('✅ Legacy web3 wallet connected:', account);
-                        updateWalletStatus('Legacy Web3', account);
-                        return true;
-                    }
-                    // Try WalletConnect as fallback
-                    else if (typeof WalletConnectProvider !== 'undefined') {
-                        console.log('🔗 Trying WalletConnect...');
-                        const provider = new WalletConnectProvider({
-                            rpc: {
-                                1: 'https://mainnet.infura.io/v3/9aa3d95b3bc440fa88ea12eaa4456161'
-                            }
-                        });
-
-                        await provider.enable();
-                        web3 = new Web3(provider);
-                        const accounts = await web3.eth.getAccounts();
-                        account = accounts[0];
-                        console.log('✅ WalletConnect connected:', account);
-                        updateWalletStatus('WalletConnect', account);
-                        return true;
-                    }
-                    else {
-                        throw new Error('No Web3 wallet detected. Please install MetaMask, Coinbase Wallet, or another Web3 wallet.');
-                    }
-                } catch (error) {
-                    console.error('❌ Wallet connection failed:', error);
-
-                    // More specific error messages
-                    if (error.code === 4001) {
-                        alert('❌ Connection rejected by user. Please approve the connection in your wallet.');
-                    } else if (error.code === -32002) {
-                        alert('❌ Connection request already pending. Please check your wallet.');
-                    } else {
-                        alert('❌ Wallet connection failed: ' + error.message);
-                    }
-
-                    updateWalletStatus('Error', null);
-                    return false;
-                }
-            }
-
-            // Update wallet status display
-            function updateWalletStatus(walletType, address) {
-                const statusDiv = document.getElementById('walletStatus');
-                const connectBtn = document.getElementById('connectWalletBtn');
-
-                if (address && walletType) {
-                    statusDiv.innerHTML = `<i class="fas fa-check-circle" style="color: #4CAF50;"></i> Connected to ${walletType}: ${address.substring(0, 6)}...${address.substring(address.length - 4)}`;
-                    connectBtn.style.display = 'none';
-                } else {
-                    statusDiv.innerHTML = '<i class="fas fa-info-circle"></i> Not connected - Click above to connect';
-                    connectBtn.style.display = 'inline-block';
-                }
-            }
-
-            // Check if wallet is already connected on page load
-            async function checkWalletConnection() {
-                try {
-                    if (window.ethereum) {
-                        const accounts = await window.ethereum.request({ method: 'eth_accounts' });
-                        if (accounts.length > 0) {
-                            account = accounts[0];
-                            web3 = new Web3(window.ethereum);
-
-                            // Determine wallet type
-                            let walletType = 'Web3 Wallet';
-                            if (window.ethereum.isCoinbaseWallet) {
-                                walletType = 'Coinbase Wallet';
-                            } else if (window.ethereum.isMetaMask) {
-                                walletType = 'MetaMask';
-                            }
-
-                            updateWalletStatus(walletType, account);
-                            console.log('✅ Wallet already connected:', account);
-                        } else {
-                            updateWalletStatus(null, null);
-                        }
-                    } else {
-                        updateWalletStatus(null, null);
-                    }
-                } catch (error) {
-                    console.log('No wallet connected on page load');
-                    updateWalletStatus(null, null);
-                }
-            }
-
-            // Manual Payment Fallback
-            function showManualPayment() {
-                const manualInstructions =
-                    '💰 MANUAL PAYMENT INSTRUCTIONS 💰\n\n' +
-                    'If automatic payment fails, you can send directly to:\n\n' +
-                    '📧 Wallet Address: 0x742d35Cc6634C0532925a3b844Bc454e4438f44e\n\n' +
-                    '💎 For Premium Subscription:\n' +
-                    '• Send exactly 0.01 ETH\n' +
-                    '• Include "PREMIUM" in the transaction memo\n\n' +
-                    '🎮 For Spin Game:\n' +
-                    '• Send 0.001 ETH per spin\n' +
-                    '• Include "SPIN" in the transaction memo\n\n' +
-                    '🔗 View on Etherscan:\n' +
-                    'https://etherscan.io/address/0x742d35Cc6634C0532925a3b844Bc454e4438f44e\n\n' +
-                    '📞 Contact support if you need help!';
-
-                alert(manualInstructions);
-
-                // Copy address to clipboard
-                navigator.clipboard.writeText('0x742d35Cc6634C0532925a3b844Bc454e4438f44e').then(() => {
-                    alert('✅ Wallet address copied to clipboard!');
-                });
-            }
-
-            async function swapTokenToETH(tokenAddress, amountIn) {
-                const router = new web3.eth.Contract([
-                    {
-                        "inputs": [
-                            {"internalType": "uint256", "name": "amountOutMin", "type": "uint256"},
-                            {"internalType": "address[]", "name": "path", "type": "address[]"},
-                            {"internalType": "address", "name": "to", "type": "address"},
-                            {"internalType": "uint256", "name": "deadline", "type": "uint256"}
-                        ],
-                        "name": "swapExactTokensForETH",
-                        "outputs": [{"internalType": "uint256[]", "name": "amounts", "type": "uint256[]"}],
-                        "stateMutability": "nonpayable",
-                        "type": "function"
-                    }
-                ], UNISWAP_ROUTER);
-
-                const path = [tokenAddress, WETH];
-                const deadline = Math.floor(Date.now() / 1000) + 60 * 20; // 20 minutes
-                const amountOutMin = 0; // Set slippage as needed
-
-                await router.methods.swapExactTokensForETH(amountIn, amountOutMin, path, account, deadline).send({ from: account });
-            }
-
-            async function subscribe() {
-                try {
-                    if (!account) {
-                        const connected = await connectWallet();
-                        if (!connected) return;
-                    }
-
-                    const currency = prompt('Enter currency (ETH, USDC, etc.) or leave blank for ETH:') || 'ETH';
-                    let amount;
-
-                    if (currency === 'ETH') {
-                        amount = web3.utils.toWei('0.01', 'ether');
-
-                        // Check balance first
-                        const balance = await web3.eth.getBalance(account);
-                        const balanceInEth = web3.utils.fromWei(balance, 'ether');
-
-                        if (parseFloat(balanceInEth) < 0.011) { // 0.01 + gas
-                            throw new Error('Insufficient balance. Need at least 0.011 ETH (0.01 + gas fees)');
-                        }
-
-                        const tx = await web3.eth.sendTransaction({
-                            from: account,
-                            to: '0x742d35Cc6634C0532925a3b844Bc454e4438f44e',
-                            value: amount
-                        });
-                        alert('✅ Subscription successful! TX: ' + tx.transactionHash);
-                    } else {
-                        // Handle token payments
-                        const tokenAddress = prompt('Enter token contract address (e.g., USDC: 0xA0b86a33E6441e88C5F2712C3E9b74F5b8b6b8b8):');
-                        if (!tokenAddress) {
-                            alert('Token address required for non-ETH payments');
-                            return;
-                        }
-
-                        if (currency === 'USDC') tokenAddress = '0xA0b86a33E6441e88C5F2712C3E9b74F5b8b6b8b8'; // Example
-                        amount = web3.utils.toWei('10', 'mwei'); // 10 USDC (6 decimals)
-
-                        // Approve token for router
-                        const tokenContract = new web3.eth.Contract([
-                            {"constant": false, "inputs": [{"name": "_spender", "type": "address"}, {"name": "_value", "type": "uint256"}], "name": "approve", "outputs": [{"name": "", "type": "bool"}], "payable": false, "stateMutability": "nonpayable", "type": "function"}
-                        ], tokenAddress);
-
-                        await tokenContract.methods.approve(UNISWAP_ROUTER, amount).send({ from: account });
-
-                        // Swap to ETH
-                        await swapTokenToETH(tokenAddress, amount);
-
-                        // Then send ETH
-                        const ethAmount = web3.utils.toWei('0.01', 'ether');
-                        const tx = await web3.eth.sendTransaction({
-                            from: account,
-                            to: '0x742d35Cc6634C0532925a3b844Bc454e4438f44e',
-                            value: ethAmount
-                        });
-                        alert('✅ Subscription successful with swap! TX: ' + tx.transactionHash);
-                    }
-
-                    // Record premium user
-                    fetch('/api/premium', {
-                        method: 'POST',
-                        headers: {'Content-Type': 'application/json'},
-                        body: JSON.stringify({ address: account, currency })
-                    }).catch(error => {
-                        console.warn('Failed to record premium user:', error);
-                        // Don't show error to user as payment already succeeded
-                    });
-
-                } catch (error) {
-                    console.error('Subscription failed:', error);
-
-                    // Fallback: Show manual payment
-                    const fallback = confirm(
-                        '❌ Subscription failed!\n\n' +
-                        'Error: ' + error.message + '\n\n' +
-                        'Would you like manual payment instructions?'
-                    );
-
-                    if (fallback) {
-                        showManualPayment();
-                    }
-                }
-            }
-
-            function donate() {
-                subscribe();
-            }
-
-            function playGame() {
-                window.location.href = '/spin.html';
-            }
-
-            // Enhanced Bot Control Functions with Fallbacks
-            async function startBot() {
-                try {
-                    document.getElementById('startBotBtn').disabled = true;
-                    document.getElementById('startBotBtn').innerHTML = '<i class="fas fa-spinner fa-spin"></i> Starting...';
-
-                    const response = await fetch('/api/bot/start', {
-                        method: 'POST',
-                        headers: {
-                            'Content-Type': 'application/json',
-                        },
-                        timeout: 10000 // 10 second timeout
-                    });
-
-                    if (!response.ok) {
-                        throw new Error(`HTTP ${response.status}: ${response.statusText}`);
-                    }
-
-                    const result = await response.text();
-                    alert(result);
-
-                    if (result.includes('✅')) {
-                        document.getElementById('startBotBtn').style.display = 'none';
-                        document.getElementById('stopBotBtn').style.display = 'inline-block';
-                        document.getElementById('botStatusText').textContent = 'Running';
-                        updateBotStatus();
-                    }
-                } catch (error) {
-                    console.error('Bot start failed:', error);
-
-                    // Fallback: Show manual trading instructions
-                    const fallback = confirm(
-                        '❌ Bot start failed!\n\n' +
-                        'Error: ' + error.message + '\n\n' +
-                        'Would you like to see manual trading instructions?'
-                    );
-
-                    if (fallback) {
-                        showManualTrading();
-                    }
-                } finally {
-                    document.getElementById('startBotBtn').disabled = false;
-                    document.getElementById('startBotBtn').innerHTML = 'Start Trading Bot';
-                }
-            }
-
-            // Manual Trading Fallback
-            function showManualTrading() {
-                const manualInstructions =
-                    '📊 MANUAL TRADING INSTRUCTIONS 📊\n\n' +
-                    'While the bot is being fixed, you can trade manually:\n\n' +
-                    '🔗 Uniswap: https://app.uniswap.org/\n' +
-                    '🔗 1inch: https://app.1inch.io/\n' +
-                    '🔗 SushiSwap: https://app.sushi.com/\n\n' +
-                    '🎯 Trading Strategy:\n' +
-                    '• Buy AST tokens when price dips\n' +
-                    '• Sell when price increases 1-2%\n' +
-                    '• Use small amounts (0.001-0.01 ETH)\n' +
-                    '• Set stop-loss at 5% below entry\n\n' +
-                    '📞 Contact support for bot recovery!';
-
-                alert(manualInstructions);
-            }
-
-            async function stopBot() {
-                try {
+    <script src="https://cdn.jsdelivr.net/npm/web3@1.8.0/dist/web3.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@walletconnect/web3-provider@1.8.0/dist/umd/index.min.js"></script>
+    <div id="fairnessBox" class="card" style="margin:30px 0; padding:20px; background:rgba(0,0,0,0.6); color:#fff; font-size:0.9rem;">Fairness: loading...</div>
+    <!-- AI Monetization & Live Events Panel -->
+    <div id="aiMonetizationPanel" class="card" style="background:#0d1117;color:#eee;">
+        <h3 style="margin-top:0;">AI Monetization Live</h3>
+        <div style="display:flex;gap:20px;flex-wrap:wrap;">
+            <div style="flex:1;min-width:200px;">
+                <h4>Dynamic Rates</h4>
+                <div id="dynRates">Loading...</div>
+                <button onclick="forceAiAdjust()" class="pill-btn outline" style="margin-top:8px;">Force Re‑evaluate</button>
+                <button onclick="refreshAiPanels()" class="pill-btn" style="margin-top:8px;background:#4ecdc4;">Refresh All</button>
+            </div>
+            <div style="flex:2;min-width:260px;">
+                <h4>Suggestions (AI)</h4>
+                <ul id="aiSuggestions" style="list-style:disc;padding-left:20px;font-size:0.75rem;max-height:160px;overflow:auto;"></ul>
+            </div>
+            <div style="flex:2;min-width:260px;">
+                <h4>Recent Pricing Changes</h4>
+                <div id="pricingHistory" style="max-height:160px;overflow:auto;font-size:0.7rem;font-family:monospace;"></div>
+            </div>
+            <div style="flex:2;min-width:260px;">
+                <h4>Monetization Plan</h4>
+                <ul id="aiPlan" style="list-style:disc;padding-left:18px;font-size:0.7rem;max-height:160px;overflow:auto;"></ul>
+                <button onclick="loadMonetizationPlan()" class="pill-btn outline" style="margin-top:6px;">Generate Plan</button>
+            </div>
+        </div>
+        <hr style="margin:18px 0;border-color:#222;"/>
+        <div style="display:flex;flex-wrap:wrap;gap:18px;">
+            <div style="flex:1;min-width:260px;">
+                <h4>Listing Recommendations</h4>
+                <button onclick="loadListingRecs()" class="pill-btn outline" style="margin-bottom:6px;">Load Recs</button>
+                <ul id="listingRecs" style="font-size:0.65rem;max-height:140px;overflow:auto;list-style:disc;padding-left:16px;"></ul>
+            </div>
+            <div style="flex:1;min-width:260px;">
+                <h4>Auction Suggestions</h4>
+                <button onclick="loadAuctionSuggestions()" class="pill-btn outline" style="margin-bottom:6px;">Load Auction AI</button>
+                <ul id="auctionSuggestions" style="font-size:0.65rem;max-height:140px;overflow:auto;list-style:disc;padding-left:16px;"></ul>
+            </div>
+            <div style="flex:1;min-width:260px;">
+                <h4>Referral Optimization</h4>
+                <button onclick="loadReferralSuggestion()" class="pill-btn outline" style="margin-bottom:6px;">Load Referral AI</button>
+                <div id="referralSuggestion" style="font-size:0.65rem;max-height:140px;overflow:auto;background:#161b22;padding:6px;border-radius:8px;"></div>
+            </div>
+            <div style="flex:1;min-width:260px;">
+                <h4>Anomalies</h4>
+                <button onclick="loadAnomalyReport()" class="pill-btn outline" style="margin-bottom:6px;">Scan Now</button>
+                <ul id="anomalyList" style="font-size:0.65rem;max-height:140px;overflow:auto;list-style:disc;padding-left:16px;"></ul>
+            </div>
+        </div>
+        <hr style="margin:18px 0;border-color:#222;"/>
+        <div style="display:flex;flex-wrap:wrap;gap:18px;">
+            <div style="flex:1;min-width:300px;">
+                <h4>Featured Rate History</h4>
+                <canvas id="featuredChart" height="110" style="width:100%;background:#161b22;border:1px solid #222;border-radius:8px;"></canvas>
+            </div>
+            <div style="flex:1;min-width:300px;">
+                <h4>Sponsored Rate History</h4>
+                <canvas id="sponsoredChart" height="110" style="width:100%;background:#161b22;border:1px solid #222;border-radius:8px;"></canvas>
+            </div>
+            <div style="flex:1;min-width:300px;">
+                <h4>Credit Multiplier History</h4>
+                <canvas id="creditChart" height="110" style="width:100%;background:#161b22;border:1px solid #222;border-radius:8px;"></canvas>
+            </div>
+        </div>
+        <h4 style="margin-top:24px;">Live Event Stream</h4>
+        <div id="eventStream" style="background:#161b22;padding:10px;border-radius:8px;max-height:200px;overflow:auto;font-size:0.65rem;font-family:monospace;"></div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/web3@1.8.0/dist/web3.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@walletconnect/web3-provider@1.8.0/dist/umd/index.min.js"></script>
+    <div id="fairnessBox" class="card" style="margin:30px 0; padding:20px; background:rgba(0,0,0,0.6); color:#fff; font-size:0.9rem;">Fairness: loading...</div>
+    <!-- AI Monetization & Live Events Panel -->
+    <div id="aiMonetizationPanel" class="card" style="background:#0d1117;color:#eee;">
+        <h3 style="margin-top:0;">AI Monetization Live</h3>
+        <div style="display:flex;gap:20px;flex-wrap:wrap;">
+            <div style="flex:1;min-width:200px;">
+                <h4>Dynamic Rates</h4>
+                <div id="dynRates">Loading...</div>
+                <button onclick="forceAiAdjust()" class="pill-btn outline" style="margin-top:8px;">Force Re‑evaluate</button>
+                <button onclick="refreshAiPanels()" class="pill-btn" style="margin-top:8px;background:#4ecdc4;">Refresh All</button>
+            </div>
+            <div style="flex:2;min-width:260px;">
+                <h4>Suggestions (AI)</h4>
+                <ul id="aiSuggestions" style="list-style:disc;padding-left:20px;font-size:0.75rem;max-height:160px;overflow:auto;"></ul>
+            </div>
+            <div style="flex:2;min-width:260px;">
+                <h4>Recent Pricing Changes</h4>
+                <div id="pricingHistory" style="max-height:160px;overflow:auto;font-size:0.7rem;font-family:monospace;"></div>
+            </div>
+            <div style="flex:2;min-width:260px;">
+                <h4>Monetization Plan</h4>
+                <ul id="aiPlan" style="list-style:disc;padding-left:18px;font-size:0.7rem;max-height:160px;overflow:auto;"></ul>
+                <button onclick="loadMonetizationPlan()" class="pill-btn outline" style="margin-top:6px;">Generate Plan</button>
+            </div>
+        </div>
+        <hr style="margin:18px 0;border-color:#222;"/>
+        <div style="display:flex;flex-wrap:wrap;gap:18px;">
+            <div style="flex:1;min-width:260px;">
+                <h4>Listing Recommendations</h4>
+                <button onclick="loadListingRecs()" class="pill-btn outline" style="margin-bottom:6px;">Load Recs</button>
+                <ul id="listingRecs" style="font-size:0.65rem;max-height:140px;overflow:auto;list-style:disc;padding-left:16px;"></ul>
+            </div>
+            <div style="flex:1;min-width:260px;">
+                <h4>Auction Suggestions</h4>
+                <button onclick="loadAuctionSuggestions()" class="pill-btn outline" style="margin-bottom:6px;">Load Auction AI</button>
+                <ul id="auctionSuggestions" style="font-size:0.65rem;max-height:140px;overflow:auto;list-style:disc;padding-left:16px;"></ul>
+            </div>
+            <div style="flex:1;min-width:260px;">
+                <h4>Referral Optimization</h4>
+                <button onclick="loadReferralSuggestion()" class="pill-btn outline" style="margin-bottom:6px;">Load Referral AI</button>
+                <div id="referralSuggestion" style="font-size:0.65rem;max-height:140px;overflow:auto;background:#161b22;padding:6px;border-radius:8px;"></div>
+            </div>
+            <div style="flex:1;min-width:260px;">
+                <h4>Anomalies</h4>
+                <button onclick="loadAnomalyReport()" class="pill-btn outline" style="margin-bottom:6px;">Scan Now</button>
+                <ul id="anomalyList" style="font-size:0.65rem;max-height:140px;overflow:auto;list-style:disc;padding-left:16px;"></ul>
+            </div>
+        </div>
+        <hr style="margin:18px 0;border-color:#222;"/>
+        <div style="display:flex;flex-wrap:wrap;gap:18px;">
+            <div style="flex:1;min-width:300px;">
+                <h4>Featured Rate History</h4>
+                <canvas id="featuredChart" height="110" style="width:100%;background:#161b22;border:1px solid #222;border-radius:8px;"></canvas>
+            </div>
+            <div style="flex:1;min-width:300px;">
+                <h4>Sponsored Rate History</h4>
+                <canvas id="sponsoredChart" height="110" style="width:100%;background:#161b22;border:1px solid #222;border-radius:8px;"></canvas>
+            </div>
+            <div style="flex:1;min-width:300px;">
+                <h4>Credit Multiplier History</h4>
+                <canvas id="creditChart" height="110" style="width:100%;background:#161b22;border:1px solid #222;border-radius:8px;"></canvas>
+            </div>
+        </div>
+        <h4 style="margin-top:24px;">Live Event Stream</h4>
+        <div id="eventStream" style="background:#161b22;padding:10px;border-radius:8px;max-height:200px;overflow:auto;font-size:0.65rem;font-family:monospace;"></div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/web3@1.8.0/dist/web3.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@walletconnect/web3-provider@1.8.0/dist/umd/index.min.js"></script>
+    <div id="fairnessBox" class="card" style="margin:30px 0; padding:20px; background:rgba(0,0,0,0.6); color:#fff; font-size:0.9rem;">Fairness: loading...</div>
+    <!-- AI Monetization & Live Events Panel -->
+    <div id="aiMonetizationPanel" class="card" style="background:#0d1117;color:#eee;">
+        <h3 style="margin-top:0;">AI Monetization Live</h3>
+        <div style="display:flex;gap:20px;flex-wrap:wrap;">
+            <div style="flex:1;min-width:200px;">
+                <h4>Dynamic Rates</h4>
+                <div id="dynRates">Loading...</div>
+                <button onclick="forceAiAdjust()" class="pill-btn outline" style="margin-top:8px;">Force Re‑evaluate</button>
+                <button onclick="refreshAiPanels()" class="pill-btn" style="margin-top:8px;background:#4ecdc4;">Refresh All</button>
+            </div>
+            <div style="flex:2;min-width:260px;">
+                <h4>Suggestions (AI)</h4>
+                <ul id="aiSuggestions" style="list-style:disc;padding-left:20px;font-size:0.75rem;max-height:160px;overflow:auto;"></ul>
+            </div>
+            <div style="flex:2;min-width:260px;">
+                <h4>Recent Pricing Changes</h4>
+                <div id="pricingHistory" style="max-height:160px;overflow:auto;font-size:0.7rem;font-family:monospace;"></div>
+            </div>
+            <div style="flex:2;min-width:260px;">
+                <h4>Monetization Plan</h4>
+                <ul id="aiPlan" style="list-style:disc;padding-left:18px;font-size:0.7rem;max-height:160px;overflow:auto;"></ul>
+                <button onclick="loadMonetizationPlan()" class="pill-btn outline" style="margin-top:6px;">Generate Plan</button>
+            </div>
+        </div>
+        <hr style="margin:18px 0;border-color:#222;"/>
+        <div style="display:flex;flex-wrap:wrap;gap:18px;">
+            <div style="flex:1;min-width:260px;">
+                <h4>Listing Recommendations</h4>
+                <button onclick="loadListingRecs()" class="pill-btn outline" style="margin-bottom:6px;">Load Recs</button>
+                <ul id="listingRecs" style="font-size:0.65rem;max-height:140px;overflow:auto;list-style:disc;padding-left:16px;"></ul>
+            </div>
+            <div style="flex:1;min-width:260px;">
+                <h4>Auction Suggestions</h4>
+                <button onclick="loadAuctionSuggestions()" class="pill-btn outline" style="margin-bottom:6px;">Load Auction AI</button>
+                <ul id="auctionSuggestions" style="font-size:0.65rem;max-height:140px;overflow:auto;list-style:disc;padding-left:16px;"></ul>
+            </div>
+            <div style="flex:1;min-width:260px;">
+                <h4>Referral Optimization</h4>
+                <button onclick="loadReferralSuggestion()" class="pill-btn outline" style="margin-bottom:6px;">Load Referral AI</button>
+                <div id="referralSuggestion" style="font-size:0.65rem;max-height:140px;overflow:auto;background:#161b22;padding:6px;border-radius:8px;"></div>
+            </div>
+            <div style="flex:1;min-width:260px;">
+                <h4>Anomalies</h4>
+                <button onclick="loadAnomalyReport()" class="pill-btn outline" style="margin-bottom:6px;">Scan Now</button>
+                <ul id="anomalyList" style="font-size:0.65rem;max-height:140px;overflow:auto;list-style:disc;padding-left:16px;"></ul>
+            </div>
+        </div>
+        <hr style="margin:18px 0;border-color:#222;"/>
+        <div style="display:flex;flex-wrap:wrap;gap:18px;">
+            <div style="flex:1;min-width:300px;">
+                <h4>Featured Rate History</h4>
+                <canvas id="featuredChart" height="110" style="width:100%;background:#161b22;border:1px solid #222;border-radius:8px;"></canvas>
+            </div>
+            <div style="flex:1;min-width:300px;">
+                <h4>Sponsored Rate History</h4>
+                <canvas id="sponsoredChart" height="110" style="width:100%;background:#161b22;border:1px solid #222;border-radius:8px;"></canvas>
+            </div>
+            <div style="flex:1;min-width:300px;">
+                <h4>Credit Multiplier History</h4>
+                <canvas id="creditChart" height="110" style="width:100%;background:#161b22;border:1px solid #222;border-radius:8px;"></canvas>
+            </div>
+        </div>
+        <h4 style="margin-top:24px;">Live Event Stream</h4>
+        <div id="eventStream" style="background:#161b22;padding:10px;border-radius:8px;max-height:200px;overflow:auto;font-size:0.65rem;font-family:monospace;"></div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/web3@1.8.0/dist/web3.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@walletconnect/web3-provider@1.8.0/dist/umd/index.min.js"></script>
+    <div id="fairnessBox" class="card" style="margin:30px 0; padding:20px; background:rgba(0,0,0,0.6); color:#fff; font-size:0.9rem;">Fairness: loading...</div>
+    <!-- AI Monetization & Live Events Panel -->
+    <div id="aiMonetizationPanel" class="card" style="background:#0d1117;color:#eee;">
+        <h3 style="margin-top:0;">AI Monetization Live</h3>
+        <div style="display:flex;gap:20px;flex-wrap:wrap;">
+            <div style="flex:1;min-width:200px;">
+                <h4>Dynamic Rates</h4>
+                <div id="dynRates">Loading...</div>
+                <button onclick="forceAiAdjust()" class="pill-btn outline" style="margin-top:8px;">Force Re‑evaluate</button>
+                <button onclick="refreshAiPanels()" class="pill-btn" style="margin-top:8px;background:#4ecdc4;">Refresh All</button>
+            </div>
+            <div style="flex:2;min-width:260px;">
+                <h4>Suggestions (AI)</h4>
+                <ul id="aiSuggestions" style="list-style:disc;padding-left:20px;font-size:0.75rem;max-height:160px;overflow:auto;"></ul>
+            </div>
+            <div style="flex:2;min-width:260px;">
+                <h4>Recent Pricing Changes</h4>
+                <div id="pricingHistory" style="max-height:160px;overflow:auto;font-size:0.7rem;font-family:monospace;"></div>
+            </div>
+            <div style="flex:2;min-width:260px;">
+                <h4>Monetization Plan</h4>
+                <ul id="aiPlan" style="list-style:disc;padding-left:18px;font-size:0.7rem;max-height:160px;overflow:auto;"></ul>
+                <button onclick="loadMonetizationPlan()" class="pill-btn outline" style="margin-top:6px;">Generate Plan</button>
+            </div>
+        </div>
+        <hr style="margin:18px 0;border-color:#222;"/>
+        <div style="display:flex;flex-wrap:wrap;gap:18px;">
+            <div style="flex:1;min-width:260px;">
+                <h4>Listing Recommendations</h4>
+                <button onclick="loadListingRecs()" class="pill-btn outline" style="margin-bottom:6px;">Load Recs</button>
+                <ul id="listingRecs" style="font-size:0.65rem;max-height:140px;overflow:auto;list-style:disc;padding-left:16px;"></ul>
+            </div>
+            <div style="flex:1;min-width:260px;">
+                <h4>Auction Suggestions</h4>
+                <button onclick="loadAuctionSuggestions()" class="pill-btn outline" style="margin-bottom:6px;">Load Auction AI</button>
+                <ul id="auctionSuggestions" style="font-size:0.65rem;max-height:140px;overflow:auto;list-style:disc;padding-left:16px;"></ul>
+            </div>
+            <div style="flex:1;min-width:260px;">
+                <h4>Referral Optimization</h4>
+                <button onclick="loadReferralSuggestion()" class="pill-btn outline" style="margin-bottom:6px;">Load Referral AI</button>
+                <div id="referralSuggestion" style="font-size:0.65rem;max-height:140px;overflow:auto;background:#161b22;padding:6px;border-radius:8px;"></div>
+            </div>
+            <div style="flex:1;min-width:260px;">
+                <h4>Anomalies</h4>
+                <button onclick="loadAnomalyReport()" class="pill-btn outline" style="margin-bottom:6px;">Scan Now</button>
+                <ul id="anomalyList" style="font-size:0.65rem;max-height:140px;overflow:auto;list-style:disc;padding-left:16px;"></ul>
+            </div>
+        </div>
+        <hr style="margin:18px 0;border-color:#222;"/>
+        <div style="display:flex;flex-wrap:wrap;gap:18px;">
+            <div style="flex:1;min-width:300px;">
+                <h4>Featured Rate History</h4>
+                <canvas id="featuredChart" height="110" style="width:100%;background:#161b22;border:1px solid #222;border-radius:8px;"></canvas>
+            </div>
+            <div style="flex:1;min-width:300px;">
+                <h4>Sponsored Rate History</h4>
+                <canvas id="sponsoredChart" height="110" style="width:100%;background:#161b22;border:1px solid #222;border-radius:8px;"></canvas>
+            </div>
+            <div style="flex:1;min-width:300px;">
+                <h4>Credit Multiplier History</h4>
+                <canvas id="creditChart" height="110" style="width:100%;background:#161b22;border:1px solid #222;border-radius:8px;"></canvas>
+            </div>
+        </div>
+        <h4 style="margin-top:24px;">Live Event Stream</h4>
+        <div id="eventStream" style="background:#161b22;padding:10px;border-radius:8px;max-height:200px;overflow:auto;font-size:0.65rem;font-family:monospace;"></div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/web3@1.8.0/dist/web3.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@walletconnect/web3-provider@1.8.0/dist/umd/index.min.js"></script>
+    <div id="fairnessBox" class="card" style="margin:30px 0; padding:20px; background:rgba(0,0,0,0.6); color:#fff; font-size:0.9rem;">Fairness: loading...</div>
+    <!-- AI Monetization & Live Events Panel -->
+    <div id="aiMonetizationPanel" class="card" style="background:#0d1117;color:#eee;">
+        <h3 style="margin-top:0;">AI Monetization Live</h3>
+        <div style="display:flex;gap:20px;flex-wrap:wrap;">
+            <div style="flex:1;min-width:200px;">
+                <h4>Dynamic Rates</h4>
+                <div id="dynRates">Loading...</div>
+                <button onclick="forceAiAdjust()" class="pill-btn outline" style="margin-top:8px;">Force Re‑evaluate</button>
+                <button onclick="refreshAiPanels()" class="pill-btn" style="margin-top:8px;background:#4ecdc4;">Refresh All</button>
+            </div>
+            <div style="flex:2;min-width:260px;">
+                <h4>Suggestions (AI)</h4>
+                <ul id="aiSuggestions" style="list-style:disc;padding-left:20px;font-size:0.75rem;max-height:160px;overflow:auto;"></ul>
+            </div>
+            <div style="flex:2;min-width:260px;">
+                <h4>Recent Pricing Changes</h4>
+                <div id="pricingHistory" style="max-height:160px;overflow:auto;font-size:0.7rem;font-family:monospace;"></div>
+            </div>
+            <div style="flex:2;min-width:260px;">
+                <h4>Monetization Plan</h4>
+                <ul id="aiPlan" style="list-style:disc;padding-left:18px;font-size:0.7rem;max-height:160px;overflow:auto;"></ul>
+                <button onclick="loadMonetizationPlan()" class="pill-btn outline" style="margin-top:6px;">Generate Plan</button>
+            </div>
+        </div>
+        <hr style="margin:18px 0;border-color:#222;"/>
+        <div style="display:flex;flex-wrap:wrap;gap:18px;">
+            <div style="flex:1;min-width:260px;">
+                <h4>Listing Recommendations</h4>
+                <button onclick="loadListingRecs()" class="pill-btn outline" style="margin-bottom:6px;">Load Recs</button>
+                <ul id="listingRecs" style="font-size:0.65rem;max-height:140px;overflow:auto;list-style:disc;padding-left:16px;"></ul>
+            </div>
+            <div style="flex:1;min-width:260px;">
+                <h4>Auction Suggestions</h4>
+                <button onclick="loadAuctionSuggestions()" class="pill-btn outline" style="margin-bottom:6px;">Load Auction AI</button>
+                <ul id="auctionSuggestions" style="font-size:0.65rem;max-height:140px;overflow:auto;list-style:disc;padding-left:16px;"></ul>
+            </div>
+            <div style="flex:1;min-width:260px;">
+                <h4>Referral Optimization</h4>
+                <button onclick="loadReferralSuggestion()" class="pill-btn outline" style="margin-bottom:6px;">Load Referral AI</button>
+                <div id="referralSuggestion" style="font-size:0.65rem;max-height:140px;overflow:auto;background:#161b22;padding:6px;border-radius:8px;"></div>
+            </div>
+            <div style="flex:1;min-width:260px;">
                     const response = await fetch('/api/bot/stop', { method: 'POST' });
                     const result = await response.text();
                     alert(result);
@@ -3304,6 +3680,285 @@
                 }
             `;
             document.head.appendChild(style);
+        </script>
+        <script>
+            // === AUTH & SESSION ===
+            let sessionToken = null;
+            async function authFlow(){
+                if(!window.ethereum){ alert('Web3 wallet required'); return; }
+                const accounts = await window.ethereum.request({ method:'eth_requestAccounts'});
+                const addr = accounts[0];
+                const nonceRes = await fetch('/api/auth/nonce',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({address:addr})});
+                const { nonce } = await nonceRes.json();
+                const signature = await window.ethereum.request({ method:'personal_sign', params:[nonce, addr] });
+                const verifyRes = await fetch('/api/auth/verify',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({address:addr,signature})});
+                if(!verifyRes.ok){ document.getElementById('authStatus').innerText='Auth failed'; return; }
+                const data = await verifyRes.json(); sessionToken = data.token; document.getElementById('authStatus').innerText='Authenticated';
+            }
+            function authHeaders(){ return sessionToken? { 'x-session-token': sessionToken, 'Content-Type':'application/json'} : { 'Content-Type':'application/json'}; }
+
+            // === MARKETPLACE ===
+            async function createUserListing(){
+                if(!sessionToken) return alert('Authenticate first');
+                const title = document.getElementById('newListingTitle').value.trim();
+                const priceEth = document.getElementById('newListingPrice').value.trim();
+                const description = document.getElementById('newListingDesc').value.trim();
+                const msgEl = document.getElementById('listingCreateMsg');
+                msgEl.textContent='Creating...';
+                try{
+                    const r = await fetch('/api/marketplace/listings/user',{method:'POST',headers:authHeaders(),body:JSON.stringify({title,priceEth,description})});
+                    const j = await r.json();
+                    if(!r.ok) throw new Error(j.error||'failed');
+                    msgEl.textContent='Created '+j.listing.id+' (fee '+j.listingFeeEth+' ETH)';
+                }catch(e){ msgEl.textContent='Error: '+e.message; }
+            }
+            async function loadAggregate(){
+                const limit = document.getElementById('aggLimit').value||10;
+                const platforms = document.getElementById('aggPlatforms').value||'internal';
+                const cont = document.getElementById('aggregateContainer');
+                const meta = document.getElementById('aggMeta');
+                cont.innerHTML='Loading...';
+                try{
+                    const r = await fetch(`/api/marketplace/aggregate?limit=${encodeURIComponent(limit)}&platforms=${encodeURIComponent(platforms)}`,{ headers: sessionToken? {'x-session-token':sessionToken}:{} });
+                    const j = await r.json();
+                    const rows = j.listings.map(l=>`<tr><td>${l.id}</td><td>${l.source||'internal'}</td><td>${l.title||''}</td><td>${l.priceEth}</td></tr>`).join('');
+                    cont.innerHTML=`<table class='slim'><thead><tr><th>ID</th><th>Src</th><th>Title</th><th>Price</th></tr></thead><tbody>${rows}</tbody></table>`;
+                    meta.textContent = `${j.listings.length} listings ${j.cached?'(cache)':''}`;
+                }catch(e){ cont.innerHTML='Error '+e.message; }
+            }
+            async function featureListing(){
+                if(!sessionToken) return alert('Authenticate first');
+                const id = document.getElementById('featureListingId').value.trim();
+                const hours = document.getElementById('featureHours').value.trim()||24;
+                const msg = document.getElementById('promoMsg'); msg.textContent='Featuring...';
+                try{ const r = await fetch(`/api/marketplace/listings/${id}/feature`,{method:'POST',headers:authHeaders(),body:JSON.stringify({hours})}); const j=await r.json(); if(!r.ok) throw new Error(j.error); msg.textContent='Featured until '+ new Date(j.featuredUntil).toLocaleString(); }
+                catch(e){ msg.textContent='Error '+e.message; }
+            }
+            async function buySponsored(){
+                if(!sessionToken) return alert('Authenticate first');
+                const msg = document.getElementById('promoMsg'); msg.textContent='Purchasing slot...';
+                try{ const r = await fetch('/api/marketplace/sponsored/buy',{method:'POST',headers:authHeaders(),body:JSON.stringify({placement:'carousel',hours:24})}); const j=await r.json(); if(!r.ok) throw new Error(j.error); msg.textContent='Slot '+j.slot.id+' active'; }
+                catch(e){ msg.textContent='Error '+e.message; }
+            }
+            async function loadSponsored(){
+                const target = document.getElementById('sponsoredSlots'); target.textContent='Loading...';
+                try{ const r= await fetch('/api/marketplace/sponsored/active'); const j=await r.json(); target.innerHTML=j.slots.map(s=>`<div>➡ ${s.id} - ${s.placement} (exp ${new Date(s.expiresTs).toLocaleTimeString()})</div>`).join(''); if(!j.slots.length) target.textContent='None active'; }catch(e){ target.textContent='Error '+e.message; }
+            }
+
+            // === GAMES & CREDITS ===
+            async function loadCreditPacks(){
+                const el = document.getElementById('creditPacks'); el.textContent='Loading...';
+                try{ const r=await fetch('/api/games/credits/packs'); const j=await r.json(); el.innerHTML=j.packs.map(p=>`<div style='margin-bottom:4px'>${p.id}: ${p.credits} cr / ${p.eth} ETH <button style='margin-left:6px' onclick=buyPack('${p.id}') class='pill-btn outline'>Buy</button></div>`).join(''); }catch(e){ el.textContent='Error'; }
+            }
+            async function buyPack(id){ if(!sessionToken) return alert('Authenticate first'); const el=document.getElementById('creditPacks'); try{ const r=await fetch('/api/games/credits/purchase',{method:'POST',headers:authHeaders(),body:JSON.stringify({packId:id})}); const j=await r.json(); if(!r.ok) throw new Error(j.error); el.insertAdjacentHTML('beforeend',`<div style='color:#4ecdc4'>Bought ${id} new balance ${j.balance}</div>`);}catch(e){el.insertAdjacentHTML('beforeend',`<div style='color:#ff6b6b'>Err ${e.message}</div>`);} }
+            async function playCoinflip(){ if(!sessionToken) return alert('Authenticate first'); const choice=document.getElementById('cfChoice').value.trim(); const wager=document.getElementById('cfWager').value.trim(); const msg=document.getElementById('coinflipMsg'); msg.textContent='Playing...'; try{ const r=await fetch('/api/games/coinflip/play',{method:'POST',headers:authHeaders(),body:JSON.stringify({choice,wager})}); const j=await r.json(); if(!r.ok) throw new Error(j.error); msg.textContent=`Result ${j.result.result} win ${j.result.win} payout ${j.result.payout.toFixed(2)} bal ${j.balance.toFixed(2)}`;}catch(e){ msg.textContent='Error '+e.message; } }
+            async function spinWheel(){ if(!sessionToken) return alert('Authenticate first'); const wager=document.getElementById('wheelWager').value.trim(); const msg=document.getElementById('wheelMsg'); msg.textContent='Spinning...'; try{ const r=await fetch('/api/games/wheel/spin',{method:'POST',headers:authHeaders(),body:JSON.stringify({wager})}); const j=await r.json(); if(!r.ok) throw new Error(j.error); msg.textContent=`Multiplier ${j.result.multiplier} payout ${j.result.payout.toFixed(2)} bal ${j.balance.toFixed(2)}`;}catch(e){ msg.textContent='Error '+e.message; } }
+            async function loadBoxes(){ const el=document.getElementById('boxMsg'); el.textContent='Loading...'; try{ const r=await fetch('/api/mystery/boxes'); const j=await r.json(); el.innerHTML=j.boxes.map(b=>`${b.id}: cost ${b.costEth} ETH`).join(' | ');}catch(e){ el.textContent='Error'; } }
+            async function openBox(){ if(!sessionToken) return alert('Authenticate first'); const type=document.getElementById('boxType').value.trim(); const el=document.getElementById('boxMsg'); el.textContent='Opening...'; try{ const r=await fetch('/api/mystery/open',{method:'POST',headers:authHeaders(),body:JSON.stringify({boxType:type})}); const j=await r.json(); if(!r.ok) throw new Error(j.error); el.textContent=`Reward ${j.reward} credits (bal ${j.balance})`; }catch(e){ el.textContent='Error '+e.message; } }
+
+            // === REFERRAL & MINT ===
+            async function freeMint(){ if(!sessionToken) return alert('Authenticate first'); const el=document.getElementById('mintMsg'); el.textContent='Minting...'; try{ const r=await fetch('/api/mint/free',{method:'POST',headers:authHeaders()}); const j=await r.json(); if(!r.ok) throw new Error(j.error); el.textContent='Minted '+j.minted.tokenId; }catch(e){ el.textContent='Error '+e.message; } }
+            async function registerReferral(){ if(!sessionToken) return alert('Authenticate first'); const code=document.getElementById('refCodeReg').value.trim(); const el=document.getElementById('refRegMsg'); el.textContent='Registering...'; try{ const r=await fetch('/api/referral/register',{method:'POST',headers:authHeaders(),body:JSON.stringify({code})}); const j=await r.json(); if(!r.ok) throw new Error(j.error); el.textContent='Registered code '+j.code; }catch(e){ el.textContent='Error '+e.message; } }
+            async function applyReferral(){ if(!sessionToken) return alert('Authenticate first'); const code=document.getElementById('refCodeApply').value.trim(); const el=document.getElementById('refApplyMsg'); el.textContent='Applying...'; try{ const r=await fetch('/api/referral/apply',{method:'POST',headers:authHeaders(),body:JSON.stringify({code})}); const j=await r.json(); if(!r.ok) throw new Error(j.error); el.textContent='Applied'; }catch(e){ el.textContent='Error '+e.message; } }
+            async function loadReferralEarnings(){ if(!sessionToken) return alert('Authenticate first'); const el=document.getElementById('refEarnMsg'); el.textContent='Loading...'; try{ const addr = await window.ethereum.request({ method:'eth_accounts'}).then(a=>a[0]); const r=await fetch('/api/referral/earnings/'+addr); const j=await r.json(); el.textContent='Total bonus '+(j.totalBonus||0).toFixed(6)+' (raw units)'; }catch(e){ el.textContent='Error'; } }
+
+            // === AUCTIONS ===
+            async function createAuction(){ if(!sessionToken) return alert('Authenticate first'); const title=document.getElementById('aucTitle').value.trim(); const minBid=document.getElementById('aucMinBid').value.trim(); const dur=document.getElementById('aucDuration').value.trim(); const el=document.getElementById('aucCreateMsg'); el.textContent='Creating...'; try{ const r=await fetch('/api/auctions/create',{method:'POST',headers:authHeaders(),body:JSON.stringify({title,minBidEth:minBid,durationMinutes:dur})}); const j=await r.json(); if(!r.ok) throw new Error(j.error); el.textContent='Auction '+j.auction.id; loadAuctions(); }catch(e){ el.textContent='Error '+e.message; } }
+            async function bidAuction(){ if(!sessionToken) return alert('Authenticate first'); const id=document.getElementById('aucId').value.trim(); const amount=document.getElementById('aucBidAmount').value.trim(); const el=document.getElementById('aucBidMsg'); el.textContent='Bidding...'; try{ const r=await fetch(`/api/auctions/${id}/bid`,{method:'POST',headers:authHeaders(),body:JSON.stringify({amountEth:amount})}); const j=await r.json(); if(!r.ok) throw new Error(j.error); el.textContent='Highest '+j.auction.highestBid.amountEth+' ETH'; loadAuctions(); }catch(e){ el.textContent='Error '+e.message; } }
+            async function finalizeAuction(){ if(!sessionToken) return alert('Authenticate first'); const id=document.getElementById('aucId').value.trim(); const el=document.getElementById('aucBidMsg'); el.textContent='Finalizing...'; try{ const r=await fetch(`/api/auctions/${id}/finalize`,{method:'POST',headers:authHeaders()}); const j=await r.json(); if(!r.ok) throw new Error(j.error); el.textContent='Settled'; loadAuctions(); }catch(e){ el.textContent='Error '+e.message; } }
+            async function loadAuctions(){ const cont=document.getElementById('activeAuctions'); if(!cont) return; cont.textContent='Loading...'; try{ const r=await fetch('/api/auctions/active'); const j=await r.json(); cont.innerHTML=j.auctions.map(a=>`<div style='margin-bottom:6px'>${a.id} | min ${a.minBidEth} | highest ${(a.highestBid&&a.highestBid.amountEth)||'-'} | ends ${new Date(a.endsTs).toLocaleTimeString()}</div>`).join(''); if(!j.auctions.length) cont.textContent='No active auctions'; }catch(e){ cont.textContent='Error'; } }
+
+            // === BUNDLES ===
+            async function createBundle(){ if(!sessionToken) return alert('Authenticate first'); const ids=document.getElementById('bundleListingIds').value.trim().split(',').map(s=>s.trim()).filter(Boolean); const price=document.getElementById('bundlePrice').value.trim(); const el=document.getElementById('bundleCreateMsg'); el.textContent='Creating...'; try{ const r=await fetch('/api/bundles/create',{method:'POST',headers:authHeaders(),body:JSON.stringify({listingIds:ids,priceEth:price})}); const j=await r.json(); if(!r.ok) throw new Error(j.error); el.textContent='Bundle '+j.bundle.id; loadBundles(); }catch(e){ el.textContent='Error '+e.message; } }
+            async function purchaseBundle(){ if(!sessionToken) return alert('Authenticate first'); const id=document.getElementById('bundleIdBuy').value.trim(); const el=document.getElementById('bundleBuyMsg'); el.textContent='Purchasing...'; try{ const r=await fetch(`/api/bundles/${id}/purchase`,{method:'POST',headers:authHeaders()}); const j=await r.json(); if(!r.ok) throw new Error(j.error); el.textContent='Purchased (fee '+j.platformFeeEth+')'; loadBundles(); }catch(e){ el.textContent='Error '+e.message; } }
+            async function loadBundles(){ const cont=document.getElementById('activeBundles'); if(!cont) return; cont.textContent='Loading...'; try{ const r=await fetch('/api/bundles/active'); const j=await r.json(); cont.innerHTML=j.bundles.map(b=>`<div>${b.id} | price ${b.priceEth} ETH | listings ${b.listingIds.join(',')}</div>`).join(''); if(!j.bundles.length) cont.textContent='No active bundles'; }catch(e){ cont.textContent='Error'; } }
+
+            // === API KEYS ===
+            async function issueKey(){ if(!sessionToken) return alert('Authenticate first'); const el=document.getElementById('issueKeyMsg'); el.textContent='Issuing...'; try{ const r=await fetch('/api/keys/issue',{method:'POST',headers:authHeaders()}); const j=await r.json(); if(!r.ok) throw new Error(j.error); el.textContent='Key '+j.apiKey; loadKeys(); }catch(e){ el.textContent='Error '+e.message; } }
+            async function loadKeys(){ const cont=document.getElementById('apiKeysList'); if(!cont) return; cont.textContent='Loading...'; try{ const r=await fetch('/api/keys/usage',{headers:authHeaders()}); const j=await r.json(); cont.innerHTML=j.keys.map(k=>`<div>${k.key} used ${k.usedToday}/${k.quotaDay}</div>`).join(''); if(!j.keys.length) cont.textContent='No keys'; }catch(e){ cont.textContent='Error'; } }
+
+            // === REVENUE ===
+            async function loadRevenue(){ const el=document.getElementById('revenueSummary'); el.textContent='Loading...'; try{ const r=await fetch('/api/revenue/summary'); const j=await r.json(); el.innerHTML=`<table class='slim'><tbody><tr><th>Sale Fees</th><td>${j.platformFeesEth.toFixed(6)}</td></tr><tr><th>Listing Fees</th><td>${j.listingFeesEth.toFixed(6)}</td></tr><tr><th>Featured</th><td>${j.featuredEth.toFixed(6)}</td></tr><tr><th>Credit Packs</th><td>${j.creditPacksEth.toFixed(6)}</td></tr><tr><th>Sponsored</th><td>${j.sponsoredEth.toFixed(6)}</td></tr><tr><th>Mystery</th><td>${j.mysteryBoxesEth.toFixed(6)}</td></tr></tbody></table>`; }catch(e){ el.textContent='Error'; } }
+
+            // === AI Monetization Dashboard ===
+            async function loadAiStatus(){
+                const box=document.getElementById('dynRates'); if(!box) return;
+                box.textContent='Loading...';
+                try{ const r=await fetch('/api/ai/optimizer/status',{headers:authHeaders()}); const j=await r.json(); if(!r.ok) throw new Error(j.error||'fail');
+                    box.innerHTML=`<div>Featured Rate (24h): <b>${j.featuredRate}</b> ETH</div><div>Sponsored Rate (24h): <b>${j.sponsoredRate}</b> ETH</div><div>Credit Pack Mult: <b>${j.creditPackMultiplier}</b></div><div style='margin-top:4px;font-size:0.65rem;opacity:0.7;'>Last Adj: ${new Date(j.lastAdjust).toLocaleTimeString()}</div>`;
+                    const hist=document.getElementById('pricingHistory'); hist.innerHTML=j.history.slice().reverse().map(h=>`<div>[${new Date(h.ts).toLocaleTimeString()}] fr:${h.featuredRate} sr:${h.sponsoredRate} mult:${h.creditPackMultiplier} ${(h.signals&&Object.values(h.signals).join(','))||''}</div>`).join('');
+                }catch(e){ box.textContent='AI status error'; }
+            }
+            async function loadAiSuggestions(){ const ul=document.getElementById('aiSuggestions'); if(!ul) return; ul.innerHTML='<li>Loading...</li>'; try{ const r=await fetch('/api/ai/suggestions',{headers:authHeaders()}); const j=await r.json(); if(!r.ok) throw new Error(j.error); ul.innerHTML=j.ideas.map(i=>`<li>${i}</li>`).join('') || '<li>No suggestions</li>'; }catch(e){ ul.innerHTML='<li>Error</li>'; } }
+            async function forceAiAdjust(){ if(!sessionToken){ alert('Auth first'); return;} try{ const r=await fetch('/api/ai/optimizer/adjust',{method:'POST',headers:authHeaders()}); const j=await r.json(); if(!r.ok) throw new Error(j.error); pushEventMsg('manual_ai_adjust', j); loadAiStatus(); }catch(e){ pushEventMsg('ai_adjust_error', { error:e.message }); } }
+
+            function initEventStream(){ const es=new EventSource('/events/stream'); const stream=document.getElementById('eventStream'); function add(evt,data){ const line=document.createElement('div'); line.textContent=`[${new Date().toLocaleTimeString()}] ${evt} :: ${JSON.stringify(data)}`; stream.prepend(line); while(stream.children.length>200) stream.removeChild(stream.lastChild); }
+                es.onmessage=(m)=>{ add('message', m.data); };
+                const events=['pricing_update','featured_purchase','sponsored_purchase','auction_create','auction_bid','auction_finalize'];
+                for(const ev of events){ es.addEventListener(ev, e=>{ try{ add(ev, JSON.parse(e.data)); }catch(_){ add(ev,e.data);} }); }
+            }
+            function pushEventMsg(evt, obj){ const stream=document.getElementById('eventStream'); if(!stream) return; const line=document.createElement('div'); line.textContent=`[${new Date().toLocaleTimeString()}] ${evt} :: ${JSON.stringify(obj)}`; stream.prepend(line); }
+
+            // Auto-load dynamic areas when visible
+            document.addEventListener('DOMContentLoaded',()=>{ loadSponsored(); loadAuctions(); loadBundles(); loadRevenue(); initEventStream(); loadAiStatus(); loadAiSuggestions(); initAdvancedCharts(); });
+
+            // === Advanced AI Functions ===
+            async function generateStrategy() {
+                const risk = document.getElementById('risk-tolerance').value;
+                const goal = document.getElementById('investment-goal').value;
+                const focus = document.getElementById('market-focus').value;
+                const output = document.getElementById('generated-strategy');
+                
+                output.innerHTML = '<div style="text-align:center;padding:20px;"><div style="font-size:2rem;">⏳</div><p>AI is analyzing market conditions...</p></div>';
+                
+                try {
+                    const response = await fetch('/api/ai/strategy/generate', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json', ...authHeaders() },
+                        body: JSON.stringify({ riskTolerance: risk, investmentGoal: goal, marketFocus: focus })
+                    });
+                    const strategy = await response.json();
+                    
+                    if (!response.ok) throw new Error(strategy.error || 'Failed to generate strategy');
+                    
+                    output.innerHTML = `
+                        <div style="padding:15px;">
+                            <h4 style="color:#4ecdc4;margin:0 0 15px;">🎯 ${strategy.name || 'AI-Generated Strategy'}</h4>
+                            <div style="margin-bottom:15px;">
+                                <strong>Risk Level:</strong> <span style="color:#f39c12;">${strategy.riskLevel || risk}</span><br>
+                                <strong>Expected Return:</strong> <span style="color:#4caf50;">${strategy.expectedReturn || '8-15%'}</span><br>
+                                <strong>Time Horizon:</strong> <span style="color:#3498db;">${strategy.timeHorizon || '3-6 months'}</span>
+                            </div>
+                            <div style="background:#0d1117;padding:10px;border-radius:6px;margin-bottom:15px;">
+                                <strong>Strategy:</strong><br>
+                                ${strategy.description || 'Focus on diversified DeFi investments with moderate risk exposure. Allocate 60% to established tokens, 30% to promising DeFi protocols, and 10% to emerging opportunities.'}
+                            </div>
+                            <div style="background:#1a4d3a;padding:10px;border-radius:6px;color:#4caf50;">
+                                <strong>Key Actions:</strong><br>
+                                ${strategy.actions ? strategy.actions.map(a => `• ${a}`).join('<br>') : '• Monitor market trends daily<br>• Set stop-loss at 15%<br>• Take profits at 25% gains<br>• Rebalance portfolio monthly'}
+                            </div>
+                        </div>
+                    `;
+                } catch (error) {
+                    output.innerHTML = `
+                        <div style="text-align:center;padding:20px;color:#e74c3c;">
+                            <div style="font-size:2rem;">❌</div>
+                            <p>Failed to generate strategy: ${error.message}</p>
+                            <button onclick="generateStrategy()" class="pill-btn outline" style="margin-top:10px;">Try Again</button>
+                        </div>
+                    `;
+                }
+            }
+
+            async function runFullAnomalyScan() {
+                const status = document.getElementById('security-status');
+                const anomalies = document.getElementById('recent-anomalies');
+                
+                status.innerHTML = '<div style="width:12px;height:12px;background:#f39c12;border-radius:50%;margin-right:10px;animation:pulse 2s infinite;"></div><span style="font-weight:bold;">Scanning...</span>';
+                
+                try {
+                    const response = await fetch('/api/ai/security/scan', {
+                        method: 'POST',
+                        headers: authHeaders()
+                    });
+                    const result = await response.json();
+                    
+                    if (!response.ok) throw new Error(result.error || 'Scan failed');
+                    
+                    // Update risk meters
+                    document.getElementById('fraud-risk').style.width = (result.fraudRisk || 5) + '%';
+                    document.getElementById('manipulation-risk').style.width = (result.manipulationRisk || 3) + '%';
+                    document.getElementById('suspicious-activity').style.width = (result.suspiciousActivity || 8) + '%';
+                    
+                    // Update status
+                    const riskLevel = Math.max(result.fraudRisk || 0, result.manipulationRisk || 0, result.suspiciousActivity || 0);
+                    const statusColor = riskLevel > 15 ? '#e74c3c' : riskLevel > 8 ? '#f39c12' : '#4caf50';
+                    const statusText = riskLevel > 15 ? 'High Risk Detected' : riskLevel > 8 ? 'Monitoring Alerts' : 'All Systems Normal';
+                    
+                    status.innerHTML = `<div style="width:12px;height:12px;background:${statusColor};border-radius:50%;margin-right:10px;animation:pulse 2s infinite;"></div><span style="font-weight:bold;">${statusText}</span>`;
+                    
+                    // Update anomalies
+                    anomalies.innerHTML = result.anomalies ? result.anomalies.map(a => `<div style="color:${a.severity === 'high' ? '#e74c3c' : a.severity === 'medium' ? '#f39c12' : '#4caf50'};margin-bottom:8px;">${a.severity === 'high' ? '🚨' : a.severity === 'medium' ? '⚠' : '✓'} ${a.description}</div>`).join('') : '<div style="color:#4caf50;">No anomalies detected</div>';
+                    
+                } catch (error) {
+                    status.innerHTML = '<div style="width:12px;height:12px;background:#e74c3c;border-radius:50%;margin-right:10px;"></div><span style="font-weight:bold;">Scan Error</span>';
+                    anomalies.innerHTML = `<div style="color:#e74c3c;">Scan failed: ${error.message}</div>`;
+                }
+            }
+
+            function initAdvancedCharts() {
+                // Initialize mini charts with mock data - in production these would connect to real metrics
+                const charts = ['revenue-chart', 'conversion-chart', 'engagement-trend'];
+                charts.forEach(chartId => {
+                    const canvas = document.getElementById(chartId);
+                    if (!canvas) return;
+                    
+                    const ctx = canvas.getContext('2d');
+                    const width = canvas.width;
+                    const height = canvas.height;
+                    
+                    // Clear canvas
+                    ctx.clearRect(0, 0, width, height);
+                    
+                    // Draw simple trend line
+                    ctx.strokeStyle = '#4ecdc4';
+                    ctx.lineWidth = 2;
+                    ctx.beginPath();
+                    
+                    // Generate sample data points
+                    const points = 20;
+                    for (let i = 0; i < points; i++) {
+                        const x = (width / points) * i;
+                        const y = height - (Math.random() * 0.3 + 0.5) * height + Math.sin(i * 0.3) * 20;
+                        
+                        if (i === 0) ctx.moveTo(x, y);
+                        else ctx.lineTo(x, y);
+                    }
+                    
+                    ctx.stroke();
+                });
+                
+                // Update metrics periodically
+                setInterval(updateMetrics, 30000);
+                updateMetrics();
+            }
+
+            function updateMetrics() {
+                // Simulate real-time metric updates
+                const revenueChange = document.getElementById('revenue-change');
+                const conversionRate = document.getElementById('conversion-rate');
+                const confidenceScore = document.getElementById('confidence-score');
+                const engagementDirection = document.getElementById('engagement-direction');
+                
+                if (revenueChange) {
+                    const change = (Math.random() * 30 - 5).toFixed(1);
+                    revenueChange.textContent = (change > 0 ? '+' : '') + change + '%';
+                    revenueChange.style.color = change > 0 ? '#4caf50' : '#e74c3c';
+                }
+                
+                if (conversionRate) {
+                    conversionRate.textContent = (Math.random() * 15 + 5).toFixed(1) + '%';
+                }
+                
+                if (confidenceScore) {
+                    confidenceScore.textContent = Math.floor(Math.random() * 20 + 80) + '%';
+                }
+                
+                if (engagementDirection) {
+                    const directions = ['Rising', 'Stable', 'Declining'];
+                    const colors = ['#4caf50', '#f39c12', '#e74c3c'];
+                    const index = Math.floor(Math.random() * directions.length);
+                    engagementDirection.textContent = directions[index];
+                    engagementDirection.style.color = colors[index];
+                }
+            }
+
+            // === Fairness Info ===
+            async function loadFairness(){
+                const box = document.getElementById('fairnessBox'); if(!box) return; box.textContent='Loading fairness...';
+                try{ const r=await fetch('/api/games/fair/current'); const j=await r.json(); box.innerHTML=`Seed Hash: <code>${j.serverSeedHash}</code> (rotating: ${j.rotating})`; }catch(e){ box.textContent='Fairness error'; }
+            }
+            setInterval(loadFairness, 60000); loadFairness();
         </script>
     </div>
 </body>

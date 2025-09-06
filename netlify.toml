@@ -4,9 +4,47 @@
   functions = "netlify/functions"
 
 [build.environment]
-  NODE_VERSION = "18"
+  NODE_VERSION = "20"
+  NODE_ENV = "production"
+
+# Production environment variables (set these in Netlify dashboard)
+[context.production.environment]
+  AI_PRICING_ENABLED = "true"
+  FEATURED_DAILY_RATE_ETH = "0.001"
+  SPONSORED_SLOT_RATE_ETH = "0.005"
+  PLATFORM_FEE_BP = "150"
 
 [[redirects]]
   from = "/api/*"
   to = "/.netlify/functions/api/:splat"
   status = 200
+
+[[redirects]]
+  from = "/events/*"
+  to = "/.netlify/functions/api/:splat"
+  status = 200
+
+[[redirects]]
+  from = "/health"
+  to = "/.netlify/functions/api/health"
+  status = 200
+
+[[redirects]]
+  from = "/metrics"
+  to = "/.netlify/functions/api/metrics"
+  status = 200
+
+[[headers]]
+  for = "/api/*"
+  [headers.values]
+    Access-Control-Allow-Origin = "*"
+    Access-Control-Allow-Methods = "GET, POST, PUT, DELETE, OPTIONS"
+    Access-Control-Allow-Headers = "Content-Type, Authorization, x-api-key, x-session-token"
+
+[[headers]]
+  for = "/*"
+  [headers.values]
+    X-Frame-Options = "DENY"
+    X-Content-Type-Options = "nosniff"
+    X-XSS-Protection = "1; mode=block"
+    Referrer-Policy = "strict-origin-when-cross-origin"
